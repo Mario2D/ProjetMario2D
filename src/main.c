@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
-#include <SDL_image.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
+
+
 
 #define W_WINDOW 1000
 #define H_WINDOW 500 
-
-#define FALSE 0
-#define TRUE 1
-
 
 //gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 
@@ -65,7 +64,9 @@ int main(int argc, char *argv[])
 
 
 
-  // Lancement SDL
+  // --------------------------------- //
+  // --------- INITIALISATION -------- //
+  // --------------------------------- //
   if(SDL_Init(SDL_INIT_VIDEO) != 0)
   {
     clean_ressources(NULL, NULL, NULL);
@@ -73,7 +74,9 @@ int main(int argc, char *argv[])
   }
 
 
-  // Création fenêtre 
+  // --------------------------------- //
+  // ------- CREATION FENETRE -------- //
+  // --------------------------------- // 
   window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WINDOW, H_WINDOW, 0);
   if(window == NULL)
   {
@@ -82,7 +85,9 @@ int main(int argc, char *argv[])
   }
 
 
-  // Création du rendu
+  // --------------------------------- //
+  // --------- CREATION RENDU -------- //
+  // --------------------------------- //
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
   if(renderer == NULL)
   {
@@ -91,7 +96,9 @@ int main(int argc, char *argv[])
   }
 
 
-  // Création de l'image
+  // --------------------------------- //
+  // --------- CREATION IMAGE -------- //
+  // --------------------------------- //
   picture = SDL_LoadBMP("img/vrai_menu.bmp");
   if(picture == NULL)
   {
