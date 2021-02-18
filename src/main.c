@@ -3,11 +3,14 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-#define W_WINDOW 800
-#define H_WINDOW 470 
+#define W_WINDOW 1000
+#define H_WINDOW 500 
+
+#define FALSE 0
+#define TRUE 1
 
 
-
+//gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 
 
 
@@ -57,7 +60,7 @@ int main(int argc, char *argv[])
   SDL_Renderer *renderer = NULL;
   SDL_Surface *picture = NULL;
   SDL_Texture *texture = NULL;
-  SDL_Rect dest_rect = {0, 0, 640, 480};
+  SDL_Rect dest_rect = {0, 0, W_WINDOW, H_WINDOW};
   
 
 
@@ -71,7 +74,7 @@ int main(int argc, char *argv[])
 
 
   // Création fenêtre 
-  window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, 0);
+  window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WINDOW, H_WINDOW, 0);
   if(window == NULL)
   {
     clean_ressources(NULL, NULL, NULL);
@@ -89,7 +92,7 @@ int main(int argc, char *argv[])
 
 
   // Création de l'image
-  picture = SDL_LoadBMP("C:/Users/arthu/OneDrive/Bureau/L2/Projet/Mario2D/ProjetMario2D/img/menu.bmp");
+  picture = SDL_LoadBMP("img/vrai_menu.bmp");
   if(picture == NULL)
   {
     clean_ressources(window, renderer, NULL);
@@ -118,17 +121,37 @@ int main(int argc, char *argv[])
     SDL_ExiTWithError("Impossible de procéder à l'application de la texture");
   }
 
+  // affichage du rendu
+  SDL_RenderPresent(renderer); 
 
+
+  SDL_bool program_launched = SDL_TRUE;
+
+  while(program_launched)
+  {
+    SDL_Event event;
+
+    while(SDL_PollEvent(&event))
+    {
+      switch(event.type)
+      {
+        case SDL_QUIT:
+          program_launched = SDL_FALSE;
+          break;
+        
+        default:
+          break;
+      }
+    }
+  }
   
 
 
  
-  SDL_RenderPresent(renderer); 
-  SDL_Delay(5000);
+  
 
   clean_ressources(window, renderer, texture);
 
   return EXIT_SUCCESS;
 }
 
-//gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
