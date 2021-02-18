@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL/SDL_ttf.h>
 
 #define W_WINDOW 800
 #define H_WINDOW 470 
-
-
-
 
 
 
@@ -35,16 +33,6 @@ void clean_ressources(SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
 }
 
 
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char *argv[])
 {
 
@@ -69,7 +57,6 @@ int main(int argc, char *argv[])
     SDL_ExiTWithError("Initilisation SDL");
   }
 
-
   // Création fenêtre 
   window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, 0);
   if(window == NULL)
@@ -89,7 +76,7 @@ int main(int argc, char *argv[])
 
 
   // Création de l'image
-  picture = SDL_LoadBMP("C:/Users/arthu/OneDrive/Bureau/L2/Projet/Mario2D/ProjetMario2D/img/menu.bmp");
+  picture = SDL_LoadBMP("img/vrai_menu.bmp");
   if(picture == NULL)
   {
     clean_ressources(window, renderer, NULL);
@@ -131,4 +118,4 @@ int main(int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-//gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+//gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
