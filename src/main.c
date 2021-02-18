@@ -14,21 +14,14 @@
 
 
 
-void SDL_ExiTWithError(const char *message)
-{
-
-    SDL_Log("ERREUR > %s\n", message, SDL_GetError());
-    SDL_Quit();
-    exit (EXIT_FAILURE);
-
-}
-
-
-void clean_ressources(SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
+void clean_and_quit(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
 {
 
     // fonction qui va éviter les fuites de mémoire
     // on vide la mémoire proprement, dans l'ordre inverse 
+
+    SDL_Log("ERREUR > %s\n", message, SDL_GetError());
+    
 
     if(t != NULL)
       SDL_DestroyTexture(t);
@@ -36,9 +29,10 @@ void clean_ressources(SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
       SDL_DestroyRenderer(r);
     if(w != NULL)
       SDL_DestroyWindow(w);
-
+    
+    IMG_Quit();
     SDL_Quit();
-
+    exit (EXIT_FAILURE);
 }
 
 
@@ -67,25 +61,43 @@ int main(int argc, char *argv[])
     SDL_Texture *texture = NULL;
     SDL_Rect dest_rect = {0, 0, W_WINDOW, H_WINDOW};
 
-    int imgFlag_jpg = IMG_INIT_JPG;
-    int imgFlag_png = IMG_INIT_PNG; 
-    IMG_Init(imgFlag_jpg);
-    IMG_Init(imgFlag_png);
+
 
     
 
 
 
     // --------------------------------- //
-    // --------- INITIALISATION -------- //
+    // ------- INITIALISATION SDL ------ //
     // --------------------------------- //
 
 
     if(SDL_Init(SDL_INIT_VIDEO) != 0)
     {
 
-        clean_ressources(NULL, NULL, NULL);
-        SDL_ExiTWithError("Initilisation SDL");
+        clean_and_quit("Initialisation SDL impossible", NULL, NULL, NULL);
+
+    }
+
+
+
+    // --------------------------------- //
+    // ------- INITIALISATION IMG ------ //
+    // --------------------------------- //
+
+    if(IMG_Init(IMG_INIT_JPG) != 0)
+    {
+
+        clean_and_quit("Initialisation IMG JPG impossible", NULL, NULL, NULL);
+
+    }
+
+
+
+    if(IMG_Init(IMG_INIT_PNG) != 0)
+    {
+
+        clean_and_quit("Initialisation IMG PNG impossible", NULL, NULL, NULL);
 
     }
 
@@ -100,8 +112,7 @@ int main(int argc, char *argv[])
     if(window == NULL)
     {
 
-        clean_ressources(NULL, NULL, NULL);
-        SDL_ExiTWithError("Impossible de créer la fenêtre");
+        clean_and_quit("Création fenêtre impossible", NULL, NULL, NULL);
 
     }
 
@@ -116,8 +127,7 @@ int main(int argc, char *argv[])
     if(renderer == NULL)
     {
 
-        clean_ressources(window, NULL, NULL);
-        SDL_ExiTWithError("Impossible de créer le rendu");
+        clean_and_quit("ICréation rendu impossible", window, NULL, NULL);
 
     }
 
@@ -132,8 +142,7 @@ int main(int argc, char *argv[])
     if(picture == NULL)
     {
 
-        clean_ressources(window, renderer, NULL);
-        SDL_ExiTWithError("Impossible de charger l'image");
+        clean_and_quit("Création img impossible", window, renderer, NULL);
 
     }
 
@@ -149,24 +158,21 @@ int main(int argc, char *argv[])
     if(texture == NULL)
     {
 
-        clean_ressources(window, renderer, NULL);
-        SDL_ExiTWithError("Impossible de générer la texture");
+        clean_and_quit("Création texture impossible", window, renderer, NULL);
 
     }
 
     if(SDL_QueryTexture(texture, NULL, NULL, &dest_rect.w, &dest_rect.h) != 0)
     {
   
-        clean_ressources(window, renderer, texture);
-        SDL_ExiTWithError("Impossible de procéder à l'application de la texture");
+        clean_and_quit("Création requete impossible", window, renderer, texture);
 
     }
 
     if(SDL_RenderCopy(renderer, texture, NULL, &dest_rect) != 0)
     {
 
-        clean_ressources(window, renderer, texture);
-        SDL_ExiTWithError("Impossible de procéder à l'application de la texture");
+        clean_and_quit("Création copy impossible", window, renderer, texture);
 
     }
 
@@ -216,7 +222,7 @@ int main(int argc, char *argv[])
   
     
 
-    clean_ressources(window, renderer, texture);
+    clean_and_quit("On quitte le programme", window, renderer, texture);
 
     return EXIT_SUCCESS;
 
