@@ -4,16 +4,11 @@
 #include <SDL_image.h>
 
 #define W_WINDOW 800
-#define H_WINDOW 470
+#define H_WINDOW 470 
 
-/*
-RENDUS :
 
-      SDL_RENDERER_SOFTWARE --> travail avec le processeur
-      SDL_RENDERER_ACCELERATED --> accélération matérielle (carte graphique)
-      SDL_RENDERER_PRESENTVSYNC --> synchro verticale
-      SDL_RENDERER_TARGETTEXTURE --> cyblage d'une texture en particulier
-*/
+
+
 
 
 void SDL_ExiTWithError(const char *message)
@@ -23,51 +18,115 @@ void SDL_ExiTWithError(const char *message)
   exit (EXIT_FAILURE);
 }
 
+
+void clean_ressources(SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
+{
+  // fonction qui va éviter les fuites de mémoire
+  // on vide la mémoire proprement, dans l'ordre inverse 
+
+  if(t != NULL)
+    SDL_DestroyTexture(t);
+  if(r != NULL)
+    SDL_DestroyRenderer(r);
+  if(w != NULL)
+    SDL_DestroyWindow(w);
+
+  SDL_Quit();
+}
+
+
+
+
+
+
+
+
+
+
+
+
 int main(int argc, char *argv[])
 {
+
+  // --------------------------------- //
+  // --------- DECLARATIONS ---------- //
+  // --------------------------------- //
+
+
   SDL_Window *window = NULL;
   SDL_Renderer *renderer = NULL;
   SDL_Surface *picture = NULL;
   SDL_Texture *texture = NULL;
+  SDL_Rect dest_rect = {0, 0, 640, 480};
+  
+
+
 
   // Lancement SDL
   if(SDL_Init(SDL_INIT_VIDEO) != 0)
+  {
+    clean_ressources(NULL, NULL, NULL);
     SDL_ExiTWithError("Initilisation SDL");
+  }
 
-  // Création fenêtre + rendu
-  if(SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer) != 0)
-    SDL_ExiTWithError("Impossible de creer la fenetre et le rendu");
 
-  //Choix couleur du tracé
-  if(SDL_SetRenderDrawColor(renderer, 112, 168, 237, SDL_ALPHA_OPAQUE) != 0)
-    SDL_ExiTWithError("Impossible de changer la couleure rendu");
+  // Création fenêtre 
+  window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, 0);
+  if(window == NULL)
+  {
+    clean_ressources(NULL, NULL, NULL);
+    SDL_ExiTWithError("Impossible de créer la fenêtre");
+  }
 
-  /*
-  //Tracer une ligne bleu opaque
-  if(SDL_RenderDrawLine(renderer, 50, 50, 500, 500) != 0)
-    SDL_ExiTWithError("Impossible de dessiner une ligne");
-  */
 
-  /* 
-  //Tracer un rectangle
-  SDL_Rect rectangle;
-  rectangle.x = 300;
-  rectangle.y = 300;
-  rectangle.w = 200;
-  rectangle.h = 120;
+  // Création du rendu
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+  if(renderer == NULL)
+  {
+    clean_ressources(window, NULL, NULL);
+    SDL_ExiTWithError("Impossible de créer le rendu");
+  }
 
-  if(SDL_RenderDrawRect(renderer, &rectangle) != 0)
-    SDL_ExiTWithError("Impossible de dessiner un rectangle");
-  */
+
+  // Création de l'image
+  picture = SDL_LoadBMP("C:/Users/arthu/OneDrive/Bureau/L2/Projet/Mario2D/ProjetMario2D/img/menu.bmp");
+  if(picture == NULL)
+  {
+    clean_ressources(window, renderer, NULL);
+    SDL_ExiTWithError("Impossible de charger l'image");
+  }
+
+
+  // Création de la texture
+  texture = SDL_CreateTextureFromSurface(renderer, picture);
+  SDL_FreeSurface(picture);
+  if(texture == NULL)
+  {
+    clean_ressources(window, renderer, NULL);
+    SDL_ExiTWithError("Impossible de générer la texture");
+  }
+
+  if(SDL_QueryTexture(texture, NULL, NULL, &dest_rect.w, &dest_rect.h) != 0)
+  {
+    clean_ressources(window, renderer, texture);
+    SDL_ExiTWithError("Impossible de procéder à l'application de la texture");
+  }
+
+  if(SDL_RenderCopy(renderer, texture, NULL, &dest_rect) != 0)
+  {
+    clean_ressources(window, renderer, texture);
+    SDL_ExiTWithError("Impossible de procéder à l'application de la texture");
+  }
+
+
+  
+
+
  
-  SDL_RenderPresent(renderer);
-  SDL_Delay(3000);
+  SDL_RenderPresent(renderer); 
+  SDL_Delay(5000);
 
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
-  SDL_Quit();
-
-
+  clean_ressources(window, renderer, texture);
 
   return EXIT_SUCCESS;
 }
