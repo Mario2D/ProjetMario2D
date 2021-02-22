@@ -6,15 +6,16 @@
 
 
 
-#include "fonctions.h"
+#include "menu.h"
 #include "constantes.h"
+#include "settings.h"
 
 
 
 
 
 
-// gcc src/main.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 
+// gcc src/main.c src/menu.c src/settings.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 
 
 
 
