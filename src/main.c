@@ -22,6 +22,17 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+>>>>>>> 1405c1f0fe71171d5cc1dc74392e8acabcd7fa3f
 int main(int argc, char *argv[])
 {
 
