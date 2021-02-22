@@ -25,7 +25,7 @@
 int main(int argc, char *argv[])
 {
 
-    creer_menu (  );
+    creer_menu ();
    
     return EXIT_SUCCESS;
 
