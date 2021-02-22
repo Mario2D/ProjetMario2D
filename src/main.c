@@ -30,7 +30,6 @@ void clean_and_quit(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Tex
     if(w != NULL)
       SDL_DestroyWindow(w);
     
-    IMG_Quit();
     SDL_Quit();
     exit (EXIT_FAILURE);
 }
@@ -81,26 +80,6 @@ int main(int argc, char *argv[])
 
 
 
-    // --------------------------------- //
-    // ------- INITIALISATION IMG ------ //
-    // --------------------------------- //
-
-    if(IMG_Init(IMG_INIT_JPG) != 0)
-    {
-
-        clean_and_quit("Initialisation IMG JPG impossible", NULL, NULL, NULL);
-
-    }
-
-
-
-    if(IMG_Init(IMG_INIT_PNG) != 0)
-    {
-
-        clean_and_quit("Initialisation IMG PNG impossible", NULL, NULL, NULL);
-
-    }
-
 
     // --------------------------------- //
     // ------- CREATION FENETRE -------- //
@@ -115,6 +94,8 @@ int main(int argc, char *argv[])
         clean_and_quit("Création fenêtre impossible", NULL, NULL, NULL);
 
     }
+
+
 
 
     // --------------------------------- //
@@ -132,12 +113,14 @@ int main(int argc, char *argv[])
     }
 
 
+
+
     // --------------------------------- //
     // --------- CREATION IMAGE -------- //
     // --------------------------------- //
 
 
-    picture = IMG_Load("img/play_button.png");
+    picture = SDL_LoadBMP("img/vrai_menu.bmp");
 
     if(picture == NULL)
     {
@@ -175,6 +158,7 @@ int main(int argc, char *argv[])
         clean_and_quit("Création copy impossible", window, renderer, texture);
 
     }
+
 
 
 
@@ -222,7 +206,7 @@ int main(int argc, char *argv[])
   
     
 
-    clean_and_quit("On quitte le programme", window, renderer, texture);
+    clean_and_quit("Fin de programme", window, renderer, texture);
 
     return EXIT_SUCCESS;
 
