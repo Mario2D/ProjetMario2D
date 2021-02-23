@@ -32,58 +32,45 @@ void clean_and_quit ( const char *message, SDL_Window *w, SDL_Renderer *r, SDL_T
 
 
 
-
-
-
-
-
-void creer_image ( char *chaine, SDL_Window * w,  SDL_Renderer * r , SDL_Texture * t, SDL_Rect rect, SDL_Surface * image )
+void creer_image (objet_img image)
 {
 
-        image =  SDL_LoadBMP(chaine);
+        image.img = SDL_LoadBMP(image.chaine);
         
 
-        if(image == NULL)
+        if(image.img == NULL)
         {
 
-            clean_and_quit("Création img de fond impossible", w, r, NULL);
+            clean_and_quit("Chargement de l'image impossible", image.w, image.r, image.t);
 
         }  
 
-        t = SDL_CreateTextureFromSurface(r, image);
+        image.t = SDL_CreateTextureFromSurface(image.r, image.img);
 
-        SDL_FreeSurface(image);
+        SDL_FreeSurface(image.img);
 
-        if( t == NULL )
+        if( image.t == NULL )
         {
 
-            clean_and_quit("Création texture impossible", w, r, NULL);
+            clean_and_quit("Création texture impossible", image.w, image.r, image.t);
 
         }
 
-        if(SDL_QueryTexture(t, NULL, NULL, &rect.w, &rect.h) != 0)
+        if(SDL_QueryTexture(image.t, NULL, NULL, &image.rect.w, &image.rect.h) != 0)
         {
     
-            clean_and_quit("Création requete impossible", w, r, t);
+            clean_and_quit("Création requete impossible", image.w, image.r, image.t);
 
         }
 
-        if(SDL_RenderCopy(r, t, NULL, &rect) != 0)
+        if(SDL_RenderCopy(image.r, image.t, NULL, &image.rect) != 0)
         {
 
-            clean_and_quit("Création copy impossible", w, r, t);
+            clean_and_quit("Création copy impossible", image.w, image.r, image.t);
 
         } 
 
 }
-
-
-
-
-
-
-
-
 
 
 void creer_menu (  )
@@ -93,19 +80,8 @@ void creer_menu (  )
     // --------- DECLARATIONS ---------- //
     // --------------------------------- //
 
-
-    SDL_Window * window = NULL;
-    SDL_Renderer * renderer = NULL;
-    SDL_Surface * fond_menu = NULL;
-    SDL_Surface * son = NULL;
-    SDL_Texture * text_menu = NULL;
-    SDL_Texture * text_volume = NULL;
-
-
-
-
-    
-
+    SDL_Window *window = NULL;
+    SDL_Renderer *renderer = NULL;
 
 
     // --------------------------------- //
@@ -119,8 +95,6 @@ void creer_menu (  )
         clean_and_quit("Initialisation SDL impossible", NULL, NULL, NULL);
 
     }
-
-
 
 
     // --------------------------------- //
@@ -162,24 +136,13 @@ void creer_menu (  )
     // --------------------------------- //
 
 
-    SDL_Rect fond = { 0, 0, W_WINDOW, H_WINDOW }; // rectangle pour l'image de fond pour le menu
+    // Création de l'arrière plan du menu
+    objet_img background = {"img/menu.bmp", window, renderer, NULL, { 0, 0, W_WINDOW, H_WINDOW }, NULL};
+    creer_image ( background );
 
-    creer_image ( "img/menu.bmp", window, renderer, text_menu, fond, fond_menu );
-
-
-
-    SDL_Rect volume = { W_WINDOW - 80, 15, 32, 32 }; // rectangle pour le bouton volume
-
-    creer_image ( "img/volume_on.bmp", window, renderer, text_volume, volume, son );
-
-
-
-
-    
-
-
-
-
+   // Création de l'icone de son
+    objet_img icon_son = {"img/volume_on.bmp", window, renderer, NULL, { W_WINDOW - 80, 15, 32, 32 }, NULL};
+    creer_image ( icon_son );
 
 
     // --------------------------------- //
@@ -217,8 +180,7 @@ void creer_menu (  )
                     // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées de la texture
                     if ( (((event.button.x >= (W_WINDOW - 80)) && ((event.button.x) <= (W_WINDOW - 80) + 32)) && (((event.button.y) >= 15) && ((event.button.y) <= 15 + 32))) )
                     {
-                            printf("Le clic est dans les coordonnées\n");
-                            SDL_DestroyTexture(text_volume);
+                            printf("Le clic est dans les coordonnees\n");
 
                     }
                   break;
@@ -240,7 +202,7 @@ void creer_menu (  )
   
     
 
-    clean_and_quit("Le programme est terminé", window, renderer, text_menu);
+    clean_and_quit("Le programme est terminé", window, renderer, background.t);
 
 
 }
