@@ -140,7 +140,7 @@ void creer_menu (  )
     creer_image ( background );
 
    // Création de l'icone de son
-    objet_img icon_son = {"img/volume_on.bmp", window, renderer, NULL, { W_WINDOW - 80, 15, 32, 32 }, NULL};
+    objet_img icon_son = {"img/volume_on.bmp", window, renderer, NULL, { W_WINDOW - 85, 15, 32, 32 }, NULL};
     creer_image ( icon_son );
 
 
@@ -160,7 +160,7 @@ void creer_menu (  )
 
     SDL_bool program_launched = SDL_TRUE;
 
-    while(program_launched) // boucle infinie qui va
+    while(program_launched) // boucle infinie qui va attendre les évènements 
     {
 
         SDL_Event event;
@@ -182,7 +182,7 @@ void creer_menu (  )
                         creer_image(icon_son);
                         SDL_RenderPresent(renderer);    
                     }
-                  break;
+                    break;
 
                 
                 case SDL_QUIT:
