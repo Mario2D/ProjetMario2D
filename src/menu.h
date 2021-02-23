@@ -15,6 +15,9 @@ void theme (  );
 
 void dessiner_rectangle( SDL_Surface * surface, int x, int y, int w, int h, Uint32 coul);
 
+void dessiner_rendu ( char * chaine, SDL_Renderer * renderer, SDL_Surface * surface1, SDL_Surface * surface2 );
+
+
 
 
 #endif

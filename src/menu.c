@@ -38,6 +38,7 @@ void clean_and_quit ( const char *message, SDL_Window *w, SDL_Renderer *r, SDL_T
 
 
 
+
 void creer_image (objet_img image)
 {
 
@@ -79,6 +80,7 @@ void creer_image (objet_img image)
 
 
 
+
 void theme ( Mix_Music * music )
 {
 
@@ -99,6 +101,7 @@ void theme ( Mix_Music * music )
 
 
 
+
 void dessiner_rectangle( SDL_Surface * surface, int x, int y, int w, int h, Uint32 coul )
 {
     SDL_Rect r;
@@ -109,6 +112,16 @@ void dessiner_rectangle( SDL_Surface * surface, int x, int y, int w, int h, Uint
     r.h = h;
     
     SDL_FillRect ( surface , &r, coul );
+}
+
+
+
+
+void dessiner_rendu ( char * chaine )
+{
+
+        
+
 }
 
 
@@ -251,6 +264,7 @@ void creer_menu (  )
             switch(event.type)
             {
 
+
                 case SDL_MOUSEBUTTONDOWN:
                   
                     // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées de la texture
@@ -296,6 +310,9 @@ void creer_menu (  )
                     break;
 
 
+
+
+
                 case SDL_MOUSEMOTION:
 
                     // centre play x            : 774
@@ -312,9 +329,29 @@ void creer_menu (  )
                     if ( (((event.motion.x >= (774 - (189/2))) && ((event.motion.x) <= (774 + (189/2)))) && (((event.motion.y) >= 487 - (59/2)) && ((event.motion.y) <= 487 + (59/2)))) )
                     {
 
-                            SDL_Surface * surface_rbg = SDL_CreateRGBSurface(0, 100, 5, 32, 0, 0, 0, 0);
 
-                            dessiner_rectangle( surface_rbg, 774 - (189/2), 487 + (59/2), 100, 5, SDL_MapRGB(surface_rbg->format, 227, 127, 6) );
+                            if ( SDL_SetRenderDrawColor(renderer, 227, 127, 6, SDL_ALPHA_OPAQUE) != 0 )
+                            {
+
+                                    clean_and_quit ( "Impossible de changer la couleur rendu", window, renderer, background.t );
+
+                            }
+
+
+                            //Tracer un rectangle
+                            SDL_Rect rectangle;
+                            rectangle.x = 774 - (189/2);
+                            rectangle.y = 487 - (59/2);
+                            rectangle.w = 220;
+                            rectangle.h = 60;
+
+                            if(SDL_RenderDrawRect(renderer, &rectangle) != 0)
+                            {
+
+                                clean_and_quit ( "impossible de créer le rectangle", window, renderer, background.t);
+
+                            }
+                            
 
                             SDL_RenderPresent(renderer);
                                 
@@ -324,8 +361,43 @@ void creer_menu (  )
                     else if ( (((event.motion.x >= (813 - (347/2))) && ((event.motion.x) <= (813 + (347/2)))) && (((event.motion.y) >= 599 - (73/2)) && ((event.motion.y) <= 599 + (73/2)))) )
                     {
 
-                           
+                            if ( SDL_SetRenderDrawColor(renderer, 227, 127, 6, SDL_ALPHA_OPAQUE) != 0 )
+                            {
 
+                                    clean_and_quit ( "Impossible de changer la couleur rendu", window, renderer, background.t );
+
+                            }
+
+
+                            //Tracer un rectangle
+                            SDL_Rect rectangle2;
+                            rectangle2.x = 813 - (360/2);
+                            rectangle2.y = 599 - (73/2);
+                            rectangle2.w = 320;
+                            rectangle2.h = 70;
+
+                            if(SDL_RenderDrawRect(renderer, &rectangle2) != 0)
+                            {
+
+                                clean_and_quit ( "impossible de créer le rectangle", window, renderer, background.t);
+
+                            }
+                            
+                            
+                            SDL_RenderPresent(renderer);
+
+                    }
+
+                    else if ( (((event.motion.x <= (813 - (347/2))) && ((event.motion.x) >= (813 + (347/2)))) && (((event.motion.y) <= 599 - (73/2)) && ((event.motion.y) >= 599 + (73/2)))) )
+                    {
+                    
+                        SDL_RenderClear(renderer);
+
+                        creer_image(background);
+                        creer_image(icon_son);
+
+                        SDL_RenderPresent(renderer);
+        
                     }
 
                     break;
