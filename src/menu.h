@@ -11,7 +11,9 @@ void creer_menu (  );
 
 void creer_image ( char *chaine, SDL_Window * w,  SDL_Renderer * r , SDL_Texture * t, SDL_Rect rect, SDL_Surface * image );
 
+void theme (  );
 
+void dessiner_rectangle( SDL_Surface * surface, int x, int y, int w, int h, Uint32 coul);
 
 
 

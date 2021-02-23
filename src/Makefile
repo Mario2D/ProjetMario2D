@@ -1,13 +1,18 @@
 CC = gcc
-FLAGS = -Wall -g
-SDL_DIR = ${HOME}/SDL2
-SDL_LIB_DIR = ${SDL_DIR}/lib
-SDL_INC_DIR = ${SDL_DIR}/include
-INCS = -I ${SDL_INC_DIR}
-PROG = sdl_test
-LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2 image -lSDL2 ttf
+EXEC = prog
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
 
-all: sdl_text
+SDLLIB_DIR=${SDL_DIR}/lib
+SDLINC_DIR=${SDL_DIR}/include
 
-sdl_text: sdl_test.c
-	${CC} -o ${PROG} sdl_test.c ${LIBS} ${INCS} ${FLAGS}
+LIBS=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image 
+INCLUDES=-I${SDLINC_DIR}
+
+all : $(EXEC) 
+
+%.o : %.c
+    $(CC) -o $@ -c $< ${LIBS} ${INCLUDES}
+
+$(EXEC) : $(OBJ)
+    $(CC) -o $@ -c $^ ${LIBS} ${INCLUDES}
