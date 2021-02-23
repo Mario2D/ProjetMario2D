@@ -47,7 +47,6 @@ void creer_image (objet_img image)
 
         image.t = SDL_CreateTextureFromSurface(image.r, image.img);
 
-        SDL_FreeSurface(image.img);
 
         if( image.t == NULL )
         {
@@ -177,10 +176,11 @@ void creer_menu (  )
                     // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées de la texture
                     if ( (((event.button.x >= (W_WINDOW - 80)) && ((event.button.x) <= (W_WINDOW - 80) + 32)) && (((event.button.y) >= 15) && ((event.button.y) <= 15 + 32))) )
                     {
-                            printf("Le clic est dans les coordonnees\n");
-                            icon_son.chaine = "img/volume_off.bmp";
-                            creer_image(icon_son);
-                            SDL_RenderPresent(renderer); 
+                        icon_son.chaine = "img/volume_off.bmp";
+                        SDL_RenderClear(renderer);
+                        creer_image(background);
+                        creer_image(icon_son);
+                        SDL_RenderPresent(renderer);    
                     }
                   break;
 
