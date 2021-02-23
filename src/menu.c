@@ -152,9 +152,6 @@ void creer_menu (  )
 
     SDL_RenderPresent(renderer); 
 
-    
-
-
 
     // --------------------------------- //
     // ------- BOUCLE DE GESTION ------- //
@@ -181,7 +178,9 @@ void creer_menu (  )
                     if ( (((event.button.x >= (W_WINDOW - 80)) && ((event.button.x) <= (W_WINDOW - 80) + 32)) && (((event.button.y) >= 15) && ((event.button.y) <= 15 + 32))) )
                     {
                             printf("Le clic est dans les coordonnees\n");
-
+                            icon_son.chaine = "img/volume_off.bmp";
+                            creer_image(icon_son);
+                            SDL_RenderPresent(renderer); 
                     }
                   break;
 
