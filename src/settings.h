@@ -1,6 +1,6 @@
 
 
-void creer_settings ( );
+void settings ( );
 
 
 

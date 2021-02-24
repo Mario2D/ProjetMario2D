@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
         SDL_Renderer *renderer = NULL;
         SDL_Rect surface_rect;
         Mix_Music * musique = NULL;
+        Mix_Music * clic_settings = NULL;
         SDL_bool curseur;
 
 
@@ -199,7 +200,9 @@ int main(int argc, char *argv[])
 
                                 else if ( (((event.button.x >= (813 - (347/2))) && ((event.button.x) <= (813 + (347/2)))) && (((event.button.y) >= 599 - (73/2)) && ((event.button.y) <= 599 + (73/2)))) )
                                 {
-                                        //settings();
+                                        clic_settings = Mix_LoadMUS("sounds/coin.wav"); //Chargement de la musique
+                                        Mix_PlayMusic(clic_settings, 1); //Jouer infiniment la musique
+                                        settings(window, renderer);
                                 }
 
                                 break;
