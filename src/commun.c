@@ -53,7 +53,7 @@ void creer_image (objet_img image)
         }  
 
         image.t = SDL_CreateTextureFromSurface(image.r, image.img);
-
+        SDL_FreeSurface(image.img);
 
         if( image.t == NULL )
         {

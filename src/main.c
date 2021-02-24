@@ -224,7 +224,10 @@ int main(int argc, char *argv[])
                                 if ( (((event.motion.x >= (774 - (189/2))) && ((event.motion.x) <= (774 + (189/2)))) && (((event.motion.y) >= 487 - (59/2)) && ((event.motion.y) <= 487 + (59/2)))) )
                                 {
 
+                                        //Curseur sur l'onglet "play"
                                         curseur = SDL_TRUE;
+
+                                        //Coordonnées du rectangle "play"
                                         surface_rect.x = 774 - (189/2);
                                         surface_rect.y = 487 - (59/2);
                                         surface_rect.w = 220;
@@ -235,7 +238,10 @@ int main(int argc, char *argv[])
 
                                 else if ( (((event.motion.x >= (813 - (347/2))) && ((event.motion.x) <= (813 + (347/2)))) && (((event.motion.y) >= 599 - (73/2)) && ((event.motion.y) <= 599 + (73/2)))) )
                                 {
-                                        curseur = SDL_TRUE;
+                                        //Curseur sur l'onglet "settings"
+                                        curseur = SDL_TRUE; 
+
+                                        //Coordonnées du rectangle "settings"
                                         surface_rect.x = 813 - (360/2);
                                         surface_rect.y = 599 - (73/2);
                                         surface_rect.w = 320;
@@ -243,10 +249,10 @@ int main(int argc, char *argv[])
                                 }
                                 else
                                 {
-                                        surface_rect.x = -200;
-                                        surface_rect.y = -300;
-                                        surface_rect.w = 0;
-                                        surface_rect.h = 0;  
+
+                                        //Aucune selection
+                                        curseur = SDL_FALSE; 
+
                                 }
 
                                 break;
@@ -265,10 +271,15 @@ int main(int argc, char *argv[])
                         
                         }
 
-                        if(curseur == SDL_TRUE){
-                                SDL_SetRenderDrawColor(renderer, 0, 0, 2, 255);
-                                SDL_RenderFillRect(renderer, &surface_rect);
+                        if(curseur == SDL_TRUE){ //Affiche un encadrement blanc autour de la selection
+                                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); //
+                                SDL_RenderDrawRect(renderer, &surface_rect);
                                 SDL_RenderPresent(renderer);  
+                        }
+                        else{ //Si aucun élément selectionné, le rectangle devient invisible
+                                SDL_SetRenderDrawColor(renderer, 162, 173, 255, 255);
+                                SDL_RenderDrawRect(renderer, &surface_rect);
+                                SDL_RenderPresent(renderer);
                         }
 
                 }
@@ -280,8 +291,6 @@ int main(int argc, char *argv[])
         // on libère les surfaces
         SDL_FreeSurface ( background.img );
         SDL_FreeSurface ( icon_son.img );
-
-
 
         Mix_FreeMusic(musique); //Libération de la musique
         Mix_CloseAudio(); //Fermeture de l'API
