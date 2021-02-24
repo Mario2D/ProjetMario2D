@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
+#include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
 
 
 
-
-#include "menu.h"
+#include "commun.h"
 #include "constantes.h"
 #include "settings.h"
 
@@ -16,16 +16,281 @@
 
 
 
-// gcc src/main.c src/menu.c src/settings.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL_mixer 
+// gcc src/main.c src/commun.c src/settings.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
 
 
 int main(int argc, char *argv[])
 {
 
-        creer_menu (  );
+        // --------------------------------- //
+        // --------- DECLARATIONS ---------- //
+        // --------------------------------- //
 
-        
+        SDL_Window *window = NULL;
+        SDL_Renderer *renderer = NULL;
+        SDL_Rect surface_rect;
+        Mix_Music * musique = NULL;
+        SDL_bool curseur;
+
+
+
+        // --------------------------------- //
+        // ------- INITIALISATION SDL ------ //
+        // --------------------------------- //
+
+
+        if(SDL_Init(SDL_INIT_VIDEO) != 0)
+        {
+
+        clean_and_quit("Initialisation SDL impossible", NULL, NULL, NULL);
+
+        }
+
+
+        // --------------------------------- //
+        // ------- CREATION FENETRE -------- //
+        // --------------------------------- // 
+
+
+        window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WINDOW, H_WINDOW, 0);
+
+        if(window == NULL)
+        {
+
+        clean_and_quit("Création fenêtre impossible", NULL, NULL, NULL);
+
+        }
+
+
+
+
+        // --------------------------------- //
+        // --------- CREATION RENDU -------- //
+        // --------------------------------- //
+
+
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+
+        if(renderer == NULL)
+        {
+
+        clean_and_quit("Création rendu impossible", window, NULL, NULL);
+
+        }
+
+
+
+
+        // --------------------------------- //
+        // --------- AFFICHAGE MENU -------- //
+        // --------------------------------- //
+
+
+        // Création de l'arrière plan du menu
+        objet_img background = {"img/menu.bmp", window, renderer, NULL, { 0, 0, W_WINDOW, H_WINDOW }, NULL};
+        creer_image ( background );
+
+
+        // Création de l'icone de son
+        objet_img icon_son = {"img/volume_on.bmp", window, renderer, NULL, { W_WINDOW - 85, 15, 32, 32 }, NULL};
+        creer_image ( icon_son );
+
+
+
+
+
+
+        // --------------------------------- //
+        // -------- AFFICHAGE RENDU -------- //
+        // --------------------------------- //
+
+
+        SDL_RenderPresent(renderer); 
+
+
+
+
+
+
+
+        // --------------------------------- //
+        // ------- LANCEMENT MUSIQUE ------- //
+        // --------------------------------- //
+
+
+        theme( musique );
+
+
+
+
+        // --------------------------------- //
+        // ------- BOUCLE DE GESTION ------- //
+        // -------- DES EVENEMENTS --------- //
+        // --------------------------------- //
+
+
+
+
+        SDL_bool program_launched = SDL_TRUE;
+
+        while(program_launched) // boucle infinie qui va attendre les évènements 
+        {
+
+        SDL_Event event;
+
+
+        while(SDL_PollEvent(&event))
+        {
+                curseur = SDL_FALSE;
+
+                switch(event.type)
+                {
+
+                        case SDL_MOUSEBUTTONDOWN:
+                                
+                                // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées de la texture
+                                if ( (((event.button.x >= (W_WINDOW - 80)) && ((event.button.x) <= (W_WINDOW - 80) + 32)) && (((event.button.y) >= 15) && ((event.button.y) <= 15 + 32))) )
+                                {
+
+                                        
+
+                                        if ( Mix_PausedMusic() == 1 ) //Si la musique est en pause
+                                        {
+
+                                        Mix_ResumeMusic(); //Reprendre la musique
+
+                                        icon_son.chaine = "img/volume_on.bmp"; // charge l'image du volume "ON"
+
+                                        SDL_RenderClear(renderer); 
+
+                                        creer_image(background);
+                                        creer_image(icon_son);
+
+                                        SDL_RenderPresent(renderer);
+                                        
+                                        }
+
+                                        else
+                                        {
+
+                                        Mix_PauseMusic(); //Mettre en pause la musique
+
+                                        icon_son.chaine = "img/volume_off.bmp"; // charge l'image du volume "OFF"
+
+                                        SDL_RenderClear(renderer);
+
+                                        creer_image(background);
+                                        creer_image(icon_son);
+
+                                        SDL_RenderPresent(renderer);
+                                        
+                                        }
+
+                                }
+
+                                if ( (((event.button.x >= (774 - (189/2))) && ((event.button.x) <= (774 + (189/2)))) && (((event.button.y) >= 487 - (59/2)) && ((event.button.y) <= 487 + (59/2)))) )
+                                {
+
+                                        //jouer();
+                        
+
+                                }
+
+                                else if ( (((event.button.x >= (813 - (347/2))) && ((event.button.x) <= (813 + (347/2)))) && (((event.button.y) >= 599 - (73/2)) && ((event.button.y) <= 599 + (73/2)))) )
+                                {
+                                        //settings();
+                                }
+
+                                break;
+
+
+
+
+
+                        case SDL_MOUSEMOTION:
+
+                                // centre play x            : 774
+                                // centre play y            : 487
+                                // long play                : 189
+                                // haut play                : 59
+
+
+                                // centre settings x        : 813
+                                // centre settings y        : 599
+                                // long setting             : 347
+                                // haut setting             : 73
+
+                                if ( (((event.motion.x >= (774 - (189/2))) && ((event.motion.x) <= (774 + (189/2)))) && (((event.motion.y) >= 487 - (59/2)) && ((event.motion.y) <= 487 + (59/2)))) )
+                                {
+
+                                        curseur = SDL_TRUE;
+                                        surface_rect.x = 774 - (189/2);
+                                        surface_rect.y = 487 - (59/2);
+                                        surface_rect.w = 220;
+                                        surface_rect.h = 60;
+                        
+
+                                }
+
+                                else if ( (((event.motion.x >= (813 - (347/2))) && ((event.motion.x) <= (813 + (347/2)))) && (((event.motion.y) >= 599 - (73/2)) && ((event.motion.y) <= 599 + (73/2)))) )
+                                {
+                                        curseur = SDL_TRUE;
+                                        surface_rect.x = 813 - (360/2);
+                                        surface_rect.y = 599 - (73/2);
+                                        surface_rect.w = 320;
+                                        surface_rect.h = 70;
+                                }
+                                else
+                                {
+                                        surface_rect.x = -200;
+                                        surface_rect.y = -300;
+                                        surface_rect.w = 0;
+                                        surface_rect.h = 0;  
+                                }
+
+                                break;
+
+
+
+                        
+                        case SDL_QUIT:
+
+                                program_launched = SDL_FALSE;
+
+                                break;
+                        
+                        default:
+                                break;
+                        
+                        }
+
+                        if(curseur == SDL_TRUE){
+                                SDL_SetRenderDrawColor(renderer, 0, 0, 2, 255);
+                                SDL_RenderFillRect(renderer, &surface_rect);
+                                SDL_RenderPresent(renderer);  
+                        }
+
+                }
+                
+        }
+
+
+
+        // on libère les surfaces
+        SDL_FreeSurface ( background.img );
+        SDL_FreeSurface ( icon_son.img );
+
+
+
+        Mix_FreeMusic(musique); //Libération de la musique
+        Mix_CloseAudio(); //Fermeture de l'API
+
+
+        clean_and_quit("Le programme est terminé", window, renderer, background.t);
+
+
+
         return EXIT_SUCCESS;
 
 

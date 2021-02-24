@@ -1,11 +1,6 @@
-#ifndef DEF_FONCTIONS
-#define DEF_FONCTIONS
+
+
+void creer_settings ( );
 
 
 
-
-
-
-
-
-#endif
