@@ -8,8 +8,10 @@
 
 #include "commun.h"
 #include "constantes.h"
+#include "menu.h"
 
-void settings(SDL_Window *window, SDL_Renderer *renderer){
+void settings( SDL_Window *window, SDL_Renderer *renderer )
+{
         
         // --------------------------------- //
         // --------- DECLARATIONS ---------- //
@@ -17,6 +19,7 @@ void settings(SDL_Window *window, SDL_Renderer *renderer){
 
         SDL_Rect surface_rect;
         SDL_bool curseur;
+        SDL_Event event;
 
 
 
@@ -40,18 +43,6 @@ void settings(SDL_Window *window, SDL_Renderer *renderer){
 
 
 
-
-
-        // --------------------------------- //
-        // ------- LANCEMENT MUSIQUE ------- //
-        // --------------------------------- //
-
-
-   
-
-
-
-
         // --------------------------------- //
         // ------- BOUCLE DE GESTION ------- //
         // -------- DES EVENEMENTS --------- //
@@ -65,29 +56,66 @@ void settings(SDL_Window *window, SDL_Renderer *renderer){
         while(program_launched) // boucle infinie qui va attendre les évènements 
         {
 
-        SDL_Event event;
-
-
-        while(SDL_PollEvent(&event))
-        {
-                curseur = SDL_FALSE;
-
-                switch(event.type)
+                while(SDL_PollEvent(&event))
                 {
-                        case SDL_QUIT:
+                        curseur = SDL_FALSE;
 
-                                program_launched = SDL_FALSE;
+                        switch(event.type)
+                        {
+                                // bouton retour :
 
-                                break;
-                        
-                        default:
-                                break;
-                        
+                                // long :                       194
+                                // hauteur :                    54
+                                // bouton.x :                   233
+                                // bouton.y :                   118
+
+
+                                // bouton exit :
+
+                                // long :                       84
+                                // hauteur :                    107
+                                // exit.x :                     1594
+                                // exit.y :                     70
+                                case SDL_MOUSEBUTTONDOWN:
+                                        
+                                        // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées du bouton retour
+                                        if ( (((event.button.x >= 233 - (194/2)) && ((event.button.x) <= 233 + (194/2))) && (((event.button.y) >= 118 - (54/2)) && ((event.button.y) <= 118 + (54/2)))) )
+                                        {
+
+                                                afficher_menu(window, renderer);
+                                                clean_and_quit("Changement de fenêtre", window, renderer, background.t);
+
+                                        }
+
+                                        if ( (((event.button.x >= 1594 - (84/2)) && ((event.button.x) <= 1594 + (84/2))) && (((event.button.y) >= 70 - (107/2)) && ((event.button.y) <= 70 + (107/2)))) )
+                                        {
+
+                                                program_launched = SDL_FALSE;
+                                
+
+                                        }
+
+                                        break;
+                                case SDL_QUIT:
+
+                                        program_launched = SDL_FALSE;
+
+                                        break;
+                                
+                                default:
+                                        break;
+                                
                         }
 
                 }
-                
+                        
         }
+
+        // on libère les surfaces
+        SDL_FreeSurface ( background.img );
+
+        clean_and_quit("Le programme est terminé", window, renderer, background.t);
+
 }
 
 
