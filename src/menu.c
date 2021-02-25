@@ -80,6 +80,7 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
 
 
 
+
         // --------------------------------- //
         // ------- BOUCLE DE GESTION ------- //
         // -------- DES EVENEMENTS --------- //
@@ -156,7 +157,7 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
                                         {
 
                                                 clic_settings = Mix_LoadMUS("sounds/coin.wav"); //Chargement de la musique
-                                                Mix_PlayMusic(clic_settings, 1); //Jouer infiniment la musique
+                                                Mix_PlayMusic(clic_settings, 1); 
 
                                                 settings(window, renderer);
 
@@ -254,7 +255,9 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
         SDL_FreeSurface ( background.img );
         SDL_FreeSurface ( icon_son.img );
 
-        Mix_FreeMusic(musique); //Libération de la musique
+        //Libération de la musique
+        Mix_FreeMusic(musique); 
+        Mix_FreeMusic(clic_settings);
         Mix_CloseAudio(); //Fermeture de l'API
 }
 
