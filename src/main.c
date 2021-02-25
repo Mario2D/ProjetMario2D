@@ -70,7 +70,20 @@ int main(int argc, char *argv[])
 
         }
 
+
         afficher_menu (window,renderer );
+
+        
+
+        SDL_DestroyRenderer(renderer);
+
+        SDL_DestroyWindow(window);
+
+    
+        SDL_Quit();
+
+        exit (EXIT_FAILURE);
+
 
 }
 

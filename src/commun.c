@@ -91,7 +91,7 @@ void blit(SDL_Texture *texture, SDL_Renderer *r, int x, int y)
 
 
 
-void theme ( Mix_Music * music )
+void theme ( Mix_Music * music, char *nom_musique )
 {
 
         if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
@@ -99,7 +99,7 @@ void theme ( Mix_Music * music )
             printf("%s", Mix_GetError());
         }
  
-        music = Mix_LoadMUS("music/theme_menu.mp3"); // charge le theme
+        music = Mix_LoadMUS(nom_musique); // charge le theme
 
 
         Mix_PlayMusic(music, -1); //Jouer infiniment la musique

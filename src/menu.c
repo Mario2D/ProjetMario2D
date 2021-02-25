@@ -26,13 +26,13 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
         // --------------------------------- //
         // --------- DECLARATIONS ---------- //
         // --------------------------------- //
-        
-        Mix_Music       * musique       = NULL;
-        Mix_Music       * clic_settings = NULL;
+    
 
         SDL_Event event;
         SDL_bool curseur;
         SDL_Rect surface_rect;
+        Mix_Music * clic_settings = NULL;
+        Mix_Music * musique = NULL;
 
 
 
@@ -73,9 +73,9 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
         // --------------------------------- //
 
 
-        theme( musique );
 
 
+        theme( musique, "sounds/overworld.wav");
 
 
 
@@ -256,11 +256,5 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
 
         Mix_FreeMusic(musique); //Libération de la musique
         Mix_CloseAudio(); //Fermeture de l'API
-
-
-        clean_and_quit("Le programme est terminé", window, renderer, background.t);
-
-
-
 }
 
