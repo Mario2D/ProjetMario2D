@@ -14,6 +14,7 @@ extern void creer_image ( objet_img image);
 extern void theme (  );
 extern void dessiner_rectangle( SDL_Surface * surface, int x, int y, int w, int h, Uint32 coul);
 extern void dessiner_rendu ( char * chaine, SDL_Renderer * renderer, SDL_Surface * surface1, SDL_Surface * surface2 );
+extern void jeu( SDL_Window * window, SDL_Renderer * renderer );
  
  
 #endif

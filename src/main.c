@@ -1,6 +1,6 @@
 #include "prototypes.h"
 
-// gcc src/main.c src/commun.c src/settings.c src/menu.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+// gcc src/main.c src/commun.c src/settings.c src/menu.c src/jeu.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
 
 
@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 {
         SDL_Window      * window        = NULL;
         SDL_Renderer    * renderer      = NULL;
+        Mix_Music * musique = NULL;
 
         // --------------------------------- //
         // ------- INITIALISATION SDL ------ //
@@ -49,14 +50,22 @@ int main(int argc, char *argv[])
         if(renderer == NULL)
         {
 
-                        clean_and_quit("Création rendu impossible", window, NULL, NULL);
+                clean_and_quit("Création rendu impossible", window, NULL, NULL);
 
         }
+
+        // --------------------------------- //
+        // ------- LANCEMENT MUSIQUE ------- //
+        // --------------------------------- //
+
+        theme( musique, "sounds/overworld.wav");
 
 
         afficher_menu (window,renderer );
 
-        
+        //Libération de la musique
+        Mix_FreeMusic(musique); 
+        Mix_CloseAudio(); //Fermeture de l'API
 
 
 

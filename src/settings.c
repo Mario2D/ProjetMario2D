@@ -10,8 +10,6 @@ void settings( SDL_Window *window, SDL_Renderer *renderer )
         SDL_Rect surface_rect;
         SDL_bool curseur;
         SDL_Event event;
-        Mix_Music * clic_retour = NULL;
-        Mix_Music * musique = NULL;
 
 
 
@@ -40,7 +38,6 @@ void settings( SDL_Window *window, SDL_Renderer *renderer )
         // --------------------------------- //
 
 
-        theme( musique, "sounds/underwater.wav");
 
         // --------------------------------- //
         // ------- BOUCLE DE GESTION ------- //
@@ -80,8 +77,7 @@ void settings( SDL_Window *window, SDL_Renderer *renderer )
                                         // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées du bouton retour
                                         if ( (((event.button.x >= 233 - (194/2)) && ((event.button.x) <= 233 + (194/2))) && (((event.button.y) >= 118 - (54/2)) && ((event.button.y) <= 118 + (54/2)))) )
                                         {
-                                                clic_retour = Mix_LoadMUS("sounds/coin.wav"); //Chargement de la musique
-                                                Mix_PlayMusic(clic_retour, 1); 
+                                                
                                                 afficher_menu(window, renderer);
                                                 clean_and_quit("Changement de fenêtre", window, renderer, background.t);
 
@@ -114,10 +110,6 @@ void settings( SDL_Window *window, SDL_Renderer *renderer )
         // on libère les surfaces
         SDL_FreeSurface ( background.img );
         
-        //Libération de la musique
-        Mix_FreeMusic(musique); 
-        Mix_FreeMusic(clic_retour);
-        Mix_CloseAudio(); //Fermeture de l'API
 
 }
 

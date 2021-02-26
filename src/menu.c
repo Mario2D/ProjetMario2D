@@ -11,9 +11,6 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
         SDL_Event event;
         SDL_bool curseur;
         SDL_Rect surface_rect;
-        Mix_Music * clic_settings = NULL;
-        Mix_Music * musique = NULL;
-
 
 
         // --------------------------------- //
@@ -41,23 +38,6 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
 
 
         SDL_RenderPresent(renderer); 
-
-
-
-
-
-
-
-        // --------------------------------- //
-        // ------- LANCEMENT MUSIQUE ------- //
-        // --------------------------------- //
-
-
-
-
-        theme( musique, "sounds/overworld.wav");
-
-
 
 
 
@@ -128,16 +108,14 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
                                         if ( (((event.button.x >= (774 - (189/2))) && ((event.button.x) <= (774 + (189/2)))) && (((event.button.y) >= 487 - (59/2)) && ((event.button.y) <= 487 + (59/2)))) )
                                         {
 
-                                                //jouer();
+                                                jeu(window, renderer);
+                                                clean_and_quit("Changement de fenêtre", window, renderer, background.t);
                                 
 
                                         }
 
                                         else if ( (((event.button.x >= (813 - (347/2))) && ((event.button.x) <= (813 + (347/2)))) && (((event.button.y) >= 599 - (73/2)) && ((event.button.y) <= 599 + (73/2)))) )
                                         {
-
-                                                clic_settings = Mix_LoadMUS("sounds/coin.wav"); //Chargement de la musique
-                                                Mix_PlayMusic(clic_settings, 1); 
 
                                                 settings(window, renderer);
 
@@ -234,10 +212,5 @@ void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
         // on libère les surfaces
         SDL_FreeSurface ( background.img );
         SDL_FreeSurface ( icon_son.img );
-
-        //Libération de la musique
-        Mix_FreeMusic(musique); 
-        Mix_FreeMusic(clic_settings);
-        Mix_CloseAudio(); //Fermeture de l'API
 }
 
