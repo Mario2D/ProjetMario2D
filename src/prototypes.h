@@ -6,7 +6,7 @@
 /* Catalogue des prototypes des fonctions utilisées.
    On le complétera au fur et à mesure. */
  
-extern void afficher_menu ( SDL_Window * window, SDL_Renderer * renderer  );
+extern void afficher_menu ( SDL_Window * window, SDL_Renderer * renderer  ); 
 extern void settings ( SDL_Window *window, SDL_Renderer *renderer );
 extern void clean_and_quit ( const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t );
 extern void creer_menu (  );

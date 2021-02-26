@@ -5,12 +5,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
  
 /* On inclut les libs supplémentaires */
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 
 #define TAILLE_BLOC         32 // Taille d'un bloc (carré) en pixels
 
@@ -20,10 +20,5 @@
 // dimensions de la fenêtre
 #define W_WINDOW            TAILLE_BLOC * NB_BLOCS_LARGEUR
 #define H_WINDOW            TAILLE_BLOC * NB_BLOCS_HAUTEUR
-
-// dimensions de l'image du bouton play
-#define W_PLAY              100
-#define H_PLAY              100
-
 
 #endif

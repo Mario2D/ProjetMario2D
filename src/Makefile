@@ -1,7 +1,7 @@
-CC = gcc
-EXEC = prog
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
+CC=gcc
+EXEC=prog
+SRC=$(wildcard *.c)
+OBJ=$(SRC:.c=.o)
 
 SDLLIB_DIR=${SDL_DIR}/lib
 SDLINC_DIR=${SDL_DIR}/include
