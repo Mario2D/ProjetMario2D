@@ -1,14 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
-
-
-#include "constantes.h"
-
-
+#include "prototypes.h"
 
 void clean_and_quit ( const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t )
 {

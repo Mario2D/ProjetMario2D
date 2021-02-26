@@ -1,21 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
-
-
-
-#include "commun.h"
-#include "constantes.h"
-#include "settings.h"
-#include "menu.h"
-
-
-
-
-
+#include "prototypes.h"
 
 // gcc src/main.c src/commun.c src/settings.c src/menu.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
@@ -74,6 +57,8 @@ int main(int argc, char *argv[])
         afficher_menu (window,renderer );
 
         
+
+
 
         SDL_DestroyRenderer(renderer);
 
