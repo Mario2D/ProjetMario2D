@@ -1,83 +1,49 @@
 #include "prototypes.h"
+ 
+// gcc src/main.c src/draw.c src/init.c src/input.c src/map.c src/player.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
-// gcc src/main.c src/commun.c src/settings.c src/menu.c src/jeu.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
-
-
-
+/* Déclaration des variables / structures utilisées par le jeu */
+Input input;
+ 
+ 
 int main(int argc, char *argv[])
 {
-        SDL_Window      * window        = NULL;
-        SDL_Renderer    * renderer      = NULL;
-        Mix_Music * musique = NULL;
+    //Gestion des fps
+    unsigned int frameLimit = SDL_GetTicks() + 16;
+    int go;
+ 
+    // Initialisation de la SDL
+    init("Mario2D");
 
-        // --------------------------------- //
-        // ------- INITIALISATION SDL ------ //
-        // --------------------------------- //
+    // Chargement des ressources (graphismes, sons)
+    loadGame();
 
+    /* On initialise le joueur */
+    initializePlayer();
+ 
+    // Appelle la fonction cleanup à la fin du programme
+    atexit(cleanup);
+ 
+    go = 1;
+ 
+    // Boucle infinie, principale, du jeu
+    while (go == 1)
+    {
+        //Gestion des inputs clavier
+        gestionInputs(&input);
 
-        if(SDL_Init(SDL_INIT_VIDEO) != 0)
-        {
-
-                        clean_and_quit("Initialisation SDL impossible", NULL, NULL, NULL);
-
-        }
-
-
-        // --------------------------------- //
-        // ------- CREATION FENETRE -------- //
-        // --------------------------------- // 
-
-
-        window = SDL_CreateWindow("Menu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, W_WINDOW, H_WINDOW, 0);
-
-        if(window == NULL)
-        {
-
-                        clean_and_quit("Création fenêtre impossible", NULL, NULL, NULL);
-
-        }
-
-
-
-
-        // --------------------------------- //
-        // --------- CREATION RENDU -------- //
-        // --------------------------------- //
-
-
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
-
-        if(renderer == NULL)
-        {
-
-                clean_and_quit("Création rendu impossible", window, NULL, NULL);
-
-        }
-
-        // --------------------------------- //
-        // ------- LANCEMENT MUSIQUE ------- //
-        // --------------------------------- //
-
-        theme( musique, "sounds/overworld.wav");
-
-
-        afficher_menu (window,renderer );
-
-        //Libération de la musique
-        Mix_FreeMusic(musique); 
-        Mix_CloseAudio(); //Fermeture de l'API
-
-
-
-        SDL_DestroyRenderer(renderer);
-
-        SDL_DestroyWindow(window);
-
-    
-        SDL_Quit();
-
-        exit (EXIT_FAILURE);
-
-
+        // On met à jour le jeu, en commençant par le joueur
+        updatePlayer(&input);
+ 
+        //On dessine tout
+        drawGame();
+ 
+        // Gestion des 60 fps (1000ms/60 = 16.6 -> 16
+        delay(frameLimit);
+        frameLimit = SDL_GetTicks() + 16;
+    }
+ 
+    // On quitte
+    exit(0);
+ 
 }
-
