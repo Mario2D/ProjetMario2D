@@ -56,7 +56,7 @@ void SetValeurDuNiveau(int valeur)
 }
 
 
-//Charge la spritesheet (= feuille de sprites) de notre héros
+//Charge la spritesheet de notre héros
 //au début du jeu
 void initPlayerSprites(void)
 {
@@ -114,8 +114,7 @@ void drawPlayer(void)
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
     
-    // On soustrait des coordonnées de notre héros, ceux du début de la map, pour qu'il colle
-    //au scrolling :
+    // On soustrait des coordonnées de notre héros, ceux du début de la map, pour qu'il colle au scrolling
     dest.x = player.x - getStartX();
     dest.y = player.y - getStartY();
     dest.w = player.w;
@@ -124,14 +123,11 @@ void drawPlayer(void)
     /* Rectangle source */
     SDL_Rect src;
     
-    //Pour connaître le X de la bonne frame à dessiner, il suffit de multiplier
-    //la largeur du sprite par le numéro de la frame à afficher -> 0 = 0; 1 = 40; 2 = 80...
     src.x = 0;
     src.w = player.w +2;
     src.h = player.h;
     
-    //On calcule le Y de la bonne frame à dessiner, selon la valeur de l'état du héros :
-    //Aucun Mouvement (Idle) = 0, marche (walk) = 1, etc...
+    //On calcule le Y de la bonne frame à dessiner, selon la valeur de l'état du héros 
     src.y = (player.etat * player.h) + 2;
     
     
@@ -145,9 +141,9 @@ void drawPlayer(void)
 
 void updatePlayer(Input *input)
 {
-    //On rajoute un timer au cas où notre héros mourrait lamentablement en tombant dans un trou...
+    //On rajoute un timer si l'on meurt
     //Si le timer vaut 0, c'est que tout va bien, sinon, on le décrémente jusqu'à 0, et là,
-    //on réinitialise.
+    //on réinitialise à la position de départ du joueur.
     //C'est pour ça qu'on ne gère le joueur que si ce timer vaut 0.
     if (player.timerMort == 0)
     {
@@ -156,51 +152,44 @@ void updatePlayer(Input *input)
             player.invincibleTimer--;
     
         //On réinitialise notre vecteur de déplacement latéral (X), pour éviter que le perso
-        //ne fonce de plus en plus vite pour atteindre la vitesse de la lumière ! ;)
-        //Essayez de le désactiver pour voir !
         player.dirX = 0;
         
-        // La gravité fait toujours tomber le perso : on incrémente donc le vecteur Y
+        // La gravité fait toujours tomber le perso : on incrémente Y
         player.dirY += GRAVITY_SPEED;
         
-        //Mais on le limite pour ne pas que le joueur se mette à tomber trop vite quand même
+        //limite pour ne pas que le joueur se mette à tomber trop vite quand même
         if (player.dirY >= MAX_FALL_SPEED)
             player.dirY = MAX_FALL_SPEED;
     
     
-        //Voilà, au lieu de changer directement les coordonnées du joueur, on passe par un vecteur
-        //qui sera utilisé par la fonction mapCollision(), qui regardera si on peut ou pas déplacer
         //le joueur selon ce vecteur et changera les coordonnées du player en fonction.
         if (input->left == 1)
         {
             player.dirX -= PLAYER_SPEED;
-            //Et on indique qu'il va à gauche (pour le flip
-            //de l'affichage, rappelez-vous).
+            //Et on indique qu'il va à gauche (pour le flip)
+
             player.direction = LEFT;
         
-        //Si ce n'était pas son état auparavant et qu'il est bien sur
-        //le sol (car l'anim' sera différente s'il est en l'air)
+        //Si ce n'était pas son état auparavant
         if (player.etat != WALK && player.onGround == 1)
         {
-            //On enregistre l'anim' de la marche et on l'initialise à 0
+            //On enregistre l'anim de la marche et on l'initialise à 0
             player.etat = WALK;
         }
     }
     
-    //Si on détecte un appui sur la touche fléchée droite
+    //Si on détecte un appui sur la touche "fléchée droite"
     else if (input->right == 1)
     {
         //On augmente les coordonnées en x du joueur
         player.dirX += PLAYER_SPEED;
-        //Et on indique qu'il va à droite (pour le flip
-        //de l'affichage, rappelez-vous).
+        //Et on indique qu'il va à droite 
         player.direction = RIGHT;
         
-        //Si ce n'était pas son état auparavant et qu'il est bien sur
-        //le sol (car l'anim' sera différente s'il est en l'air)
+        //Si ce n'était pas son état auparavant 
         if (player.etat != WALK && player.onGround == 1)
             {
-            //On enregistre l'anim' de la marche et on l'initialise à 0
+            //On enregistre l'anim de la marche et on l'initialise à 0
             player.etat = WALK;
         }
     }
@@ -209,19 +198,16 @@ void updatePlayer(Input *input)
     else if (input->right == 0 && input->left == 0 && player.onGround == 1)
     {
         //On teste si le joueur n'était pas déjà inactif, pour ne pas recharger l'animation
-        //à chaque tour de boucle
         if (player.etat != IDLE)
         {
-            //On enregistre l'anim' de l'inactivité et on l'initialise à 0
+            //On enregistre l'anim de l'inactivité et on l'initialise à 0
             player.etat = IDLE;
         }
     }
     
     
-    //Et voici la fonction de saut très simple :
-    //Si on appuie sur la touche saut et qu'on est sur le sol, alors on attribue une valeur
-    //négative au vecteur Y
-    //parce que sauter veut dire se rapprocher du haut de l'écran et donc de y=0.
+    //Si on appuie sur la touche saut et qu'on est sur le sol, alors on attribue une valeur négative à Y
+
     if (input->jump == 1)
     {
         if (player.onGround == 1)
@@ -246,20 +232,17 @@ void updatePlayer(Input *input)
         }
     }
     
-    //On rajoute notre fonction de détection des collisions qui va mettre à
-    //jour les coordonnées de notre super lapin.
+    //On rajoute notre fonction de détection des collisions pour mettre à jour les coordonnées du joueur
     mapCollision(&player);
     
-    //On gère le scrolling (fonction ci-dessous)
+    //On gère le scrolling 
     centerScrollingOnPlayer();
     
     }
     
-    //Gestion de la mort quand le héros tombe dans un trou :
+    //Gestion de la mort quand le héros tombe dans un trou 
     //Si timerMort est différent de 0, c'est qu'il faut réinitialiser le joueur.
-    //On ignore alors ce qui précède et on joue cette boucle (un wait en fait) jusqu'à ce que
-    // timerMort == 1. A ce moment-là, on le décrémente encore -> il vaut 0 et on réinitialise
-    //le jeu avec notre bonne vieille fonction d'initialisation ;) !
+    //Si timerMort == 1, on le décrémente encore -> il vaut 0 et on réinitialise
     if (player.timerMort > 0)
     {
         player.timerMort--;
@@ -277,15 +260,10 @@ void updatePlayer(Input *input)
 
 void centerScrollingOnPlayer(void)
 {
-    // Nouveau scrolling à sous-boîte limite :
-    //Pour éviter les effets de saccades dus à une caméra qui se
-    //centre automatiquement et constamment sur le joueur (ce qui
-    //peut en rendre malade certains...), on crée une "boîte" imaginaire
-    //autour du joueur. Quand on dépasse un de ses bords (en haut, en bas,
+    // on crée une "boîte" imaginaire autour du joueur.
+    //Quand on dépasse un de ses bords (en haut, en bas,
     //à gauche ou à droite), on scrolle.
-    //Mais là encore, au lieu de centrer sur le joueur, on déplace simplement
-    //la caméra jusqu'à arriver au joueur. On a changé ici la valeur à 4 pixels
-    //pour que le jeu soit plus rapide.
+
     int cxperso = player.x + player.w / 2;
     int cyperso = player.y + player.h / 2;
     int xlimmin = getStartX() + LIMITE_X;
@@ -294,8 +272,7 @@ void centerScrollingOnPlayer(void)
     int ylimmax = ylimmin + LIMITE_H;
     
     //Effet de retour en arrière quand on est mort :
-    //Si on est très loin de la caméra, plus loin que le bord
-    //de la map, on accélère le scrolling :
+
     if (cxperso < getStartX())
     {
         setStartX(getStartX() - 30);
@@ -307,11 +284,8 @@ void centerScrollingOnPlayer(void)
         setStartX(getStartX() - 4);
     }
     
-    //Effet de retour en avant quand on est mort (au
-    //cas où le joueur s'amuse à faire le niveau à rebours
-    //après une checkpoint) :
-    //Si on est très loin de la caméra, plus loin que le bord
-    //de la map, on accélère le scrolling :
+    //Effet de retour en avant quand on est mort
+
     if (cxperso > getStartX() + SCREEN_WIDTH)
     {
         setStartX(getStartX() + 30);

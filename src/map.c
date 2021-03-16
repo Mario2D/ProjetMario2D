@@ -7,7 +7,7 @@ Map map;
 void initMaps(void)
 {
     // Charge l'image du fond (background)
-    map.background = loadImage("images/background.bmp");
+    map.background = loadImage("images/background.png");
 }
  
  
@@ -41,7 +41,7 @@ void loadMap(char *name)
 {
     int x, y;
     FILE *fp;
-    errno_t err;
+    int err;
     
     //Ouvre le fichier en lecture (renvoie une erreur s'il n'existe pas)
     if ((err = fopen_s(&fp, name, "rb")) != 0)

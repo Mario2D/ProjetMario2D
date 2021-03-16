@@ -75,7 +75,7 @@ typedef struct GameObject
     //Sauvegarde des coordonnées de départ
     int saveX, saveY;
     
-    //Variable pour le double saut
+    //Variable pour le saut
     int jump;
  
  
