@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     loadGame();
 
     /* On initialise le joueur */
-    initializePlayer();
+    initializePlayer(1);
  
     // Appelle la fonction cleanup à la fin du programme
     atexit(cleanup);

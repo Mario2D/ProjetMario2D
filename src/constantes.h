@@ -23,12 +23,7 @@
  
 /* Taille d'une tile (32 x 32 pixels) */
 #define TILE_SIZE 32
- 
-/* Constantes pour l'animation */
-#define TIME_BETWEEN_2_FRAMES 20
 
-
-#define TIME_BETWEEN_2_FRAMES_PLAYER 4
  
 /* Taille du sprite de notre héros (largeur = width et hauteur = heigth) */
 #define PLAYER_WIDTH 15
@@ -57,5 +52,27 @@
 #define GRAVITY_SPEED 0.6
 #define MAX_FALL_SPEED 15
 #define JUMP_HEIGHT 10
+
+// Constante définissant le seuil entre les tiles traversables
+// (blank) et les tiles solides
+#define BLANK_TILE 89
+ 
+//Plateformes traversables
+#define TILE_TRAVERSABLE 70
+ 
+//Tiles Power-ups
+#define TILE_POWER_UP_DEBUT 67
+#define TILE_POWER_UP_FIN 69
+#define TILE_POWER_UP_COEUR 68
+ 
+//Autres Tiles spéciales
+#define TILE_RESSORT 115
+#define TILE_CHECKPOINT 23
+#define TILE_MONSTRE 126
+#define TILE_PIKES 117
+ 
+//Tiles plateformes mobiles
+#define TILE_PLATEFORME_DEBUT 120
+#define TILE_PLATEFORME_FIN 121
 
 #endif
