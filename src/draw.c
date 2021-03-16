@@ -1,8 +1,19 @@
+/*!
+/*  \file       draw.c
+/*  \brief      S'occupe des fonctions graphiques du jeu
+/*  \version    1.7
+/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+/*  \date 
+ */
+
 #include "prototypes.h"
  
  
 
-
+/*! \brief  Affiche à l'écran les différentes interfaces graphiques du jeu
+ *  
+ *  \return void
+ */
 void drawGame(void)
 {
     // Affiche le fond (background) aux coordonnées (0,0)
@@ -24,7 +35,12 @@ void drawGame(void)
     SDL_Delay(1);
 }
  
- 
+/*! \brief  Charge une image de nom *name
+ *  
+ *  \param[in]  char *name  Chaine de caractères correspondant un nom de l'image à charger
+ * 
+ *  \return SDL_Texture 
+ */ 
 SDL_Texture *loadImage(char *name)
 {
     
@@ -50,7 +66,14 @@ SDL_Texture *loadImage(char *name)
     
 }
     
-    
+/*! \brief  Dessine une image en fonction des paremètres passés en paramètres
+ *  
+ *  \param[in]  SDL_Texture *image      Une image
+ *  \param[in]  int x                   Coordonnées en abscisses (coin en haut à gauche de l'image)
+ *  \param[in]  int y                   Coordonnées en ordonnée (coin en haut à gauche de l'image)
+ * 
+ *  \return void
+ */   
 void drawImage(SDL_Texture *image, int x, int y)
 {
     
@@ -66,6 +89,13 @@ void drawImage(SDL_Texture *image, int x, int y)
  
 }
  
+
+/*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
+ *  
+ *  \param[in]  unsigned int frameLimit      Une image
+ * 
+ *  \return void
+ */ 
 void delay(unsigned int frameLimit)
 {
     // Gestion des 60 fps (images/seconde)
