@@ -34,7 +34,7 @@ extern int getStartX(void);
 extern int getStartY(void);
 extern void init(char *);
 extern void initializePlayer(int newLevel);
-extern void initMaps(void);
+extern void initMaps(int level);
 extern void initPlayerSprites(void);
 extern void loadGame(void);
 extern SDL_Texture *loadImage(char *name);

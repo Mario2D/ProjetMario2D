@@ -4,10 +4,15 @@
 Map map;
  
  
-void initMaps(void)
+void initMaps(int level)
 {
     // Charge l'image du fond (background)
-    map.background = loadImage("images/background.png");
+    if(level == 1){
+        map.background = loadImage("images/background.png");
+    }
+    else{
+        map.background = loadImage("images/background2.png");
+    }
 }
  
  

@@ -25,7 +25,7 @@
 #define SCREEN_HEIGHT 480
 
 
-/* Taille maxi de la map : 400 x 150 tiles */
+/* Taille maxi de la map : 150 x 150 tiles */
 #define MAX_MAP_X 150
 #define MAX_MAP_Y 150
  
@@ -33,9 +33,9 @@
 #define TILE_SIZE 32
 
  
-/* Taille du sprite de notre héros (largeur = width et hauteur = heigth) */
+/* Taille du sprite de notre héros */
 #define PLAYER_WIDTH 32
-#define PLAYER_HEIGTH 59
+#define PLAYER_HEIGTH 40
  
 //Vitesse de déplacement en pixels du sprite
 #define PLAYER_SPEED 4
@@ -62,10 +62,9 @@
 #define JUMP_HEIGHT 12
 
 // Constante définissant le seuil entre les tiles traversables
-// (blank) et les tiles solides
 #define BLANK_TILE 38
  
-//Plateformes solides de number à blank_tile
+//Plateformes solides en haut et traversables sur les autres côtés (de number à blank_tile)
 #define TILE_TRAVERSABLE 21
  
 //Tiles Power-ups
@@ -74,13 +73,9 @@
 #define TILE_POWER_UP_COEUR 68
  
 //Autres Tiles spéciales
-#define TILE_RESSORT 115
 #define TILE_CHECKPOINT 23
 #define TILE_MONSTRE 126
 #define TILE_PIKES 117
  
-//Tiles plateformes mobiles
-#define TILE_PLATEFORME_DEBUT 120
-#define TILE_PLATEFORME_FIN 121
 
 #endif

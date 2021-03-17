@@ -60,7 +60,7 @@ void SetValeurDuNiveau(int valeur)
 //au début du jeu
 void initPlayerSprites(void)
 {
-    playerSpriteSheet = loadImage("images/mario_copie.png");
+    playerSpriteSheet = loadImage("images/mario.png");
 }
  
  
@@ -142,9 +142,8 @@ void drawPlayer(void)
 void updatePlayer(Input *input)
 {
     //On rajoute un timer si l'on meurt
-    //Si le timer vaut 0, c'est que tout va bien, sinon, on le décrémente jusqu'à 0, et là,
+    //Si le timer vaut 0, c'est que tout va bien, sinon, on le décrémente jusqu'à 0
     //on réinitialise à la position de départ du joueur.
-    //C'est pour ça qu'on ne gère le joueur que si ce timer vaut 0.
     if (player.timerMort == 0)
     {
         //On gère le timer de l'invincibilité

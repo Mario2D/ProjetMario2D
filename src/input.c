@@ -3,8 +3,7 @@
  
 void gestionInputs(Input *input)
 {
-    //On gère le clavier (on rajoutera plus tard la gestion
-    //des joysticks)
+    //On gère le clavier 
     getInput(input);
 }
  
@@ -13,9 +12,8 @@ void getInput(Input *input)
 {
     SDL_Event event;
  
-    /* Keymapping : gère les appuis sur les touches et les enregistre
-    dans la structure input */
- 
+    //On gère les appuis sur les touches et les enregistre
+
     while (SDL_PollEvent(&event))
     {
         switch (event.type)

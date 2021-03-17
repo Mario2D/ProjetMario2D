@@ -15,7 +15,7 @@ void loadGame(void)
 {
     
     //On charge les données pour la map
-    initMaps();
+    initMaps(1);
     
     //NOUVEAU : On charge la feuille de sprites (spritesheet) de notre héros
 
