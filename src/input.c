@@ -78,7 +78,7 @@ void getInput(Input *input)
                         input->erase = 0;
                     break;
  
-                    case SDLK_c:
+                    case SDLK_SPACE:
                         input->jump = 0;
                     break;
  

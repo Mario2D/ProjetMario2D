@@ -36,7 +36,7 @@ void cleanMaps(void)
  
 }
 
-
+//Lire le fichier texte et stocker la map dans nos matrices
 void loadMap(char *name)
 {
     int x, y;
@@ -69,7 +69,7 @@ void loadMap(char *name)
             /* On lit le numéro de la tile et on le copie dans notre tableau */
             fscanf_s(fp, "%d", &map.tile[y][x]);
         
-            /* Permet de déterminer la taille de la map (voir plus bas) */
+            /* Permet de déterminer la taille de la map */
             if (map.tile[y][x] > 0)
             {
                 if (x > map.maxX)
@@ -95,15 +95,12 @@ void loadMap(char *name)
         }
     }
 
-    /* maxX et maxY sont les coordonnées de fin de la map.
-    On les trouve dès qu'il n'y a plus que des zéros à la suite.
-    Comme ça, on peut faire des maps de tailles différentes avec la même
-    structure de fichier. */
+    // maxX et maxY sont les coordonnées de fin de la map.
     map.maxX = (map.maxX + 1) * TILE_SIZE;
     map.maxY = (map.maxY + 1) * TILE_SIZE;
     
     
-    /* Et on referme le fichier */
+    /* on ferme le fichier */
     fclose(fp);
  
 }
@@ -113,29 +110,18 @@ void drawMap(int layer)
 {
     int x, y, mapX, x1, x2, mapY, y1, y2, xsource, ysource, a;
     
-    /* On initialise mapX à la 1ère colonne qu'on doit blitter.
-    Celle-ci correspond au x de la map (en pixels) divisés par la taille d'une tile (32)
-    pour obtenir la bonne colonne de notre map
-    Exemple : si x du début de la map = 1026, on fait 1026 / 32
-    et on sait qu'on doit commencer par afficher la 32eme colonne de tiles de notre map */
+    //On initialise mapX à la 1ère colonne qu'on doit blitter.
+ 
     mapX = map.startX / TILE_SIZE;
     
-    /* Coordonnées de départ pour l'affichage de la map : permet
-    de déterminer à quels coordonnées blitter la 1ère colonne de tiles au pixel près
-    (par exemple, si la 1ère colonne n'est visible qu'en partie, on devra commencer à blitter
-    hors écran, donc avoir des coordonnées négatives - d'où le -1). */
+    // Coordonnées de départ pour l'affichage de la map 
     x1 = (map.startX % TILE_SIZE) * -1;
     
-    /* Calcul des coordonnées de la fin de la map : jusqu'où doit-on blitter ?
-    Logiquement, on doit aller à x1 (départ) + SCREEN_WIDTH (la largeur de l'écran).
-    Mais si on a commencé à blitter en dehors de l'écran la première colonne, il
-    va falloir rajouter une autre colonne de tiles sinon on va avoir des pixels
-    blancs. C'est ce que fait : x1 == 0 ? 0 : TILE_SIZE qu'on pourrait traduire par:
-    if(x1 != 0)
-    x2 = x1 + SCREEN_WIDTH + TILE_SIZE , mais forcément, c'est plus long ;)*/
+    //Calcul des coordonnées de la fin de la map 
     x2 = x1 + SCREEN_WIDTH + (x1 == 0 ? 0 : TILE_SIZE);
     
-    /* On fait exactement pareil pour calculer y */
+    
+    /* On fait pareil pour calculer y */
     mapY = map.startY / TILE_SIZE;
     y1 = (map.startY % TILE_SIZE) * -1;
     y2 = y1 + SCREEN_HEIGHT + (y1 == 0 ? 0 : TILE_SIZE);
@@ -144,15 +130,13 @@ void drawMap(int layer)
     
     /* Dessine la carte en commençant par startX et startY */
     
-    /* On dessine ligne par ligne en commençant par y1 (0) jusqu'à y2 (480)
-    A chaque fois, on rajoute TILE_SIZE (donc 32), car on descend d'une ligne
-    de tile (qui fait 32 pixels de hauteur) */
+    // On dessine ligne par ligne 
     if (layer == 1)
     {
         for (y = y1; y < y2; y += TILE_SIZE)
         {
-            /* A chaque début de ligne, on réinitialise mapX qui contient la colonne
-            (0 au début puisqu'on ne scrolle pas) */
+            //A chaque début de ligne, on réinitialise mapX qui contient la colonne
+    
             mapX = map.startX / TILE_SIZE;
             
             /* A chaque colonne de tile, on dessine la bonne tile en allant
@@ -160,8 +144,8 @@ void drawMap(int layer)
             for (x = x1; x < x2; x += TILE_SIZE)
             {
     
-                /* Suivant le numéro de notre tile, on découpe le tileset (a = le numéro
-                de la tile */
+                /* Suivant le numéro la tile, on découpe le tileset (a = le numéro
+                de la tile) */
                 a = map.tile[mapY][mapX];
                 
                 /* Calcul pour obtenir son y (pour un tileset de 10 tiles
@@ -170,7 +154,7 @@ void drawMap(int layer)
                 /* Et son x */
                 xsource = a % 10 * TILE_SIZE;
                 
-
+                //on dessine la tile sur notre rendu
                 drawTile(map.tileSet, x, y, xsource, ysource);
 
                 mapX++;
@@ -189,7 +173,7 @@ void drawMap(int layer)
     
             for (x = x1; x < x2; x += TILE_SIZE)
             {
-                /* Suivant le numéro de notre tile, on découpe le tileset (a = le numéro
+                /* Suivant le numéro de la tile, on découpe le tileset (a = le numéro
                 de la tile */
                 a = map.tile2[mapY][mapX];
                 
@@ -275,21 +259,14 @@ void mapCollision(GameObject *entity)
  
     int i, x1, x2, y1, y2;
     
-    /* D'abord, on considère le joueur en l'air jusqu'à temps
-    d'être sûr qu'il touche le sol */
+    //Le joueur commence en l'air et tombe sur le sol
     entity->onGround = 0;
     
     /* Ensuite, on va tester les mouvements horizontaux en premier
     (axe des X). On va se servir de i comme compteur pour notre boucle.
     En fait, on va découper notre sprite en blocs de tiles pour voir
-    quelles tiles il est susceptible de recouvrir.
-    On va donc commencer en donnant la valeur de Tile_Size à i pour qu'il
-    teste la tile où se trouve le x du joueur mais aussi la suivante SAUF
-    dans le cas où notre sprite serait inférieur à la taille d'une tile.
-    Dans ce cas, on lui donnera la vraie valeur de la taille du sprite
-    Et on testera ensuite 2 fois la même tile. Mais comme ça notre code
-    sera opérationnel quelle que soit la taille de nos sprites ! */
-    
+    quelles tiles il est susceptible de recouvrir. */
+
     if (entity->h > TILE_SIZE)
         i = TILE_SIZE;
     else
@@ -300,20 +277,15 @@ void mapCollision(GameObject *entity)
     //les résultats de nos calculs
     for (;;)
     {
-        //On va calculer ici les coins de notre sprite à gauche et à
-        //droite pour voir quelle tile ils touchent.
+        //On va calculer ici les coins de notre sprite à gauche et à droite pour voi si ça touche
         x1 = (entity->x + entity->dirX) / TILE_SIZE;
         x2 = (entity->x + entity->dirX + entity->w - 1) / TILE_SIZE;
         
-        //Même chose avec y, sauf qu'on va descendre au fur et à mesure
-        //pour tester toute la hauteur de notre sprite, grâce à notre
-        //fameuse variable i.
+        //Même chose avec y
         y1 = (entity->y) / TILE_SIZE;
         y2 = (entity->y + i - 1) / TILE_SIZE;
         
-        //De là, on va tester les mouvements initiés dans updatePlayer
-        //grâce aux vecteurs dirX et dirY, tout en testant avant qu'on
-        //se situe bien dans les limites de l'écran.
+        //On va tester les mouvements initiés dans updatePlayer
         if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
         {
             //Si on a un mouvement à droite
@@ -322,10 +294,8 @@ void mapCollision(GameObject *entity)
                 //On vérifie si les tiles recouvertes sont solides
                 if (map.tile[y1][x2] > BLANK_TILE || map.tile[y2][x2] > BLANK_TILE)
                 {
-                    // Si c'est le cas, on place le joueur aussi près que possible
-                    // de ces tiles, en mettant à jour ses coordonnées. Enfin, on
-                    //réinitialise son vecteur déplacement (dirX).
-                    
+                    // Si c'est le cas, on place le joueur très proche de la tile 
+        
                     entity->x = x2 * TILE_SIZE;
                     entity->x -= entity->w + 1;
                     entity->dirX = 0;
@@ -381,12 +351,7 @@ void mapCollision(GameObject *entity)
             {
                 /* Déplacement en bas */
         
-                //Gestion des plateformes traversables : elles se situent juste avant
-                //les tiles bloquantes dans notre tileset (dont la valeur butoire est
-                //BLANK_TILE). Il suffit donc d'utiliser le numéro de la première tile
-                //traversable au lieu de BLANK_TILE pour bloquer le joueur,
-                //seulement quand il tombe dessus (sinon, il passe au-travers
-                //et le test n'est donc pas effectué dans les autres directions
+                //Gestion des plateformes traversables 
                 if (map.tile[y2][x1] > TILE_TRAVERSABLE || map.tile[y2][x2] > TILE_TRAVERSABLE)
                 {
                     //Si la tile est une plateforme ou une tile solide, on y colle le joueur et
@@ -412,7 +377,7 @@ void mapCollision(GameObject *entity)
             }
         }
             
-        //On teste la largeur du sprite (même technique que pour la hauteur précédemment)
+        //On teste la largeur du sprite (même technique que pour la hauteur du sprite)
         if (i == entity->w)
         {
             break;
@@ -430,7 +395,7 @@ void mapCollision(GameObject *entity)
     entity->x += entity->dirX;
     entity->y += entity->dirY;
     
-    //Et on contraint son déplacement aux limites de l'écran.
+    //Et on empèche le dépassement de l'écran.
     if (entity->x < 0)
     {
         entity->x = 0;
@@ -438,13 +403,11 @@ void mapCollision(GameObject *entity)
     
     else if (entity->x + entity->w >= map.maxX)
     {
-        //Si on touche le bord droit de l'écran, on annule
-        //et on limite le déplacement du joueur
+        //Si on touche le bord droit de l'écran, on stop le joueur
         entity->x = map.maxX - entity->w - 1;
     }
     
-    //Maintenant, s'il sort de l'écran par le bas (chute dans un trou sans fond), on lance le timer
-    //qui gère sa mort et sa réinitialisation (plus tard on gèrera aussi les vies).
+    //S'il sort de l'écran par le bas (chute dans un trou), on lance le timer qui va gérer sa mort et son respawn
     if (entity->y > map.maxY)
     {
         entity->timerMort = 60;

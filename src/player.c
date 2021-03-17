@@ -60,7 +60,7 @@ void SetValeurDuNiveau(int valeur)
 //au début du jeu
 void initPlayerSprites(void)
 {
-    playerSpriteSheet = loadImage("images/mario.png");
+    playerSpriteSheet = loadImage("images/mario_copie.png");
 }
  
  
@@ -124,11 +124,11 @@ void drawPlayer(void)
     SDL_Rect src;
     
     src.x = 0;
-    src.w = player.w +2;
+    src.w = player.w ;
     src.h = player.h;
     
     //On calcule le Y de la bonne frame à dessiner, selon la valeur de l'état du héros 
-    src.y = (player.etat * player.h) + 2;
+    src.y = (player.etat * player.h) ;
     
     
     //Gestion du flip (retournement de l'image selon que le sprite regarde à droite ou à gauche
@@ -151,18 +151,17 @@ void updatePlayer(Input *input)
         if (player.invincibleTimer > 0)
             player.invincibleTimer--;
     
-        //On réinitialise notre vecteur de déplacement latéral (X), pour éviter que le perso
+        //On réinitialise notre vecteur X 
         player.dirX = 0;
         
-        // La gravité fait toujours tomber le perso : on incrémente Y
+        // Pour faire tomber le perso avec la gravité
         player.dirY += GRAVITY_SPEED;
         
-        //limite pour ne pas que le joueur se mette à tomber trop vite quand même
+        //limite pour ne pas que le joueur se mette à tomber trop vite 
         if (player.dirY >= MAX_FALL_SPEED)
             player.dirY = MAX_FALL_SPEED;
     
     
-        //le joueur selon ce vecteur et changera les coordonnées du player en fonction.
         if (input->left == 1)
         {
             player.dirX -= PLAYER_SPEED;
@@ -262,7 +261,7 @@ void centerScrollingOnPlayer(void)
 {
     // on crée une "boîte" imaginaire autour du joueur.
     //Quand on dépasse un de ses bords (en haut, en bas,
-    //à gauche ou à droite), on scrolle.
+    //à gauche ou à droite), on scroll.
 
     int cxperso = player.x + player.w / 2;
     int cyperso = player.y + player.h / 2;

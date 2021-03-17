@@ -26,7 +26,7 @@
 
 
 /* Taille maxi de la map : 400 x 150 tiles */
-#define MAX_MAP_X 400
+#define MAX_MAP_X 150
 #define MAX_MAP_Y 150
  
 /* Taille d'une tile (32 x 32 pixels) */
@@ -34,8 +34,8 @@
 
  
 /* Taille du sprite de notre héros (largeur = width et hauteur = heigth) */
-#define PLAYER_WIDTH 15
-#define PLAYER_HEIGTH 30
+#define PLAYER_WIDTH 32
+#define PLAYER_HEIGTH 59
  
 //Vitesse de déplacement en pixels du sprite
 #define PLAYER_SPEED 4
@@ -59,14 +59,14 @@
 //Constantes définissant la gravité et la vitesse max de chute
 #define GRAVITY_SPEED 0.6
 #define MAX_FALL_SPEED 15
-#define JUMP_HEIGHT 10
+#define JUMP_HEIGHT 12
 
 // Constante définissant le seuil entre les tiles traversables
 // (blank) et les tiles solides
-#define BLANK_TILE 89
+#define BLANK_TILE 38
  
-//Plateformes traversables
-#define TILE_TRAVERSABLE 70
+//Plateformes solides de number à blank_tile
+#define TILE_TRAVERSABLE 21
  
 //Tiles Power-ups
 #define TILE_POWER_UP_DEBUT 67
