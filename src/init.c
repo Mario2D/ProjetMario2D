@@ -1,16 +1,35 @@
+/*!
+/*  \file       init.c
+/*  \brief      initialise tous les outils nécessaires aux fonctionnalités
+/*  \version    1.7
+/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+/*  \date 
+ */
+
 #include "prototypes.h"
  
  
 SDL_Window *screen;
 SDL_Renderer *renderer;
  
- 
+
+
+/*! \brief  Récupère un rendu
+ * 
+ *  \return SDL_Renderer
+ */ 
 SDL_Renderer *getrenderer(void)
 {
     return renderer;
 }
 
 
+
+
+/*! \brief  S'occupe de charger le jeu, c'est-à-dire la map et le sprite du personnage
+ *  
+ *  \return void
+ */ 
 void loadGame(void)
 {
     
@@ -29,6 +48,14 @@ void loadGame(void)
 }
  
  
+
+
+/*! \brief  Initialisation globale des outils SDL
+ *  
+ *  \param[in]  char *title     Nom de la fenêtre à générer
+ * 
+ *  \return void
+ */ 
 void init(char *title)
 {
 
@@ -89,6 +116,11 @@ void init(char *title)
  
  
  
+ 
+/*! \brief  La fonction quitte tous les outils proprement on libérant la mémoire 
+ *  
+ *  \return void
+ */ 
 void cleanup()
 {
     //Nettoie les sprites de la map
