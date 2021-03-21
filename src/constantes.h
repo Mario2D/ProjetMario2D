@@ -62,10 +62,10 @@
 #define JUMP_HEIGHT 12
 
 // Constante définissant le seuil entre les tiles traversables
-#define BLANK_TILE 38
+#define BLANK_TILE 48
  
 //Plateformes solides en haut et traversables sur les autres côtés (de number à blank_tile)
-#define TILE_TRAVERSABLE 21
+#define TILE_TRAVERSABLE 31
  
 //Tiles Power-ups
 #define TILE_POWER_UP_DEBUT 67

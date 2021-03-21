@@ -92,7 +92,7 @@ void drawImage(SDL_Texture *image, int x, int y)
 
 /*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
  *  
- *  \param[in]  unsigned int frameLimit      Une image
+ *  \param[in]  unsigned int frameLimit      
  * 
  *  \return void
  */ 
@@ -117,6 +117,16 @@ void delay(unsigned int frameLimit)
     }
 }
 
+
+/*! \brief  charge une image dans un rectangle dans les coordonnées sont passées en paramètres
+ *  \param[in]  SDL_Texture *image      l'image à charger
+ *  \param[in]  int destx               coordonnées x de la destination
+ *  \param[in]  int desty               coordonnées y de la destination
+ *  \param[in]  int srcx                coordonnées x de la source
+ *  \param[in]  int srcy                coordonnées y de la source
+ * 
+ *  \return void
+ */ 
 void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 {
     /* Rectangle de destination à dessiner */
