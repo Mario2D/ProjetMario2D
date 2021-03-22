@@ -34,7 +34,10 @@ void drawGame(void)
     // Délai pour laisser respirer le proc
     SDL_Delay(1);
 }
- 
+
+
+
+
 /*! \brief  Charge une image de nom *name
  *  
  *  \param[in]  char *name  Chaine de caractères correspondant un nom de l'image à charger
@@ -66,6 +69,9 @@ SDL_Texture *loadImage(char *name)
     
 }
     
+
+
+
 /*! \brief  Dessine une image en fonction des paremètres passés en paramètres
  *  
  *  \param[in]  SDL_Texture *image      Une image
@@ -89,6 +95,7 @@ void drawImage(SDL_Texture *image, int x, int y)
  
 }
  
+
 
 /*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
  *  
@@ -116,6 +123,8 @@ void delay(unsigned int frameLimit)
         SDL_Delay(frameLimit - ticks);
     }
 }
+
+
 
 
 /*! \brief  charge une image dans un rectangle dans les coordonnées sont passées en paramètres

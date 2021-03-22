@@ -5,7 +5,9 @@
  
 /* Catalogue des prototypes des fonctions utilisées.
    On le complétera au fur et à mesure. */
- 
+
+
+
 extern void centerScrollingOnPlayer(void);
 extern void changeLevel(void);
 extern void cleanMaps(void);
