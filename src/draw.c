@@ -7,7 +7,10 @@
  */
 
 #include "prototypes.h"
- 
+
+
+//HUD
+SDL_Texture *HUD_vie, *HUD_etoiles;
  
 
 /*! \brief  Affiche à l'écran les différentes interfaces graphiques du jeu
@@ -27,6 +30,9 @@ void drawGame(void)
     
     /* Affiche le joueur */
     drawPlayer();
+
+    //On affiche le HUD par-dessus tout le reste
+    drawHud();
     
     // Affiche l'écran
     SDL_RenderPresent(getrenderer());
@@ -156,4 +162,55 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
     
     /* Dessine la tile choisie sur l'écran aux coordonnées x et y */
     SDL_RenderCopy(getrenderer(), image, &src, &dest);
+}
+
+void initHUD(void)
+{
+    /* On charge les images du HUD */
+    HUD_vie = loadImage("images/life.png");
+    HUD_etoiles = loadImage("images/piece.png");
+}
+ 
+ 
+void cleanHUD(void)
+{
+    if (HUD_etoiles != NULL)
+    {
+        SDL_DestroyTexture(HUD_etoiles);
+    }
+    
+    if (HUD_vie != NULL)
+    {
+        SDL_DestroyTexture(HUD_vie);
+    }
+}
+
+void drawHud(void)
+{
+    //On crée une varuiable qui contiendra notre texte (jusqu'à 200 caractères, y'a de la marge ;) ).
+    char text[200];
+    
+    int i;
+    
+    
+    /* Affiche le nombre de vies en bas à droite - Adaptation à la fenêtre auto */
+    drawImage(HUD_vie, SCREEN_WIDTH - 120, 20);
+    
+    //Pour afficher le nombre de vies, on formate notre string pour qu'il prenne la valeur de la variable
+    sprintf_s(text, sizeof(text), "x %d", getNombreDeVies());
+    
+    
+    //Puis on utilise notre fonction créée précédemment pour écrire en noir (0, 0, 0, 255)
+    //et en blanc (255, 255, 255, 255) afin de surligner le texte et de le rendre plus
+    //visible
+    drawString(text, SCREEN_WIDTH - 80, 20, 0, 0, 0, 255);
+    drawString(text, SCREEN_WIDTH - 82, 20, 255, 255, 255, 255);
+    
+    /* Affiche le nombre de pièces en haut à gauche */
+    drawImage(HUD_etoiles, 20, 20);
+    
+    sprintf_s(text, sizeof(text), "%d", getNombreDepieces());
+    drawString(text, 60, 20, 0, 0, 0, 255);
+    drawString(text, 60, 18, 255, 255, 255, 255);
+ 
 }

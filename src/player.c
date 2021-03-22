@@ -11,6 +11,7 @@
 #include "prototypes.h"
  
 int level;
+int vies, etoiles;
 GameObject player;
 SDL_Texture *playerSpriteSheet;
  
@@ -81,6 +82,31 @@ void setPlayery(int valeur)
 int getLevel(void)
 {
     return level;
+}
+
+int getLife(void)
+{
+    return player.life;
+}
+
+int getNombreDeVies(void)
+{
+    return vies;
+}
+ 
+void setNombreDeVies(int valeur)
+{
+    vies = valeur;
+}
+ 
+int getNombreDepieces(void)
+{
+    return etoiles;
+}
+ 
+void setNombreDetoiles(int valeur)
+{
+    etoiles = valeur;
 }
  
  
@@ -314,6 +340,9 @@ void updatePlayer(Input *input)
     
         if (player.timerMort == 0)
         {
+            // Si on est mort, on perd une vie
+            setNombreDeVies(getNombreDeVies() - 1);
+
             // Si on est mort, on réinitialise le niveau
             changeLevel();
             initializePlayer(0);
