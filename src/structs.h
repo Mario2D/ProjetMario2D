@@ -1,3 +1,14 @@
+/*!
+ *  \file       structs.h
+ *  \brief      Implémentation des structures liées aux différentes fonctionnalités du projet
+ *  \version    1.7
+ *  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+ *  \date 
+ */
+
+
+
+
 #ifndef DEF_STRUCTS
 #define DEF_STRUCTS
  
