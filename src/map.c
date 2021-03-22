@@ -363,6 +363,10 @@ int getBeginY(void)
 }
 
 
+SDL_Texture *getTileSetA(void)
+{
+    return map.tileSet;
+}
 
 
 /*! \brief  Gère les collisions avec les différentes textures de la map

@@ -44,6 +44,13 @@ void loadGame(void)
     //On commence au premier niveau
     SetValeurDuNiveau(1);
     changeLevel();
+
+    /* On initialise les variables du jeu */
+    setNombreDeVies(3);
+    setNombreDetoiles(0);
+    
+    /* On charge le HUD */
+    initHUD();
  
 }
  
@@ -87,22 +94,28 @@ void init(char *title)
     //On cache le curseur de la souris
     SDL_ShowCursor(SDL_DISABLE);
  
-    //On initialise SDL_TTF 2 qui gérera l'écriture de texte
+    //On initialise SDL_TTF qui gérera l'écriture de texte
     if (TTF_Init() < 0)
     {
-        printf("Impossible d'initialiser SDL TTF: %s\n", TTF_GetError());
-        exit(1);
+    printf("Impossible d'initialiser SDL TTF: %s\n", TTF_GetError());
+    exit(1);
     }
- 
-    //On initialise SDL_Mixer 2, qui gérera la musique et les effets sonores
+    
+    
+    /* Chargement de la police */
+    loadFont("font/GenBasB.ttf", 32);
+    
+    
+    //On initialise SDL_Mixer , qui gérera la musique et les effets sonores
     int flags = MIX_INIT_MP3;
     int initted = Mix_Init(flags);
     if ((initted & flags) != flags)
     {
-        printf("Mix_Init: Failed to init SDL_Mixer\n");
-        printf("Mix_Init: %s\n", Mix_GetError());
-        exit(1);
+    printf("Mix_Init: Failed to init SDL_Mixer\n");
+    printf("Mix_Init: %s\n", Mix_GetError());
+    exit(1);
     }
+
 
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
         printf("Mix_OpenAudio: %s\n", Mix_GetError());
@@ -126,9 +139,12 @@ void cleanup()
     //Nettoie les sprites de la map
     cleanMaps();
     
-    //NOUVEAU : Libère le sprite du héros 
-
+    //Libère le sprite du héros 
     cleanPlayer();
+
+    //Libère le HUD
+    cleanHUD();
+    
 
     
     //On quitte SDL_Mixer 2 et on décharge la mémoire
