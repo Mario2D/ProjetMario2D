@@ -68,7 +68,7 @@
 //Constantes définissant la gravité et la vitesse max de chute
 #define GRAVITY_SPEED 0.6
 #define MAX_FALL_SPEED 15
-#define JUMP_HEIGHT 12
+#define JUMP_HEIGHT 11
 
 
 // Constante définissant le seuil entre les tiles traversables

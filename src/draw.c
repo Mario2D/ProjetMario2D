@@ -164,6 +164,12 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
     SDL_RenderCopy(getrenderer(), image, &src, &dest);
 }
 
+
+/*! \brief  Charge les images pour les pièces et pour la vie 
+ *  
+ * 
+ *  \return void
+ */ 
 void initHUD(void)
 {
     /* On charge les images du HUD */
@@ -171,7 +177,12 @@ void initHUD(void)
     HUD_etoiles = loadImage("images/piece.png");
 }
  
- 
+
+/*! \brief  Nettoie et libère proprement les textures
+ *  
+ * 
+ *  \return void
+ */ 
 void cleanHUD(void)
 {
     if (HUD_etoiles != NULL)
@@ -185,6 +196,12 @@ void cleanHUD(void)
     }
 }
 
+
+/*! \brief  Dessine les compteurs de vie et de pièces sur le rendu
+ *  
+ * 
+ *  \return void
+ */ 
 void drawHud(void)
 {
     //On crée une varuiable qui contiendra notre texte (jusqu'à 200 caractères, y'a de la marge ;) ).
