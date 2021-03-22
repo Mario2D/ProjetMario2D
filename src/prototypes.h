@@ -1,6 +1,14 @@
 #ifndef PROTOTYPES
 #define PROTOTYPES
  
+ /*!
+ *  \file       prototypes.h
+ *  \brief      Ce fichier contient tous les prototypes des fonctions qui vont être utilisées dans le cadre de ce projet
+ *  \version    1.7
+ *  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+ *  \date 
+ */
+
 #include "structs.h"
  
 /* Catalogue des prototypes des fonctions utilisées.
