@@ -1,7 +1,5 @@
 #include "prototypes.h"
  
- 
- 
 int level;
 GameObject player;
 SDL_Texture *playerSpriteSheet;
