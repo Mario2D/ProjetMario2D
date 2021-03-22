@@ -1,3 +1,13 @@
+/*!
+ *  \file       player.c
+ *  \brief      Ce fichier implémente toutes les fonctions nécessaires à la gestion des évènements liés au personnage.
+ *  \version    1.7
+ *  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+ *  \date 
+ */
+
+
+
 #include "prototypes.h"
  
  
@@ -7,64 +17,103 @@ GameObject player;
 SDL_Texture *playerSpriteSheet;
  
  
-//Renvoie le GameObject player 
+/*! \brief  Récupère le GameObject de player
+ *  
+ * 
+ *  \return GameObject
+ */ 
 GameObject *getPlayer(void)
 {
     return &player;
 }
  
  
-//Renvoie les coordonnées x du héros
+/*! \brief  Récupère les coordonnées en abscisse du héros
+ *  
+ * 
+ *  \return int
+ */
 int getPlayerx(void)
 {
     return player.x;
 }
  
  
-//Renvoie les coordonnées y du héros
+/*! \brief  Récupère les coordonnées en ordonnée du héros
+ *  
+ * 
+ *  \return int
+ */
 int getPlayery(void)
 {
     return player.y;
 }
  
- 
-//Change la valeur des coordonnées x du héros
+
+
+/*! \brief  Initialise les coordonnées en abscisse du héros
+ *  
+ *  param[in]   int valeur  Valeur x
+ * 
+ *  \return void
+ */
 void setPlayerx(int valeur)
 {
     player.x = valeur;
 }
  
  
-//Change la valeur des coordonnées y du héros
+/*! \brief  Initialise les coordonnées en ordonnée du héros
+ *  
+ *  param[in]   int valeur  Valeur y
+ * 
+ *  \return void
+ */
 void setPlayery(int valeur)
 {
     player.y = valeur;
 }
  
  
-//Renvoie le numéro du niveau en cours
+/*! \brief Récupère l'entier lié au level
+ *  
+ * 
+ *  \return int
+ */
 int getLevel(void)
 {
     return level;
 }
  
  
-//Change la valeur du niveau en cours
+/*! \brief  Change la valeur du niveau en cours
+ *  
+ *  param[in]   int valeur  Valeur du niveau
+ * 
+ *  \return void
+ */
 void SetValeurDuNiveau(int valeur)
 {
     level = valeur;
 }
 
 
-//Charge la spritesheet de notre héros
-//au début du jeu
+/*! \brief  Charge le spritesheet du héros au début du level
+ *  
+ * 
+ *  \return void
+ */
 void initPlayerSprites(void)
 {
     playerSpriteSheet = loadImage("images/mario.png");
 }
  
  
-//Libère le sprite du héros à la fin du jeu
+/*! \brief  Vide la mémoire liée au sprite proprement
+ *  
+ * 
+ *  \return void
+ */
 void cleanPlayer(void)
 {
     if (playerSpriteSheet != NULL)
@@ -75,6 +124,12 @@ void cleanPlayer(void)
 }
 
 
+/*! \brief  Initialise le héros dans un niveau donné
+ *  
+ *  param[in]   int newLevel  Valeur du niveau dans laquelle il faut charger le héros
+ * 
+ *  \return void
+ */
 void initializePlayer(int newLevel)
 {
  
@@ -109,6 +164,12 @@ void initializePlayer(int newLevel)
  
 }
 
+
+/*! \brief  Dessine le héros aux coordonnées récupérées dans la fonction
+ *  
+ * 
+ *  \return void
+ */
 void drawPlayer(void)
 {
     /* Rectangle de destination à dessiner */
@@ -139,6 +200,14 @@ void drawPlayer(void)
  
 }
 
+
+
+/*! \brief  Fonction qui va reposistionner le personnage au dernier checkpoint, c'est-à-dire soit au début, soit au milieu du niveau
+ *  
+ *  param[in]   Input *input
+ * 
+ *  \return void
+ */
 void updatePlayer(Input *input)
 {
     //On rajoute un timer si l'on meurt
@@ -255,7 +324,12 @@ void updatePlayer(Input *input)
 }
 
 
-
+/*! \brief  Gestion du scrolling de la map, centré sur le héros, et adapté à la vitesse de ce dernier.
+ *  
+ *  param[in]   int valeur  Valeur x
+ * 
+ *  \return void
+ */
 void centerScrollingOnPlayer(void)
 {
     // on crée une "boîte" imaginaire autour du joueur.
