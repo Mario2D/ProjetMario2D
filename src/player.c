@@ -16,33 +16,21 @@ GameObject player;
 SDL_Texture *playerSpriteSheet;
  
  
-/*! \brief  Récupère le GameObject de player
- *  
- * 
- *  \return GameObject
- */ 
+
 GameObject *getPlayer(void)
 {
     return &player;
 }
  
  
-/*! \brief  Récupère les coordonnées en abscisse du héros
- *  
- * 
- *  \return int
- */
+
 int getPlayerx(void)
 {
     return player.x;
 }
  
  
-/*! \brief  Récupère les coordonnées en ordonnée du héros
- *  
- * 
- *  \return int
- */
+
 int getPlayery(void)
 {
     return player.y;
@@ -50,94 +38,73 @@ int getPlayery(void)
  
 
 
-/*! \brief  Initialise les coordonnées en abscisse du héros
- *  
- *  param[in]   int valeur  Valeur x
- * 
- *  \return void
- */
+
 void setPlayerx(int valeur)
 {
     player.x = valeur;
 }
  
  
-/*! \brief  Initialise les coordonnées en ordonnée du héros
- *  
- *  param[in]   int valeur  Valeur y
- * 
- *  \return void
- */
+
 void setPlayery(int valeur)
 {
     player.y = valeur;
 }
  
  
-/*! \brief Récupère l'entier lié au level
- *  
- * 
- *  \return int
- */
+
 int getLevel(void)
 {
     return level;
 }
+
 
 int getLife(void)
 {
     return player.life;
 }
 
+
+
 int getNombreDeVies(void)
 {
     return vies;
 }
  
+
+
 void setNombreDeVies(int valeur)
 {
     vies = valeur;
 }
- 
+
+
 int getNombreDepieces(void)
 {
     return etoiles;
 }
  
-void setNombreDetoiles(int valeur)
+void setNombreDePieces(int valeur)
 {
     etoiles = valeur;
 }
  
  
-/*! \brief  Change la valeur du niveau en cours
- *  
- *  param[in]   int valeur  Valeur du niveau
- * 
- *  \return void
- */
+
 void SetValeurDuNiveau(int valeur)
 {
     level = valeur;
 }
 
 
-/*! \brief  Charge le spritesheet du héros au début du level
- *  
- * 
- *  \return void
- */
+
 void initPlayerSprites(void)
 {
     playerSpriteSheet = loadImage("images/mario.png");
 }
  
  
-/*! \brief  Vide la mémoire liée au sprite proprement
- *  
- * 
- *  \return void
- */
+
 void cleanPlayer(void)
 {
     if (playerSpriteSheet != NULL)
@@ -148,12 +115,7 @@ void cleanPlayer(void)
 }
 
 
-/*! \brief  Initialise le héros dans un niveau donné
- *  
- *  param[in]   int newLevel  Valeur du niveau dans laquelle il faut charger le héros
- * 
- *  \return void
- */
+
 void initializePlayer(int newLevel)
 {
  
@@ -189,11 +151,7 @@ void initializePlayer(int newLevel)
 }
 
 
-/*! \brief  Dessine le héros aux coordonnées récupérées dans la fonction
- *  
- * 
- *  \return void
- */
+
 void drawPlayer(void)
 {
     /* Rectangle de destination à dessiner */
@@ -226,12 +184,7 @@ void drawPlayer(void)
 
 
 
-/*! \brief  Fonction qui va reposistionner le personnage au dernier checkpoint, c'est-à-dire soit au début, soit au milieu du niveau
- *  
- *  param[in]   Input *input
- * 
- *  \return void
- */
+
 void updatePlayer(Input *input)
 {
     //On rajoute un timer si l'on meurt
@@ -351,12 +304,7 @@ void updatePlayer(Input *input)
 }
 
 
-/*! \brief  Gestion du scrolling de la map, centré sur le héros, et adapté à la vitesse de ce dernier.
- *  
- *  param[in]   int valeur  Valeur x
- * 
- *  \return void
- */
+
 void centerScrollingOnPlayer(void)
 {
     // on crée une "boîte" imaginaire autour du joueur.

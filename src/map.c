@@ -11,12 +11,7 @@
  
 Map map;
  
-/*! \brief  Charge les images de fond pour un level donné.
- *  
- *  \param[in]  int level   entier lié à un level (1, 2, 3 etc...)
- * 
- *  \return void
- */ 
+
 void initMaps(int level)
 {
     // Charge l'image du fond (background)
@@ -29,22 +24,14 @@ void initMaps(int level)
 }
  
 
-/*! \brief  Récupère la texture background
- *      
- * 
- *  \return SDL_Texture
- */ 
+ 
 SDL_Texture *getBackground(void)
 {
     return map.background;
 }
  
  
-/*! \brief  Nettoie et libère proprement le background et le tileset
- *      
- * 
- *  \return void
- */ 
+
 void cleanMaps(void)
 {
     // Libère la texture du background
@@ -64,12 +51,7 @@ void cleanMaps(void)
 }
 
 
-/*! \brief  Lis le fichier texte et stocke la map dans des matrices pour pouvoir réutiliser facilement les coordonnées ensuite
- *      
- *  param[in] char *name    Nom de la map à modéliser
- * 
- *  \return void
- */ 
+ 
 void loadMap(char *name)
 {
     int x, y;
@@ -141,12 +123,7 @@ void loadMap(char *name)
 
 
 
-/*! \brief  Dessine la map sur un rendu en récupérant les coordonnées de la matrice pour une couche donnée.
- *      
- *  param[in] int layer Nom de la couche à modéliser
- * 
- *  \return void
- */ 
+
 void drawMap(int layer)
 {
     int x, y, mapX, x1, x2, mapY, y1, y2, xsource, ysource, a;
@@ -236,11 +213,7 @@ void drawMap(int layer)
 
 
 
-/*! \brief  Charge une nouvelle map en nettoyant la mémoire qui est occupé à ce moment précis
- *      
- * 
- *  \return void
- */ 
+ 
 void changeLevel(void)
 {
     
@@ -266,11 +239,7 @@ void changeLevel(void)
 
 
 
-/*! \brief  Récupère les coordonnées de départ en abscisse du personnage
- *      
- * 
- *  \return int
- */ 
+
 int getStartX(void)
 {
     return map.startX;
@@ -278,12 +247,7 @@ int getStartX(void)
 
 
 
-/*! \brief  Initialise les coordonnées de départ en abscisse sur la map
- *      
- *  param[in]   int valeur Valeur de la coordonnée
- * 
- *  \return void
- */  
+ 
 void setStartX(int valeur)
 {
     map.startX = valeur;
@@ -291,11 +255,7 @@ void setStartX(int valeur)
 
 
 
-/*! \brief  Récupère les coordonnées de départ en ordonnée du personnage
- *      
- * 
- *  \return int
- */ 
+
 int getStartY(void)
 {
     return map.startY;
@@ -303,12 +263,7 @@ int getStartY(void)
 
 
 
-/*! \brief  Initialise les coordonnées de départ en ordonnée sur la map
- *      
- *  param[in]   int valeur  Valeur de la coordonnée
- * 
- *  \return void
- */  
+
 void setStartY(int valeur)
 {
     map.startY = valeur;
@@ -316,11 +271,7 @@ void setStartY(int valeur)
 
 
 
-/*! \brief  Récupère les coordonnées en abscisse de la fin de la map
- *      
- * 
- *  \return int
- */  
+ 
 int getMaxX(void)
 {
     return map.maxX;
@@ -328,11 +279,7 @@ int getMaxX(void)
 
 
 
-/*! \brief  Récupère les coordonnées en ordonnée de la fin de la map
- *      
- * 
- *  \return int
- */ 
+
 int getMaxY(void)
 {
     return map.maxY;
@@ -340,11 +287,7 @@ int getMaxY(void)
 
 
 
-/*! \brief  Récupère les coordonnées en abscisse du début de la map
- *      
- * 
- *  \return int
- */ 
+ 
 int getBeginX(void)
 {
     return map.beginx;
@@ -352,11 +295,7 @@ int getBeginX(void)
 
 
 
-/*! \brief  Récupère les coordonnées en ordonnée du début de la map
- *      
- * 
- *  \return int
- */ 
+
 int getBeginY(void)
 {
     return map.beginy;
@@ -369,12 +308,7 @@ SDL_Texture *getTileSetA(void)
 }
 
 
-/*! \brief  Gère les collisions avec les différentes textures de la map
- *      
- *  param[in]   GameObject *entity  Une entité (texture animée)
- * 
- *  \return void
- */ 
+
 void mapCollision(GameObject *entity)
 {
  

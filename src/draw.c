@@ -13,10 +13,7 @@
 SDL_Texture *HUD_vie, *HUD_etoiles;
  
 
-/*! \brief  Affiche à l'écran les différentes interfaces graphiques du jeu
- *  
- *  \return void
- */
+
 void drawGame(void)
 {
     // Affiche le fond (background) aux coordonnées (0,0)
@@ -44,12 +41,7 @@ void drawGame(void)
 
 
 
-/*! \brief  Charge une image de nom *name
- *  
- *  \param[in]  char *name  Chaine de caractères correspondant un nom de l'image à charger
- * 
- *  \return SDL_Texture 
- */ 
+
 SDL_Texture *loadImage(char *name)
 {
     
@@ -78,14 +70,7 @@ SDL_Texture *loadImage(char *name)
 
 
 
-/*! \brief  Dessine une image en fonction des paremètres passés en paramètres
- *  
- *  \param[in]  SDL_Texture *image      Une image
- *  \param[in]  int x                   Coordonnées en abscisses (coin en haut à gauche de l'image)
- *  \param[in]  int y                   Coordonnées en ordonnée (coin en haut à gauche de l'image)
- * 
- *  \return void
- */   
+  
 void drawImage(SDL_Texture *image, int x, int y)
 {
     
@@ -103,12 +88,7 @@ void drawImage(SDL_Texture *image, int x, int y)
  
 
 
-/*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
- *  
- *  \param[in]  unsigned int frameLimit      
- * 
- *  \return void
- */ 
+
 void delay(unsigned int frameLimit)
 {
     // Gestion des 60 fps (images/seconde)
@@ -133,15 +113,7 @@ void delay(unsigned int frameLimit)
 
 
 
-/*! \brief  charge une image dans un rectangle dans les coordonnées sont passées en paramètres
- *  \param[in]  SDL_Texture *image      l'image à charger
- *  \param[in]  int destx               coordonnées x de la destination
- *  \param[in]  int desty               coordonnées y de la destination
- *  \param[in]  int srcx                coordonnées x de la source
- *  \param[in]  int srcy                coordonnées y de la source
- * 
- *  \return void
- */ 
+
 void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 {
     /* Rectangle de destination à dessiner */
@@ -165,11 +137,7 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 }
 
 
-/*! \brief  Charge les images pour les pièces et pour la vie 
- *  
- * 
- *  \return void
- */ 
+
 void initHUD(void)
 {
     /* On charge les images du HUD */
@@ -178,11 +146,7 @@ void initHUD(void)
 }
  
 
-/*! \brief  Nettoie et libère proprement les textures
- *  
- * 
- *  \return void
- */ 
+
 void cleanHUD(void)
 {
     if (HUD_etoiles != NULL)
@@ -197,11 +161,7 @@ void cleanHUD(void)
 }
 
 
-/*! \brief  Dessine les compteurs de vie et de pièces sur le rendu
- *  
- * 
- *  \return void
- */ 
+
 void drawHud(void)
 {
     //On crée une varuiable qui contiendra notre texte (jusqu'à 200 caractères, y'a de la marge ;) ).

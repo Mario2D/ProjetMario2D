@@ -1,22 +1,13 @@
 #include "prototypes.h"
  
-/*! \brief  Appelle la fonction getInput() 
- *  
- *  param[in]   Input *input    Une entrée    
- * 
- *  \return void
- */ 
+
 void gestionInputs(Input *input)
 {
     //On gère le clavier 
     getInput(input);
 }
  
-/*! \brief  Fonction qui va gérer les touches du clavier, c'est-à-dire qu'elle va boucler sur chaque évènement qui pourra être traité par le jeu.
- *  
- *  param[in]   Input *input    Une entrée  
- *  \return void
- */ 
+
 void getInput(Input *input)
 {
     SDL_Event event;
