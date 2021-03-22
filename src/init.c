@@ -41,10 +41,16 @@ void loadGame(void)
 
     /* On initialise les variables du jeu */
     setNombreDeVies(3);
-    setNombreDetoiles(0);
+    setNombreDePieces(0);
     
     /* On charge le HUD */
     initHUD();
+
+    //On charge la musique
+    loadSong("sounds/overworld.wav");
+ 
+    /* On charge les sounds Fx */
+    loadSound();
  
 }
  
@@ -131,8 +137,12 @@ void cleanup()
     //Libère le HUD
     cleanHUD();
     
-
+    /* On libère la musique */
+    cleanUpMusic();
     
+    //On libère les sons
+    freeSound();
+
     //On quitte SDL_Mixer 2 et on décharge la mémoire
     Mix_CloseAudio();
     Mix_Quit();

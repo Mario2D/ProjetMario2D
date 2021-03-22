@@ -259,6 +259,7 @@ void updatePlayer(Input *input)
             player.dirY = -JUMP_HEIGHT;
             player.onGround = 0;
             player.jump = 1;
+            playSoundFx(JUMP);
         }
         input->jump = 0;
     }

@@ -109,7 +109,6 @@ extern void drawImage(SDL_Texture *, int, int);
  *  \return void
  */ 
 extern void drawMap(int);
-extern void drawMonster(GameObject *entity);
 
 /*! \brief  Dessine le héros aux coordonnées récupérées dans la fonction
  *  
@@ -209,8 +208,6 @@ extern int getMaxX(void);
  *  \return int
  */ 
 extern int getMaxY(void);
-extern GameObject *getMonster(int nombre);
-extern int getMonsterNumber(void);
 
 /*! \brief Récupère le nombre de pièce(s)
  *  
@@ -275,12 +272,6 @@ extern int getStartY(void);
  */ 
 extern SDL_Texture *getTileSetA(void);
 
-/*! \brief  Récupère le tileSet B
- *      
- * 
- *  \return SDL_Texture
- */ 
-extern SDL_Texture *getTileSetB(void);
 extern int getTileValue(int y, int x);
 
 /*! \brief  Initialisation globale des outils SDL
@@ -305,8 +296,6 @@ extern void initHUD(void);
  *  \return void
  */ 
 extern void initMaps(int level);
-extern void initializeNewMonster(int x, int y);
-extern void initMonsterSprites(void);
 
 /*! \brief  Charge le spritesheet du héros au début du level
  *  
@@ -322,7 +311,6 @@ extern void initPlayerSprites(void);
  *  \return void
  */
 extern void initializePlayer(int newLevel);
-extern void killPlayer(void);
 
 /*! \brief  On charge du texte à l'aide de SDL_TTF dans une taille et une police spécifiée
  *  
@@ -362,10 +350,6 @@ extern void loadMap(char *name);
  *  \return void
  */ 
 extern void mapCollision(GameObject *entity);
-extern void monsterCollisionToMap(GameObject *entity);
-extern void openJoystick(void);
-extern void playerHurts(GameObject *monster);
-extern void resetMonsters(void);
 
 /*! \brief Récupère le nombre de vie(s)
  *  
@@ -423,7 +407,6 @@ extern void setStartY(int valeur);
  *  \return void
  */
 extern void SetValeurDuNiveau(int valeur);
-extern void updateMonsters();
 
 /*! \brief  Fonction qui va reposistionner le personnage au dernier checkpoint, c'est-à-dire soit au début, soit au milieu du niveau
  *  
@@ -432,6 +415,43 @@ extern void updateMonsters();
  *  \return void
  */
 extern void updatePlayer(Input *input);
+
+/*! \brief  Fonction qui va charger et jouer une musique à l'infini
+ *  
+ *  param[in]   char filename[200] nom du fichier de la musique
+ * 
+ *  \return void
+ */
+extern void loadSong(char filename[200]);
+
+/*! \brief  Fonction qui va libérer une musique
+ *  
+ * 
+ *  \return void
+ */
+extern void cleanUpMusic(void);
+
+/*! \brief  Fonction qui va charger un son
+ *  
+ * 
+ *  \return void
+ */
+extern void loadSound(void);
+
+/*! \brief  Fonction qui va libérer un son
+ *  
+ * 
+ *  \return void
+ */
+extern void freeSound(void);
+
+/*! \brief  Fonction qui va jouer un son enfonction d'un évènement
+ *  
+ *  param[in]   int type type d'évènement
+ * 
+ *  \return void
+ */
+extern void playSoundFx(int type);
  
  
  

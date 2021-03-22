@@ -92,4 +92,12 @@ typedef struct GameObject
  
 } GameObject;
 
+//Une enum pour la gestion des sons.
+enum
+{
+    BUMPER,
+    JUMP,
+    COIN
+};
+
 #endif
