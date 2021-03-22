@@ -51,6 +51,7 @@ void loadGame(void)
  
     /* On charge les sounds Fx */
     loadSound();
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
  
 }
  

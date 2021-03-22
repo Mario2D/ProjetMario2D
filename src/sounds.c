@@ -67,6 +67,9 @@ void loadSound(void)
         fprintf(stderr, "Can't read the coin sound FX \n");
         exit(1);
     }
+    Mix_VolumeChunk(bumper_sound, MIX_MAX_VOLUME/3);
+    Mix_VolumeChunk(jump_sound, MIX_MAX_VOLUME/3);
+    Mix_VolumeChunk(coin_sound, MIX_MAX_VOLUME/3);
  
 }
  
