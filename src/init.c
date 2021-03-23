@@ -14,10 +14,7 @@ SDL_Renderer *renderer;
  
 
 
-/*! \brief  Récupère un rendu
- * 
- *  \return SDL_Renderer
- */ 
+
 SDL_Renderer *getrenderer(void)
 {
     return renderer;
@@ -26,10 +23,7 @@ SDL_Renderer *getrenderer(void)
 
 
 
-/*! \brief  S'occupe de charger le jeu, c'est-à-dire la map et le sprite du personnage
- *  
- *  \return void
- */ 
+
 void loadGame(void)
 {
     
@@ -47,22 +41,24 @@ void loadGame(void)
 
     /* On initialise les variables du jeu */
     setNombreDeVies(3);
-    setNombreDetoiles(0);
+    setNombreDePieces(0);
     
     /* On charge le HUD */
     initHUD();
+
+    //On charge la musique
+    loadSong("sounds/overworld.wav");
+ 
+    /* On charge les sounds Fx */
+    loadSound();
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
  
 }
  
  
 
 
-/*! \brief  Initialisation globale des outils SDL
- *  
- *  \param[in]  char *title     Nom de la fenêtre à générer
- * 
- *  \return void
- */ 
+
 void init(char *title)
 {
 
@@ -130,10 +126,7 @@ void init(char *title)
  
  
  
-/*! \brief  La fonction quitte tous les outils proprement on libérant la mémoire 
- *  
- *  \return void
- */ 
+
 void cleanup()
 {
     //Nettoie les sprites de la map
@@ -145,8 +138,12 @@ void cleanup()
     //Libère le HUD
     cleanHUD();
     
-
+    /* On libère la musique */
+    cleanUpMusic();
     
+    //On libère les sons
+    freeSound();
+
     //On quitte SDL_Mixer 2 et on décharge la mémoire
     Mix_CloseAudio();
     Mix_Quit();
