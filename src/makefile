@@ -1,52 +1,21 @@
-EXEC =Prog
-CFLAGS = -Wall -g 
-
-SDL_DIR= ${HOME}/SDL2
-SDLLIB_DIR=${SDL_DIR}/lib
-SDLINC_DIR=${SDL_DIR}/include/SDL2
-
-LIBS=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image
-INCLUDES=-I${SDLINC_DIR} 
-LDFLAGS=${LIBS} ${INCS} ${FLAGS}
-
-SRCDIR=../src
-OBJDIR=obj
-BINDIR=bin
-
-DIRS=$(OBJDIR) $(BINDIR)
-
-.PHONY=DIRS
-
-all: $(DIRS) $(BINDIR)/$(EXEC)
+CC = gcc
+CFLAGS = -W -Wall  #windows
 
 
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-$(BINDIR):
-	mkdir -p $(BINDIR)
+INCLUDES = -I ../include
+LIBS = -L ../lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+EXEC = ../bin/prog  
 
-SOURCES = $(wildcard $(SRCDIR)/*.c)
-INCLUDES = $(wildcard $(SRCDIR)/*.h)
+OBJ= sounds.o font.o draw.o init.o input.o map.o player.o
+all: $(EXEC)
 
-OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+$(EXEC): $(OBJ)
+	$(CC) -o $@ $^ $(INCLUDES) $(LIBS)
 
+  
 
-$(BINDIR)/$(EXEC): $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $@
-	@echo "Liens terminés!"
+%.o: %.c
+	$(CC) -o $@ -c $< $(INCLUDES) $(LIBS)
 
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	@$(CC) -c $< -I$(SRCDIR) -o $@
-	@echo "Compilation de "$<" terminée!"
-
- 
-.PHONY: clean
-clean:
-	-@rm -rf $(OBJDIR)
-	@echo "Nettoyage terminé!"
-
-.PHONY: remove
-remove: clean
-	-@rm -rf $(BINDIR)
-	-@rm -rf docs/
-	@echo "Exécutable et documentation supprimés!"
+# commande de compilation
+#gcc src/main.c src/sounds.c src/font.c src/draw.c src/init.c src/input.c src/map.c src/player.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf

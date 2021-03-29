@@ -84,9 +84,8 @@
 #define TILE_POWER_UP_FIN 69
  
 //Autres Tiles spéciales
-#define TILE_CHECKPOINT 23
-#define TILE_MONSTRE 126
-#define TILE_PIKES 117
+#define TILE_CHECKPOINT 11
+#define TILE_PIKES 74
  
 
 #endif
