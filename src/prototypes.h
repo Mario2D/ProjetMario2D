@@ -9,11 +9,11 @@
 
 #ifndef PROTOTYPES
 #define PROTOTYPES
- 
+
 #include "structs.h"
  
 /* Catalogue des prototypes des fonctions utilisées.
-   On le complétera au fur et à mesure. */
+   On le complétera au fur et à mesure. */ 
 
 
 
