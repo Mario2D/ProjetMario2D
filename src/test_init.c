@@ -1,11 +1,3 @@
-/*!
-/*  \file       init.c
-/*  \brief      initialise tous les outils nécessaires aux fonctionnalités
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
- */
-
 #include "prototypes.h"
  
  
@@ -19,9 +11,6 @@ SDL_Renderer *getrenderer(void)
 {
     return renderer;
 }
-
-
-
 
 
 void loadGame(void)
