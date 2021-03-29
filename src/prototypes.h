@@ -32,7 +32,6 @@ extern void centerScrollingOnPlayer(void);
  *  \return void
  */
 extern void changeLevel(void);
-extern int checkFall(GameObject monster);
 
 /*! \brief  Nettoie et libère proprement les textures
  *  
@@ -47,7 +46,6 @@ extern void cleanHUD(void);
  *  \return void
  */ 
 extern void cleanMaps(void);
-extern void cleanMonsters(void);
 
 /*! \brief  Vide la mémoire liée au sprite proprement
  *  
@@ -68,8 +66,6 @@ extern void cleanup(void);
  *  \return void
  */ 
 extern void closeFont(void);
-extern void closeJoystick(void);
-extern int collide(GameObject *player, GameObject *monster);
 
 /*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
  *  
@@ -179,7 +175,6 @@ extern int getBeginY(void);
  *  \return void
  */ 
 extern void getInput(Input *input);
-extern void getJoystick(Input *input);
 
 /*! \brief Récupère l'entier lié au level
  *  
@@ -229,7 +224,6 @@ extern int getNombreDeVies(void);
  *  \return GameObject
  */ 
 extern GameObject *getPlayer(void);
-extern int getPlayerDirection(void);
 
 /*! \brief  Récupère les coordonnées en abscisse du héros
  *  
@@ -271,8 +265,6 @@ extern int getStartY(void);
  *  \return SDL_Texture
  */ 
 extern SDL_Texture *getTileSetA(void);
-
-extern int getTileValue(int y, int x);
 
 /*! \brief  Initialisation globale des outils SDL
  *  
