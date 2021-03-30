@@ -11,7 +11,7 @@
 #include "prototypes.h"
  
 int level;
-int vies, etoiles;
+int vies, pieces;
 GameObject player;
 SDL_Texture *playerSpriteSheet;
  
@@ -75,12 +75,12 @@ void setNombreDeVies(int valeur)
 
 int getNombreDepieces(void)
 {
-    return etoiles;
+    return pieces;
 }
  
 void setNombreDePieces(int valeur)
 {
-    etoiles = valeur;
+    pieces = valeur;
 }
  
  
@@ -406,4 +406,49 @@ void centerScrollingOnPlayer(void)
         setStartY(getMaxY() - SCREEN_HEIGHT);
     }
     
+}
+
+
+void getItem(int itemNumber)
+{
+    switch (itemNumber)
+    {
+        //Gestion des étoiles
+        case 1:
+        //On incrémente le compteur Etoile
+        setNombreDePieces(getNombreDepieces() + 1);
+        playSoundFx(COIN);
+        
+        //On teste s'il y a 100 étoiles : on remet le compteur à 0 et on rajoute une vie ;)
+        if (getNombreDepieces() >= 100)
+        {
+            setNombreDePieces(0);
+            //On incrémente le nombre de vies (max 99)
+            if (getNombreDeVies() < 99)
+                setNombreDeVies(getNombreDeVies() + 1);
+        }
+        break;
+        
+        //Gestion des coeurs
+        case 2:
+        //On incrémente le compteur Etoile
+        if (player.life < 3)
+            player.life++;
+        
+        playSoundFx(COIN);
+        break;
+        
+        //Gestion des vies
+        case 3:
+        //On incrémente le nombre de vies (max 99)
+        if (getNombreDeVies() < 99)
+            setNombreDeVies(getNombreDeVies() + 1);
+        
+        playSoundFx(COIN);
+        break;
+        
+        default:
+        break;
+    }
+ 
 }

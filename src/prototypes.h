@@ -437,7 +437,6 @@ extern void freeSound(void);
  *  \return void
  */
 extern void playSoundFx(int type);
-
 extern GameObject *getMonster(int nombre);
 extern int getMonsterNumber(void);
 extern void resetMonsters(void);
@@ -451,6 +450,15 @@ extern void drawMonster(GameObject *entity);
 extern int getTileValue(int y, int x);
 extern void monsterCollisionToMap(GameObject *entity);
 extern void killPlayer(void);
+
+/*! \brief  Met à jour les compteurs de pièces et de vies en fonction des power-up (tiles spéciales)
+ *  
+ *  param[in]   int itemNumber Valeur de l'item
+ * 
+ *  \return void
+ */
+extern void getItem(int itemNumber);
+
 
  
  

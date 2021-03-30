@@ -89,8 +89,8 @@
  
 
 //Tiles Power-ups
-#define TILE_POWER_UP_DEBUT 67
-#define TILE_POWER_UP_FIN 69
+#define TILE_POWER_UP_DEBUT 9
+#define TILE_POWER_UP_FIN 9
  
 //Autres Tiles spéciales
 #define TILE_CHECKPOINT 11
