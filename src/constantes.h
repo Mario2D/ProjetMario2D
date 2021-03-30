@@ -96,6 +96,10 @@
 #define TILE_CHECKPOINT 11
 #define TILE_PIKES 74
 #define TILE_MONSTRE 2
+
+
+
+
  
 
 #endif

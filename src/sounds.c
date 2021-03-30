@@ -3,11 +3,10 @@
  
  
 //Sounds Fx
-Mix_Chunk *bumper_sound, *jump_sound, *coin_sound;
+Mix_Chunk *bumper_sound, *jump_sound, *coin_sound, *mob_sound, *mort_sound;
  
 //Musique
 Mix_Music *musique;
- 
  
 void loadSong(char filename[200])
 {
@@ -40,7 +39,7 @@ void cleanUpMusic(void)
 {
     /* On libère la musique */
     if (musique != NULL)
-    Mix_FreeMusic(musique);
+        Mix_FreeMusic(musique);
 }
  
  
@@ -67,9 +66,28 @@ void loadSound(void)
         fprintf(stderr, "Can't read the coin sound FX \n");
         exit(1);
     }
-    Mix_VolumeChunk(bumper_sound, MIX_MAX_VOLUME/3);
-    Mix_VolumeChunk(jump_sound, MIX_MAX_VOLUME/3);
-    Mix_VolumeChunk(coin_sound, MIX_MAX_VOLUME/3);
+
+    mob_sound = Mix_LoadWAV("sounds/blockbreak.wav");
+    if (mob_sound == NULL)
+    {
+        fprintf(stderr, "Can't read the destroy sound FX \n");
+        exit(1);
+    }
+
+    mort_sound = Mix_LoadWAV("sounds/death.wav");
+    if(mort_sound == NULL)
+    {
+        fprintf(stderr, "Can't read the death sound FX \n");
+        exit(1);
+
+    }
+
+    Mix_VolumeChunk(bumper_sound, MIX_MAX_VOLUME/4);
+    Mix_VolumeChunk(jump_sound, MIX_MAX_VOLUME/4);
+    Mix_VolumeChunk(coin_sound, MIX_MAX_VOLUME/4);
+    Mix_VolumeChunk(mob_sound, MIX_MAX_VOLUME/4);
+    Mix_VolumeChunk(mort_sound, MIX_MAX_VOLUME/4);
+
  
 }
  
@@ -80,7 +98,9 @@ void freeSound(void)
     Mix_FreeChunk(bumper_sound);
     Mix_FreeChunk(jump_sound);
     Mix_FreeChunk(coin_sound);
- 
+    Mix_FreeChunk(mob_sound);
+    Mix_FreeChunk(mort_sound);
+    
 }
  
  
@@ -100,6 +120,14 @@ void playSoundFx(int type)
         
         case COIN:
             Mix_PlayChannel(-1, coin_sound, 0);
+            break;
+
+        case MORT_HERO:
+            Mix_PlayChannel(-1, mort_sound, 0);
+            break;
+            
+        case MORT_MOB:
+            Mix_PlayChannel(-1, mob_sound, 0);
             break;
     
     }

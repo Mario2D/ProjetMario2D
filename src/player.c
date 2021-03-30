@@ -113,6 +113,7 @@ void killPlayer(void)
 {
     //On met le timer à 1 pour tuer le joueur intantanément
     player.timerMort = 1;
+    playSoundFx(MORT_HERO);
 }
  
 
@@ -297,12 +298,23 @@ void updatePlayer(Input *input)
     
         if (player.timerMort == 0)
         {
+            Mix_PauseMusic();
+
             // Si on est mort, on perd une vie
             setNombreDeVies(getNombreDeVies() - 1);
+
+            
+            playSoundFx(MORT_HERO);
+            
+            
 
             // Si on est mort, on réinitialise le niveau
             changeLevel();
             initializePlayer(0);
+
+            SDL_Delay(3000);
+            loadSong("sounds/overworld.wav");
+
         }
     }
 }

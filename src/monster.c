@@ -129,6 +129,7 @@ void updateMonsters()
         {
             //On met le timer à 1 pour tuer le monstre intantanément
             monster[i].timerMort = 1;
+            playSoundFx(MORT_MOB);
         }
         
         }

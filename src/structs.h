@@ -97,7 +97,10 @@ enum
 {
     BUMPER,
     JUMP,
-    COIN
+    COIN,
+    MORT_MOB,
+    MORT_HERO,
+    MUSIQUE
 };
 
 #endif
