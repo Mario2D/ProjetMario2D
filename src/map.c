@@ -381,6 +381,27 @@ void mapCollision(GameObject *entity)
             //Si on a un mouvement à droite
             if (entity->dirX > 0)
             {
+
+                //Test des tiles Power-up
+                if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y1][x2] = 0;
+                }
+
+
+                else if (map.tile[y2][x2] >= TILE_POWER_UP_DEBUT && map.tile[y2][x2] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y2][x2] = 0;
+                }
+
                 //On vérifie si les tiles recouvertes sont solides
                 if (map.tile[y1][x2] > BLANK_TILE || map.tile[y2][x2] > BLANK_TILE)
                 {
@@ -396,6 +417,28 @@ void mapCollision(GameObject *entity)
             //Même chose à gauche
             else if (entity->dirX < 0)
             {
+
+
+                //Test des tiles Power-up : Etoile et vie
+                if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT
+                && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y1][x1] = 0;
+                }
+                else if (map.tile[y2][x1] >= TILE_POWER_UP_DEBUT
+                && map.tile[y2][x1] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y2][x1] = 0;
+                }
+
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y2][x1] > BLANK_TILE)
                 {
                     entity->x = (x1 + 1) * TILE_SIZE;
@@ -440,6 +483,59 @@ void mapCollision(GameObject *entity)
             if (entity->dirY > 0)
             {
                 /* Déplacement en bas */
+
+
+                //Test des tiles Power-up)
+                if (map.tile[y2][x1] >= TILE_POWER_UP_DEBUT
+                && map.tile[y2][x1] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y2][x1] = 0;
+                }
+                else if (map.tile[y2][x2] >= TILE_POWER_UP_DEBUT
+                && map.tile[y2][x2] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y2][x2] = 0;
+                }
+                
+                
+                /* Gestion des pics */
+                if ((map.tile[y2][x1] == TILE_PIKES) || (map.tile[y2][x2] == TILE_PIKES))
+                {
+                
+                    //On joue le son
+                    playSoundFx(MORT_HERO);
+                    //On fait sauter le joueur
+                    entity->dirY = -JUMP_HEIGHT;
+                
+                    if (entity->life > 1)
+                    {
+                        //Si le timer d'invincibilité est à 0
+                        //on perd un coeur
+                        if (entity->invincibleTimer == 0)
+                        {
+                        entity->life--;
+                        entity->invincibleTimer = 80;
+                        }
+                    }
+                    else
+                    {
+                        //On met le timer à 1 pour tuer le joueur intantanément
+                        entity->timerMort = 1;
+                        //On joue le son
+                        playSoundFx(MORT_HERO);
+                    }
+                }
+
+
+
         
                 //Gestion des plateformes traversables 
                 if (map.tile[y2][x1] > TILE_TRAVERSABLE || map.tile[y2][x2] > TILE_TRAVERSABLE)
@@ -458,6 +554,28 @@ void mapCollision(GameObject *entity)
             {
             
                 /* Déplacement vers le haut */
+
+                //Test des tiles Power-up
+                if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT
+                && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y1][x1] = 0;
+                }
+                if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT
+                && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
+                {
+                    //On appelle la fonction getItem()
+                    getItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
+                    
+                    //On remplace la tile power-up par une tile transparente
+                    map.tile[y1][x2] = 0;
+                }
+
+
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y1][x2] > BLANK_TILE)
                 {
                     entity->y = (y1 + 1) * TILE_SIZE;

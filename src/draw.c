@@ -10,7 +10,7 @@
 
 
 //HUD
-SDL_Texture *HUD_vie, *HUD_etoiles;
+SDL_Texture *HUD_vie, *HUD_pieces;
  
 
 
@@ -148,16 +148,16 @@ void initHUD(void)
 {
     /* On charge les images du HUD */
     HUD_vie = loadImage("images/life.png");
-    HUD_etoiles = loadImage("images/piece.png");
+    HUD_pieces = loadImage("images/piece.png");
 }
  
 
 
 void cleanHUD(void)
 {
-    if (HUD_etoiles != NULL)
+    if (HUD_pieces != NULL)
     {
-        SDL_DestroyTexture(HUD_etoiles);
+        SDL_DestroyTexture(HUD_pieces);
     }
     
     if (HUD_vie != NULL)
@@ -190,7 +190,7 @@ void drawHud(void)
     drawString(text, SCREEN_WIDTH - 82, 20, 255, 255, 255, 255);
     
     /* Affiche le nombre de pièces en haut à gauche */
-    drawImage(HUD_etoiles, 20, 20);
+    drawImage(HUD_pieces, 20, 20);
     
     sprintf_s(text, sizeof(text), "%d", getNombreDepieces());
     drawString(text, 60, 20, 0, 0, 0, 255);
