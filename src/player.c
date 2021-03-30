@@ -59,12 +59,6 @@ int getLevel(void)
 }
 
 
-int getLife(void)
-{
-    return player.life;
-}
-
-
 
 int getNombreDeVies(void)
 {
@@ -113,17 +107,21 @@ void cleanPlayer(void)
     playerSpriteSheet = NULL;
     }
 }
-
-
+ 
+ 
+void killPlayer(void)
+{
+    //On met le timer à 1 pour tuer le joueur intantanément
+    player.timerMort = 1;
+}
+ 
 
 void initializePlayer(int newLevel)
 {
  
     //PV à 3
     player.life = 3;
-    
-    //Timer d'invincibilité à 0
-    player.invincibleTimer = 0;
+
     
     //Indique l'état et la direction de notre héros
     player.direction = RIGHT;
@@ -147,6 +145,11 @@ void initializePlayer(int newLevel)
     //Variables nécessaires au fonctionnement de la gestion des collisions
     player.timerMort = 0;
     player.onGround = 0;
+
+    
+    //Réinitialise les monstres
+    /* Libère le sprite des monstres */
+    resetMonsters();
  
 }
 

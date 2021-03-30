@@ -41,6 +41,15 @@
 /* Taille du sprite de notre héros */
 #define PLAYER_WIDTH 32
 #define PLAYER_HEIGTH 40
+
+
+//Nombre max de monstres à l'écran
+#define MONSTRES_MAX 50
+
+
+//Dimensions du monstre
+#define MONSTER_WIDTH 20
+#define MONSTER_HEIGTH 22
  
 
 //Vitesse de déplacement en pixels du sprite
@@ -86,6 +95,7 @@
 //Autres Tiles spéciales
 #define TILE_CHECKPOINT 11
 #define TILE_PIKES 74
+#define TILE_MONSTRE 2
  
 
 #endif

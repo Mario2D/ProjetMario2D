@@ -28,6 +28,12 @@ void drawGame(void)
     /* Affiche le joueur */
     drawPlayer();
 
+    /* Affiche les monstres */
+    for (int i = 0; i < getMonsterNumber(); i++)
+    {
+    drawMonster(getMonster(i));
+    }
+
     //On affiche le HUD par-dessus tout le reste
     drawHud();
     

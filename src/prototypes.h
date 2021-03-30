@@ -183,13 +183,6 @@ extern void getInput(Input *input);
  */
 extern int getLevel(void);
 
-/*! \brief Récupère les points de vie du héros
- *  
- * 
- *  \return int
- */
-extern int getLife(void);
-
 /*! \brief  Récupère les coordonnées en abscisse de la fin de la map
  *      
  * 
@@ -444,6 +437,21 @@ extern void freeSound(void);
  *  \return void
  */
 extern void playSoundFx(int type);
+
+extern GameObject *getMonster(int nombre);
+extern int getMonsterNumber(void);
+extern void resetMonsters(void);
+extern void initMonsterSprites(void);
+extern void cleanMonsters(void);
+extern void initializeNewMonster(int x, int y);
+extern void updateMonsters();
+extern int collide(GameObject *player, GameObject *monster);
+extern int checkFall(GameObject monster);
+extern void drawMonster(GameObject *entity);
+extern int getTileValue(int y, int x);
+extern void monsterCollisionToMap(GameObject *entity);
+extern void killPlayer(void);
+
  
  
  

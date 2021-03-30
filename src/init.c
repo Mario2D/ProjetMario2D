@@ -30,11 +30,12 @@ void loadGame(void)
     //On charge les données pour la map
     initMaps(1);
     
-    //NOUVEAU : On charge la feuille de sprites (spritesheet) de notre héros
-
+    //On charge la feuille de sprited de mario
     initPlayerSprites();
 
-    
+    //On charge la feuille de sprites du monstre
+    initMonsterSprites();
+
     //On commence au premier niveau
     SetValeurDuNiveau(1);
     changeLevel();
@@ -75,7 +76,7 @@ void init(char *title)
     if (screen == NULL || renderer == NULL)
     {
         printf("Impossible d'initialiser le mode écran à %d x %d: %s\n", SCREEN_WIDTH,
-        SCREEN_HEIGHT, SDL_GetError());
+            SCREEN_HEIGHT, SDL_GetError());
         exit(1);
     }
  
@@ -134,6 +135,9 @@ void cleanup()
     
     //Libère le sprite du héros 
     cleanPlayer();
+
+    /* Libère le sprite des monstres */
+    cleanMonsters();
 
     //Libère le HUD
     cleanHUD();
