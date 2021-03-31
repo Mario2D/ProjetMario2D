@@ -92,20 +92,16 @@
 
 //Tiles Power-ups
 #define TILE_POWER_UP_DEBUT 9
-#define TILE_POWER_UP_FIN 9
+#define TILE_POWER_UP_FIN 10
  
 //Autres Tiles spéciales
 #define TILE_CHECKPOINT 11
-#define TILE_PIKES 74
+#define TILE_PIKES 10
 #define TILE_MONSTRE 2
 
 
 //Nombre max de levels
 #define LEVEL_MAX 3
 
-
-
-
- 
 
 #endif

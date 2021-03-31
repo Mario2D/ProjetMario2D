@@ -249,7 +249,7 @@ void drawMap(int layer)
 
 
  
-void changeLevel(void)
+void changeLevel(int level)
 {
     
     char file[200];
@@ -264,6 +264,7 @@ void changeLevel(void)
         SDL_DestroyTexture(map.tileSet);
     }
 
+    initMaps(getLevel());
     
     sprintf_s(file, sizeof(file), "images/tileset%d.png", map.tilesetAffiche);
     map.tileSet = loadImage(file);
@@ -734,7 +735,7 @@ void mapCollision(GameObject *entity)
             //On désactive le checkpoint
             entity->checkpointActif = 0;
             
-            changeLevel();
+            changeLevel(getLevel());
             initializePlayer(1);
         }
     }

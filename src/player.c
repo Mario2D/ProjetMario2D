@@ -365,7 +365,7 @@ void updatePlayer(Input *input)
 
             
             // Si on est mort, on réinitialise le niveau
-            changeLevel();
+            changeLevel(getLevel());
             initializePlayer(0);
 
             SDL_Delay(3000);

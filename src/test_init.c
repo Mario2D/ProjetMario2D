@@ -26,7 +26,7 @@ void loadGame(void)
     
     //On commence au premier niveau
     SetValeurDuNiveau(1);
-    changeLevel();
+    changeLevel(getLevel());
 
     /* On initialise les variables du jeu */
     setNombreDeVies(3);

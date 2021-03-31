@@ -31,7 +31,7 @@ extern void centerScrollingOnPlayer(void);
  * 
  *  \return void
  */
-extern void changeLevel(void);
+extern void changeLevel(int level);
 
 /*! \brief  Nettoie et libère proprement les textures
  *  
