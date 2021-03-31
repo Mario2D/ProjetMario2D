@@ -541,6 +541,12 @@ extern void killPlayer(void);
  */
 extern void getItem(int itemNumber);
 
+/*! \brief  Fonction qui remet le checkpoint du joueur à 0
+ *  
+ *  \return void
+ */
+extern void resetCheckpoint(void);
+
 
  
  

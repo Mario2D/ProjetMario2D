@@ -96,6 +96,11 @@ void initPlayerSprites(void)
 {
     playerSpriteSheet = loadImage("images/mario.png");
 }
+
+void resetCheckpoint(void)
+{
+    player.checkpointActif = 0;
+} 
  
  
 
@@ -137,9 +142,19 @@ void initializePlayer(int newLevel)
     
     //... et son nombre de frames max (8 pour l'anim' IDLE
     player.frameMax = 2;
-    
-    player.x = getBeginX();
-    player.y = getBeginY();
+
+    /* Coordonnées de démarrage/respawn de notre héros */
+    if (player.checkpointActif == 1)
+    {
+        player.x = player.respawnX;
+        player.y = player.respawnY;
+    }
+    else
+    {
+        player.x = getBeginX();
+        player.y = getBeginY();
+    }
+
     
     //On réinitiliase les coordonnées de la caméra
     //si on change de niveau

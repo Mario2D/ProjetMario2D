@@ -402,6 +402,34 @@ void mapCollision(GameObject *entity)
                     map.tile[y2][x2] = 0;
                 }
 
+                //Test de la tile checkpoint
+                if (map.tile[y1][x2] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x2 * TILE_SIZE;
+                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y1][x2] += 1;
+                }
+
+                else if (map.tile[y2][x2] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x2 * TILE_SIZE;
+                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y2][x2] += 1;
+                }
+ 
+
                 //On vérifie si les tiles recouvertes sont solides
                 if (map.tile[y1][x2] > BLANK_TILE || map.tile[y2][x2] > BLANK_TILE)
                 {
@@ -429,6 +457,7 @@ void mapCollision(GameObject *entity)
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y1][x1] = 0;
                 }
+
                 else if (map.tile[y2][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y2][x1] <= TILE_POWER_UP_FIN)
                 {
@@ -437,6 +466,32 @@ void mapCollision(GameObject *entity)
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y2][x1] = 0;
+                }
+
+                //Test de la tile checkpoint
+                if (map.tile[y1][x1] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x1 * TILE_SIZE;
+                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y1][x1] += 1;
+                }
+                else if (map.tile[y2][x1] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x1 * TILE_SIZE;
+                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y2][x1] += 1;
                 }
 
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y2][x1] > BLANK_TILE)
@@ -505,6 +560,33 @@ void mapCollision(GameObject *entity)
                     map.tile[y2][x2] = 0;
                 }
                 
+                //Test de la tile checkpoint
+                if (map.tile[y2][x1] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x1 * TILE_SIZE;
+                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y2][x1] += 1;
+                }
+
+                else if (map.tile[y2][x2] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x2 * TILE_SIZE;
+                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y2][x2] += 1;
+                }
+ 
                 
                 /* Gestion des pics */
                 if ((map.tile[y2][x1] == TILE_PIKES) || (map.tile[y2][x2] == TILE_PIKES))
@@ -575,6 +657,32 @@ void mapCollision(GameObject *entity)
                     map.tile[y1][x2] = 0;
                 }
 
+                //Test de la tile checkpoint
+                if (map.tile[y1][x1] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x1 * TILE_SIZE;
+                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y1][x1] += 1;
+                }
+                else if (map.tile[y1][x2] == TILE_CHECKPOINT)
+                {
+                    //On active le booléen checkpoint
+                    entity->checkpointActif = 1;
+                    
+                    //On enregistre les coordonnées
+                    entity->respawnX = x2 * TILE_SIZE;
+                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    
+                    //On change la tile
+                    map.tile[y1][x2] += 1;
+                }
+
 
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y1][x2] > BLANK_TILE)
                 {
@@ -609,10 +717,26 @@ void mapCollision(GameObject *entity)
         entity->x = 0;
     }
     
+
     else if (entity->x + entity->w >= map.maxX)
     {
-        //Si on touche le bord droit de l'écran, on stop le joueur
-        entity->x = map.maxX - entity->w - 1;
+        //Si on touche le bord droit de l'écran, on passe au niveau sup
+        SetValeurDuNiveau(getLevel() + 1);
+        //Si on dépasse le niveau max, on annule et on limite le déplacement du joueur
+        if (getLevel() > LEVEL_MAX)
+        {
+            SetValeurDuNiveau(LEVEL_MAX);
+            entity->x = map.maxX - entity->w - 1;
+        }
+        //Sinon, on passe au niveau sup, on charge la nouvelle map et on réinitialise le joueur
+        else
+        {
+            //On désactive le checkpoint
+            entity->checkpointActif = 0;
+            
+            changeLevel();
+            initializePlayer(1);
+        }
     }
     
     //S'il sort de l'écran par le bas (chute dans un trou), on lance le timer qui va gérer sa mort et son respawn

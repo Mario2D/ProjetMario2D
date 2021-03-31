@@ -100,6 +100,10 @@
 #define TILE_MONSTRE 2
 
 
+//Nombre max de levels
+#define LEVEL_MAX 3
+
+
 
 
  
