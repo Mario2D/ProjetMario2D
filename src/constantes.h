@@ -37,7 +37,9 @@
 /* Taille d'une tile (32 x 32 pixels) */
 #define TILE_SIZE 32
 
- 
+
+#define TIME_BETWEEN_2_FRAMES_PLAYER 4
+
 /* Taille du sprite de notre héros */
 #define PLAYER_WIDTH 32
 #define PLAYER_HEIGTH 40

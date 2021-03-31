@@ -71,8 +71,11 @@ typedef struct GameObject
     // + coordonnées de respawn (réapparition)
     int respawnX, respawnY;
     
+    // Variables utiles pour l'animation :
+    // Numéro de la frame (= image) en cours + timer
+    int frameNumber, frameTimer, frameMax;
 
-    // Nombre max de frames, état du sprite et direction
+    // état du sprite et direction
     // dans laquelle il se déplace (gauche / droite)
     int etat, direction;
     

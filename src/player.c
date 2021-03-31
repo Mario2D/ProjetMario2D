@@ -128,6 +128,15 @@ void initializePlayer(int newLevel)
     //Indique l'état et la direction de notre héros
     player.direction = RIGHT;
     player.etat = IDLE;
+
+    //Indique le numéro de la frame où commencer
+    player.frameNumber = 0;
+    
+    //...la valeur de son chrono ou timer
+    player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+    
+    //... et son nombre de frames max (8 pour l'anim' IDLE
+    player.frameMax = 2;
     
     player.x = getBeginX();
     player.y = getBeginY();
@@ -159,6 +168,26 @@ void initializePlayer(int newLevel)
 
 void drawPlayer(void)
 {
+    /* Gestion du timer */
+    // Si notre timer (un compte à rebours en fait) arrive à zéro
+    if (player.frameTimer <= 0)
+    {
+        //On le réinitialise
+        player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+        
+        //Et on incrémente notre variable qui compte les frames de 1 pour passer à la suivante
+        player.frameNumber++;
+        
+        //Mais si on dépasse la frame max, il faut revenir à la première :
+        if (player.frameNumber >= player.frameMax)
+            player.frameNumber = 0;
+    
+    }
+    //Sinon, on décrémente notre timer
+    else
+        player.frameTimer--;
+
+
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
     
@@ -171,8 +200,8 @@ void drawPlayer(void)
     /* Rectangle source */
     SDL_Rect src;
     
-    src.x = 0;
-    src.w = player.w ;
+    src.x = player.frameNumber * player.w;
+    src.w = player.w;
     src.h = player.h;
     
     //On calcule le Y de la bonne frame à dessiner, selon la valeur de l'état du héros 
@@ -221,6 +250,9 @@ void updatePlayer(Input *input)
         {
             //On enregistre l'anim de la marche et on l'initialise à 0
             player.etat = WALK;
+            player.frameNumber = 0;
+            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameMax = 2;
         }
     }
     
@@ -237,6 +269,9 @@ void updatePlayer(Input *input)
             {
             //On enregistre l'anim de la marche et on l'initialise à 0
             player.etat = WALK;
+            player.frameNumber = 0;
+            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameMax = 2;
         }
     }
     
@@ -248,6 +283,9 @@ void updatePlayer(Input *input)
         {
             //On enregistre l'anim de l'inactivité et on l'initialise à 0
             player.etat = IDLE;
+            player.frameNumber = 0;
+            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameMax = 1;
         }
     }
     
@@ -275,6 +313,9 @@ void updatePlayer(Input *input)
             if (player.etat != JUMP1)
             {
                 player.etat = JUMP1;
+                player.frameNumber = 0;
+                player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+                player.frameMax = 1;
             }
         }
     }
@@ -297,6 +338,9 @@ void updatePlayer(Input *input)
         if (player.timerMort == 0)
         {
             Mix_PauseMusic();
+            player.frameNumber = 0;
+            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameMax = 1;
 
             //tue le personnage
             killPlayer();

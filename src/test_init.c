@@ -88,7 +88,7 @@ void init(char *title)
     
     
     /* Chargement de la police */
-    loadFont("font/SyneMono-Regular.ttf", 32);
+    loadFont("font/mario.ttf", 32);
     
     
     //On initialise SDL_Mixer , qui gérera la musique et les effets sonores

@@ -177,7 +177,7 @@ void drawHud(void)
     
     
     /* Affiche le nombre de vies en bas à droite - Adaptation à la fenêtre auto */
-    drawImage(HUD_vie, SCREEN_WIDTH - 120, 20);
+    drawImage(HUD_vie, SCREEN_WIDTH - 125, 18);
     
     //Pour afficher le nombre de vies, on formate notre string pour qu'il prenne la valeur de la variable
     sprintf_s(text, sizeof(text), "x %d", getNombreDeVies());
@@ -190,7 +190,7 @@ void drawHud(void)
     drawString(text, SCREEN_WIDTH - 82, 20, 255, 255, 255, 255);
     
     /* Affiche le nombre de pièces en haut à gauche */
-    drawImage(HUD_pieces, 20, 20);
+    drawImage(HUD_pieces, 20, 15);
     
     sprintf_s(text, sizeof(text), "%d", getNombreDepieces());
     drawString(text, 60, 20, 0, 0, 0, 255);
