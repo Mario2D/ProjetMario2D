@@ -141,7 +141,7 @@ void initializePlayer(int newLevel)
     player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
     
     //... et son nombre de frames max (8 pour l'anim' IDLE
-    player.frameMax = 2;
+    player.frameMax = 1;
 
     /* Coordonnées de démarrage/respawn de notre héros */
     if (player.checkpointActif == 1)
@@ -267,7 +267,7 @@ void updatePlayer(Input *input)
             player.etat = WALK;
             player.frameNumber = 0;
             player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
-            player.frameMax = 2;
+            player.frameMax = 8;
         }
     }
     
@@ -286,7 +286,7 @@ void updatePlayer(Input *input)
             player.etat = WALK;
             player.frameNumber = 0;
             player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
-            player.frameMax = 2;
+            player.frameMax = 8;
         }
     }
     
