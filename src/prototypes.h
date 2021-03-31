@@ -437,18 +437,100 @@ extern void freeSound(void);
  *  \return void
  */
 extern void playSoundFx(int type);
+
+/*! \brief  Fonction qui va récupérer le monstre à l'indice nombre
+ *  
+ *  param[in]   int nombre indice du monstre
+ * 
+ *  \return void
+ */
 extern GameObject *getMonster(int nombre);
+
+/*! \brief  Fonction qui va récuperer le nombre de monstres
+ *  
+ *  \return void
+ */
 extern int getMonsterNumber(void);
+
+/*! \brief  Fonction qui va initialiser le nombre de monstre à 0
+ *   
+ *  \return void
+ */
 extern void resetMonsters(void);
+
+/*! \brief  Fonction qui va charger le sprite du monstre
+ *   
+ *  \return void
+ */
 extern void initMonsterSprites(void);
+
+/*! \brief  Fonction qui va libérer le sprite des monstres
+ *   
+ *  \return void
+ */
 extern void cleanMonsters(void);
+
+/*! \brief  Fonction qui va initialiser un nouveau monstre aux coordonnées données
+ *  
+ *  param[in]   int x coordonnée x
+ *  param[in]   int y coordonnée y
+ * 
+ *  \return void
+ */
 extern void initializeNewMonster(int x, int y);
-extern void updateMonsters();
+
+/*! \brief  Fonction qui va gérer les déplacements et collisions des monstres
+ *   
+ *  \return void
+ */
+extern void updateMonsters(void);
+
+/*! \brief  Fonction qui va gérer les collisions entre un monstre et le héro
+ *  
+ *  param[in]   GameObject *player objet héro
+ *  param[in]   GameObject *monstre objet monstre
+ * 
+ *  \return void
+ */
 extern int collide(GameObject *player, GameObject *monster);
+
+/*! \brief  Fonction qui va vérifier si le monstre est sur le sol
+ *  
+ *  param[in]   GameObject *monster objet monstre
+ * 
+ *  \return void
+ */
 extern int checkFall(GameObject monster);
+
+/*! \brief  Fonction qui va dessiner le monstre sur notre rendu
+ *  
+ *  param[in]   GameObject *entity objet monstre
+ * 
+ *  \return void
+ */
 extern void drawMonster(GameObject *entity);
+
+/*! \brief  Fonction qui va retourner la valeur d'une tile
+ *  
+ *  param[in]   int x coordonnée x
+ *  param[in]   int y coordonnée y
+ * 
+ *  \return void
+ */
 extern int getTileValue(int y, int x);
+
+/*! \brief  Fonction qui va gérer les collisions entre le monstre et la map
+ *  
+ *  param[in]   GameObject *entity objet monstre
+ * 
+ *  \return void
+ */
 extern void monsterCollisionToMap(GameObject *entity);
+
+/*! \brief  Fonction qui va gérer la mort du héro
+ *   
+ *  \return void
+ */
 extern void killPlayer(void);
 
 /*! \brief  Met à jour les compteurs de pièces et de vies en fonction des power-up (tiles spéciales)
