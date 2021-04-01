@@ -43,51 +43,51 @@ void libereMenus(void)
 void majMenuPrincipal(Input *touche)
 {
     //Si on appuie sur BAS
-    if (touche->up == 1)
+    if (touche->haut == 1)
     {
         //Si choice = O (il est sur start), on le met à 1 (quit)
         if (choice == 0)
             choice++;
         
-        touche->up = 0;
+        touche->haut = 0;
     }
  
     //Si on appuie sur HAUT
-    if (touche->down == 1)
+    if (touche->bas == 1)
     {
         //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
         if (choice == 1)
             choice--;
         
-        touche->down = 0;
+        touche->bas = 0;
     }
  
     //Choix du level
-    if (touche->right == 1)
+    if (touche->droite == 1)
     {
         //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
-        if (recupNiveau() >= LEVEL_MAX)
+        if (recupNiveau() >= NIVEAU_MAX)
             changeNiveau(1);
         else
             changeNiveau(recupNiveau() + 1);
         
-        touche->right = 0;
+        touche->droite = 0;
     }
  
-if (touche->left == 1)
+if (touche->gauche == 1)
 {
     //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
     if (recupNiveau() <= 1)
-        changeNiveau(LEVEL_MAX);
+        changeNiveau(NIVEAU_MAX);
     else
         changeNiveau(recupNiveau() - 1);
     
-    touche->left = 0;
+    touche->gauche = 0;
 }
  
  
 //Si on appuie sur Enter ou A (manette Xbox 360) et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
-if (touche->enter || touche->jump)
+if (touche->entrer || touche->saut)
 {
     if (choice == 0)
     {
@@ -107,8 +107,8 @@ if (touche->enter || touche->jump)
         exit(0);
     }
     
-    touche->enter = 0;
-    touche->jump = 0;
+    touche->entrer = 0;
+    touche->saut = 0;
     }
  
 }
@@ -119,27 +119,27 @@ void majMenuPause(Input *touche)
 {
  
 //Si on appuie sur BAS
-if (touche->down == 1)
+if (touche->bas == 1)
 {
     //Si choice = O (il est sur start), on le met à 1 (quit)
     if (choice == 0)
         choice++;
         
-        touche->down = 0;
+        touche->bas = 0;
     }
     
     //Si on appuie sur HAUT
-    if (touche->up == 1)
+    if (touche->haut == 1)
     {
         //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
         if (choice == 1)
             choice--;
         
-        touche->up = 0;
+        touche->haut = 0;
     }
  
     //Si on appuie sur Enter ou A (manette Xbox 360) et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
-    if (touche->enter || touche->jump)
+    if (touche->entrer || touche->saut)
     {
         if (choice == 0)
         {
@@ -154,8 +154,8 @@ if (touche->down == 1)
             menuType = START;
         }
         
-        touche->enter = 0;
-        touche->jump = 0;
+        touche->entrer = 0;
+        touche->saut = 0;
     }
  
 }

@@ -25,8 +25,8 @@
 
 
 // Taille de la fenêtre : 800x480 pixels 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 480
+#define LARGEUR_FENETRE 800
+#define HAUTEUR_FENETRE 480
 
 
 /* Taille maxi de la map : 150 x 150 tiles */
@@ -35,14 +35,14 @@
  
 
 /* Taille d'une tile (32 x 32 pixels) */
-#define TILE_SIZE 32
+#define TAILLE_TILE 32
 
 
-#define TIME_BETWEEN_2_FRAMES_PLAYER 4
+#define TEMPS_ENTRE_2_FRAMES_JOUEUR 4
 
 /* Taille du sprite de notre héros */
-#define PLAYER_WIDTH 32
-#define PLAYER_HEIGTH 40
+#define LARGEUR_JOUEUR 32
+#define HAUTEUR_JOUEUR 40
 
 
 //Nombre max de monstres à l'écran
@@ -50,19 +50,19 @@
 
 
 //Dimensions du monstre
-#define MONSTER_WIDTH 20
-#define MONSTER_HEIGTH 22
+#define LARGEUR_MONSTRE 20
+#define HAUTEUR_MONSTRE 22
  
 
 //Vitesse de déplacement en pixels du sprite
-#define PLAYER_SPEED 4
+#define VITESSE_JOUEUR 4
  
 
 //Valeurs attribuées aux états/directions
-#define IDLE 0
-#define WALK 1
-#define JUMP1 2
-#define DEAD 3
+#define IMMOBILE 0
+#define MARCHE 1
+#define SAUT 2
+#define MORT 3
  
 
 #define RIGHT 1
@@ -77,17 +77,17 @@
  
 
 //Constantes définissant la gravité et la vitesse max de chute
-#define GRAVITY_SPEED 0.6
-#define MAX_FALL_SPEED 15
-#define JUMP_HEIGHT 11
+#define VITESSE_GRAVITE 0.6
+#define VITESSE_CHUTE 15
+#define HAUTEUR_SAUT 11
 
 
 // Constante définissant le seuil entre les tiles traversables
-#define BLANK_TILE 48
+#define SEUIL_TILES_TRAVERSABLES_HAUT 48
  
 
-//Plateformes solides en haut et traversables sur les autres côtés (de number à blank_tile)
-#define TILE_TRAVERSABLE 31
+//Plateformes solides en haut et traversables sur les autres côtés (de SEUIL_TILES_TRAVERSABLES à SEUIL_TILES_TRAVERSABLES_HAUT)
+#define SEUIL_TILES_TRAVERSABLES 31
  
 
 //Tiles Power-ups
@@ -101,7 +101,7 @@
 
 
 //Nombre max de levels
-#define LEVEL_MAX 3
+#define NIVEAU_MAX 3
 
 
 #endif

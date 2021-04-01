@@ -31,31 +31,31 @@ void recupTouche(Input *touche)
                     break;
  
                     case SDLK_DELETE:
-                        touche->erase = 1;
+                        touche->ecraser = 1;
                     break;
  
                     case SDLK_SPACE:
-                        touche->jump = 1;
+                        touche->saut = 1;
                     break;
  
                     case SDLK_LEFT:
-                        touche->left = 1;
+                        touche->gauche = 1;
                     break;
  
                     case SDLK_RIGHT:
-                        touche->right = 1;
+                        touche->droite = 1;
                     break;
  
                     case SDLK_DOWN:
-                        touche->down = 1;
+                        touche->bas = 1;
                     break;
  
                     case SDLK_UP:
-                        touche->up = 1;
+                        touche->haut = 1;
                     break;
  
                     case SDLK_RETURN:
-                        touche->enter = 1;
+                        touche->entrer = 1;
                     break;
  
  
@@ -68,31 +68,31 @@ void recupTouche(Input *touche)
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_DELETE:
-                        touche->erase = 0;
+                        touche->ecraser = 0;
                     break;
  
                     case SDLK_SPACE:
-                        touche->jump = 0;
+                        touche->saut = 0;
                     break;
  
                     case SDLK_LEFT:
-                        touche->left = 0;
+                        touche->gauche = 0;
                     break;
  
                     case SDLK_RIGHT:
-                        touche->right = 0;
+                        touche->droite = 0;
                     break;
  
                     case SDLK_DOWN:
-                        touche->down = 0;
+                        touche->bas = 0;
                     break;
  
                     case SDLK_UP:
-                        touche->up = 0;
+                        touche->haut = 0;
                     break;
  
                     case SDLK_RETURN:
-                        touche->enter = 0;
+                        touche->entrer = 0;
                     break;
  
                     default:

@@ -12,12 +12,12 @@
  
 int level;
 int vies, pieces;
-GameObject player;
+Personnage player;
 SDL_Texture *playerSpriteSheet;
  
  
 
-GameObject *recupJoueur(void)
+Personnage *recupJoueur(void)
 {
     return &player;
 }
@@ -118,7 +118,12 @@ void tuerJoueur(void)
 {
     //On met le timer à 1 pour tuer le joueur intantanément
     player.timerMort = 1;
-    player.etat = DEAD;
+    
+    player.etat = MORT;
+    player.frameNumber = 0;
+    player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
+    player.frameMax = 1;
+
     joueSon(MORT_HERO);
 }
  
@@ -127,20 +132,20 @@ void initJoueur(int nouveauNiveau)
 {
  
     //PV à 3
-    player.life = 3;
+    player.vie = 3;
 
     
     //Indique l'état et la direction de notre héros
     player.direction = RIGHT;
-    player.etat = IDLE;
+    player.etat = IMMOBILE;
 
     //Indique le numéro de la frame où commencer
     player.frameNumber = 0;
     
     //...la valeur de son chrono ou timer
-    player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+    player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
     
-    //... et son nombre de frames max (8 pour l'anim' IDLE
+    //... et son nombre de frames max (8 pour l'anim' IMMOBILE
     player.frameMax = 1;
 
     /* Coordonnées de démarrage/respawn de notre héros */
@@ -165,12 +170,12 @@ void initJoueur(int nouveauNiveau)
     }
     
     /* Hauteur et largeur de notre héros */
-    player.w = PLAYER_WIDTH;
-    player.h = PLAYER_HEIGTH;
+    player.w = LARGEUR_JOUEUR;
+    player.h = HAUTEUR_JOUEUR;
     
     //Variables nécessaires au fonctionnement de la gestion des collisions
     player.timerMort = 0;
-    player.onGround = 0;
+    player.surSol = 0;
 
     
     //Réinitialise les monstres
@@ -188,7 +193,7 @@ void dessineJoueur(void)
     if (player.frameTimer <= 0)
     {
         //On le réinitialise
-        player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+        player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
         
         //Et on incrémente notre variable qui compte les frames de 1 pour passer à la suivante
         player.frameNumber++;
@@ -246,60 +251,60 @@ void majJoueur(Input *touche)
         player.dirX = 0;
         
         // Pour faire tomber le perso avec la gravité
-        player.dirY += GRAVITY_SPEED;
+        player.dirY += VITESSE_GRAVITE;
         
         //limite pour ne pas que le joueur se mette à tomber trop vite 
-        if (player.dirY >= MAX_FALL_SPEED)
-            player.dirY = MAX_FALL_SPEED;
+        if (player.dirY >= VITESSE_CHUTE)
+            player.dirY = VITESSE_CHUTE;
     
     
-        if (touche->left == 1)
+        if (touche->gauche == 1)
         {
-            player.dirX -= PLAYER_SPEED;
+            player.dirX -= VITESSE_JOUEUR;
             //Et on indique qu'il va à gauche (pour le flip)
 
             player.direction = LEFT;
         
         //Si ce n'était pas son état auparavant
-        if (player.etat != WALK && player.onGround == 1)
+        if (player.etat != MARCHE && player.surSol == 1)
         {
             //On enregistre l'anim de la marche et on l'initialise à 0
-            player.etat = WALK;
+            player.etat = MARCHE;
             player.frameNumber = 0;
-            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
             player.frameMax = 8;
         }
     }
     
     //Si on détecte un appui sur la touche "fléchée droite"
-    else if (touche->right == 1)
+    else if (touche->droite == 1)
     {
         //On augmente les coordonnées en x du joueur
-        player.dirX += PLAYER_SPEED;
+        player.dirX += VITESSE_JOUEUR;
         //Et on indique qu'il va à droite 
         player.direction = RIGHT;
         
         //Si ce n'était pas son état auparavant 
-        if (player.etat != WALK && player.onGround == 1)
+        if (player.etat != MARCHE && player.surSol == 1)
             {
             //On enregistre l'anim de la marche et on l'initialise à 0
-            player.etat = WALK;
+            player.etat = MARCHE;
             player.frameNumber = 0;
-            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
             player.frameMax = 8;
         }
     }
     
     //Si on n'appuie sur rien et qu'on est sur le sol, on charge l'animation marquant l'inactivité (Idle)
-    else if (touche->right == 0 && touche->left == 0 && player.onGround == 1)
+    else if (touche->droite == 0 && touche->gauche == 0 && player.surSol == 1)
     {
         //On teste si le joueur n'était pas déjà inactif, pour ne pas recharger l'animation
-        if (player.etat != IDLE)
+        if (player.etat != IMMOBILE)
         {
             //On enregistre l'anim de l'inactivité et on l'initialise à 0
-            player.etat = IDLE;
+            player.etat = IMMOBILE;
             player.frameNumber = 0;
-            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+            player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
             player.frameMax = 1;
         }
     }
@@ -307,16 +312,16 @@ void majJoueur(Input *touche)
     
     //Si on appuie sur la touche saut et qu'on est sur le sol, alors on attribue une valeur négative à Y
 
-    if (touche->jump == 1)
+    if (touche->saut == 1)
     {
-        if (player.onGround == 1)
+        if (player.surSol == 1)
         {
-            player.dirY = -JUMP_HEIGHT;
-            player.onGround = 0;
+            player.dirY = -HAUTEUR_SAUT;
+            player.surSol = 0;
             player.jump = 1;
             joueSon(JUMP);
         }
-        touche->jump = 0;
+        touche->saut = 0;
     }
 
     //Si on appuie sur Echap
@@ -329,15 +334,15 @@ void majJoueur(Input *touche)
        
     
     //On gère l'anim du saut
-    if (player.onGround == 0)
+    if (player.surSol == 0)
     {
         if (player.jump == 1)
         {
-            if (player.etat != JUMP1)
+            if (player.etat != SAUT)
             {
-                player.etat = JUMP1;
+                player.etat = SAUT;
                 player.frameNumber = 0;
-                player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+                player.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
                 player.frameMax = 1;
             }
         }
@@ -361,9 +366,6 @@ void majJoueur(Input *touche)
         if (player.timerMort == 0)
         {
             Mix_PauseMusic();
-            player.frameNumber = 0;
-            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
-            player.frameMax = 1;
 
             //tue le personnage
             tuerJoueur();
@@ -372,7 +374,7 @@ void majJoueur(Input *touche)
             initNombreDeVies(recupNombreDeVies() - 1);
 
             //Sauf si on a plus de vies...
-            if (recupNombreDeVies() < 0)
+            if (recupNombreDeVies() < 1)
             {
                 //Dans ce cas on retourne au menu start
                 initTypeMenu(1, START);
@@ -419,7 +421,7 @@ void scrollSurJoueur(void)
     
     //Effet de retour en avant quand on est mort
 
-    if (cxperso > recupPersoStartX() + SCREEN_WIDTH)
+    if (cxperso > recupPersoStartX() + LARGEUR_FENETRE)
     {
         initDepartMapX(recupPersoStartX() + 30);
     }
@@ -438,9 +440,9 @@ void scrollSurJoueur(void)
     
     //Si on arrive au bout de la map à droite, on stoppe le scrolling à la
     //valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
-    else if (recupPersoStartX() + SCREEN_WIDTH >= recupFinMapX())
+    else if (recupPersoStartX() + LARGEUR_FENETRE >= recupFinMapX())
     {
-        initDepartMapX(recupFinMapX() - SCREEN_WIDTH);
+        initDepartMapX(recupFinMapX() - LARGEUR_FENETRE);
     }
     
     //Si on dépasse par le haut, on remonte la caméra
@@ -453,9 +455,9 @@ void scrollSurJoueur(void)
     if (cyperso > ylimmax)
     {
         //Sauf si on tombe très vite, auquel cas, on accélère la caméra :
-        if (player.dirY >= MAX_FALL_SPEED - 2)
+        if (player.dirY >= VITESSE_CHUTE - 2)
         {
-            initDepartMapY(recupPersoStartY() + MAX_FALL_SPEED + 1);
+            initDepartMapY(recupPersoStartY() + VITESSE_CHUTE + 1);
         }
         else
         {
@@ -471,9 +473,9 @@ void scrollSurJoueur(void)
     
     //Si on arrive au bout de la map en bas, on stoppe le scrolling à la
     //valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
-    else if (recupPersoStartY() + SCREEN_HEIGHT >= recupFinMapY())
+    else if (recupPersoStartY() + HAUTEUR_FENETRE >= recupFinMapY())
     {
-        initDepartMapY(recupFinMapY() - SCREEN_HEIGHT);
+        initDepartMapY(recupFinMapY() - HAUTEUR_FENETRE);
     }
     
 }
@@ -502,8 +504,8 @@ void recupItem(int itemNumber)
         //Gestion des coeurs
         case 2:
         //On incrémente le compteur Etoile
-        if (player.life < 3)
-            player.life++;
+        if (player.vie < 3)
+            player.vie++;
         
         joueSon(COIN);
         break;

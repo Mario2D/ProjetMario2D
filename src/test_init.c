@@ -54,7 +54,7 @@ void init(char *title)
     screen = SDL_CreateWindow(title,
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,
-    SCREEN_WIDTH, SCREEN_HEIGHT,
+    LARGEUR_FENETRE, HAUTEUR_FENETRE,
     SDL_WINDOW_SHOWN);
  
     //On crée un renderer pour la SDL et on active la synchro verticale : VSYNC
@@ -63,8 +63,8 @@ void init(char *title)
     // Si on n'y arrive pas, on quitte en enregistrant l'erreur dans stdout.txt
     if (screen == NULL || renderer == NULL)
     {
-        printf("Impossible d'initialiser le mode écran à %d x %d: %s\n", SCREEN_WIDTH,
-        SCREEN_HEIGHT, SDL_GetError());
+        printf("Impossible d'initialiser le mode écran à %d x %d: %s\n", LARGEUR_FENETRE,
+        HAUTEUR_FENETRE, SDL_GetError());
         exit(1);
     }
  

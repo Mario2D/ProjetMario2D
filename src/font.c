@@ -14,7 +14,7 @@ void chargePolice(char *name, int size)
     
     if (font == NULL)
     {
-        printf("Failed to open Font %s: %s\n", name, TTF_GetError());
+        printf("Impossible d'ouvrir la police %s: %s\n", name, TTF_GetError());
         exit(1);
     }
     

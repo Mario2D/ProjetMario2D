@@ -20,7 +20,7 @@
 typedef struct Input
 {
  
-    int left, right, up, down, jump, enter, erase, pause;
+    int gauche, droite, haut, bas, saut, entrer, ecraser, pause;
  
 } Input;
 
@@ -54,11 +54,11 @@ typedef struct Map
 
 
 // Structure pour gérer nos sprites
-typedef struct GameObject
+typedef struct Personnage
 {
  
-    // Points de vie/santé + chrono d'invicibilité
-    int life, invincibleTimer;
+    // Points de vie/santé 
+    int vie;
     
     // Coordonnées du sprite
     int x, y;
@@ -82,7 +82,7 @@ typedef struct GameObject
     
     // Variables utiles pour la gestion des collisions :
     //Est-il sur le sol, chrono une fois mort
-    int onGround, timerMort;
+    int surSol, timerMort;
     //Vecteurs de déplacement temporaires avant détection
     //des collisions avec la map
     float dirX, dirY;
@@ -93,7 +93,7 @@ typedef struct GameObject
     int jump;
  
  
-} GameObject;
+} Personnage;
 
 //Une enum pour la gestion des sons.
 enum

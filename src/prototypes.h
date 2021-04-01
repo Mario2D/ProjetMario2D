@@ -215,12 +215,12 @@ extern int recupNombreDePieces(void);
  */
 extern int recupNombreDeVies(void);
 
-/*! \brief  Récupère le GameObject de player
+/*! \brief  Récupère le Personnage de player
  *  
  * 
- *  \return GameObject
+ *  \return Personnage
  */ 
-extern GameObject *recupJoueur(void);
+extern Personnage *recupJoueur(void);
 
 /*! \brief  Récupère les coordonnées en abscisse du héros
  *  
@@ -334,11 +334,11 @@ extern void chargeMap(char *nom);
 
 /*! \brief  Gère les collisions avec les différentes textures de la map
  *      
- *  param[in]   GameObject *personnage  un personnage (texture animée)
+ *  param[in]   Personnage *personnage  un personnage (texture animée)
  * 
  *  \return void
  */ 
-extern void mapCollision(GameObject *personnage);
+extern void mapCollision(Personnage *personnage);
 
 /*! \brief Défini le nombre de vie(s)
  *  
@@ -448,7 +448,7 @@ extern void joueSon(int type);
  * 
  *  \return void
  */
-extern GameObject *recupMonstre(int nombre);
+extern Personnage *recupMonstre(int nombre);
 
 /*! \brief  Fonction qui va récuperer le nombre de monstres
  *  
@@ -491,28 +491,28 @@ extern void majMonstre(void);
 
 /*! \brief  Fonction qui va gérer les collisions entre un monstre et le héro
  *  
- *  param[in]   GameObject *joueur objet héro
- *  param[in]   GameObject *monstre objet monstre
+ *  param[in]   Personnage *joueur objet héro
+ *  param[in]   Personnage *monstre objet monstre
  * 
  *  \return void
  */
-extern int collisionMonstreJoueur(GameObject *joueur, GameObject *monstre);
+extern int collisionMonstreJoueur(Personnage *joueur, Personnage *monstre);
 
 /*! \brief  Fonction qui va vérifier si le monstre est sur le sol
  *  
- *  param[in]   GameObject *monstre objet monstre
+ *  param[in]   Personnage *monstre objet monstre
  * 
  *  \return void
  */
-extern int verifSol(GameObject monstre);
+extern int verifSol(Personnage monstre);
 
 /*! \brief  Fonction qui va dessiner le monstre sur notre rendu
  *  
- *  param[in]   GameObject *monstre objet monstre
+ *  param[in]   Personnage *monstre objet monstre
  * 
  *  \return void
  */
-extern void dessineMonstre(GameObject *monstre);
+extern void dessineMonstre(Personnage *monstre);
 
 /*! \brief  Fonction qui va retourner la valeur d'une tile
  *  
@@ -525,11 +525,11 @@ extern int recupValeurTile(int y, int x);
 
 /*! \brief  Fonction qui va gérer les collisions entre le monstre et la map
  *  
- *  param[in]   GameObject *monstre objet monstre
+ *  param[in]   Personnage *monstre objet monstre
  * 
  *  \return void
  */
-extern void monsterCollisionToMap(GameObject *monstre);
+extern void monsterCollisionToMap(Personnage *monstre);
 
 /*! \brief  Fonction qui va gérer la mort du héro
  *   

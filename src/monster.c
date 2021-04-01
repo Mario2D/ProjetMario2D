@@ -2,11 +2,11 @@
  
  
 int nombreMonstres;
-GameObject monstre[MONSTRES_MAX];
+Personnage monstre[MONSTRES_MAX];
 SDL_Texture *MonstreSprite;
  
  
-GameObject *recupMonstre(int nombre)
+Personnage *recupMonstre(int nombre)
 {
     return &monstre[nombre];
 }
@@ -58,12 +58,12 @@ void initNouveauMonstre(int x, int y)
         monstre[nombreMonstres].y = y;
         
         /* Hauteur et largeur de notre monstre (rajouté dans les defs ;) ) */
-        monstre[nombreMonstres].w = MONSTER_WIDTH;
-        monstre[nombreMonstres].h = MONSTER_HEIGTH;
+        monstre[nombreMonstres].w = LARGEUR_MONSTRE;
+        monstre[nombreMonstres].h = HAUTEUR_MONSTRE;
         
         //Variables nécessaires au fonctionnement de la gestion des collisions comme pour le héros
         monstre[nombreMonstres].timerMort = 0;
-        monstre[nombreMonstres].onGround = 0;
+        monstre[nombreMonstres].surSol = 0;
         
         nombreMonstres++;
     
@@ -85,10 +85,10 @@ void majMonstre()
         {
             
             monstre[i].dirX = 0;
-            monstre[i].dirY += GRAVITY_SPEED;
+            monstre[i].dirY += VITESSE_GRAVITE;
         
-            if (monstre[i].dirY >= MAX_FALL_SPEED)
-                monstre[i].dirY = MAX_FALL_SPEED;
+            if (monstre[i].dirY >= VITESSE_CHUTE)
+                monstre[i].dirY = VITESSE_CHUTE;
             
             //Test de collision dans un mur : si la variable x reste la même, deux tours de boucle
             //durant, le monstre est bloqué et on lui fait faire demi-tour.
@@ -155,7 +155,7 @@ void majMonstre()
  
  
 //Fonction de gestion des collisions
-int collisionMonstreJoueur(GameObject *joueur, GameObject *monstre)
+int collisionMonstreJoueur(Personnage *joueur, Personnage *monstre)
 {
     //On teste pour voir s'il n'y a pas collision, si c'est le cas, on renvoie 0
     if ((joueur->x >= monstre->x + monstre->w)
@@ -170,7 +170,7 @@ int collisionMonstreJoueur(GameObject *joueur, GameObject *monstre)
     //On devra alors tuer le monstre et on fera rebondir le joueur.
     else if (joueur->y + joueur->h <= monstre->y + 20)
     {
-        joueur->dirY = -JUMP_HEIGHT;
+        joueur->dirY = -HAUTEUR_SAUT;
         return 2;
     }
     
@@ -181,7 +181,7 @@ int collisionMonstreJoueur(GameObject *joueur, GameObject *monstre)
  
  
  
-int verifSol(GameObject monstre)
+int verifSol(Personnage monstre)
 {
     int x, y;
     
@@ -194,8 +194,8 @@ int verifSol(GameObject monstre)
         //On va à gauche : on calcule là où devrait se trouver le monstre après déplacement.
         //S'il sort de la map, on met à jour x et y pour éviter de sortir de notre tableau
         //(source d'erreur possible qui peut planter notre jeu...).
-        x = (int)(monstre.x + monstre.dirX) / TILE_SIZE;
-        y = (int)(monstre.y + monstre.h - 1) / TILE_SIZE;
+        x = (int)(monstre.x + monstre.dirX) / TAILLE_TILE;
+        y = (int)(monstre.y + monstre.h - 1) / TAILLE_TILE;
         
         if (y < 0)
             y = 1;
@@ -211,7 +211,7 @@ int verifSol(GameObject monstre)
         
         //On teste si la tile sous le monstre est traversable (du vide quoi...).
         //Si c'est le cas, on renvoie 1, sinon 0.
-        if (recupValeurTile(y + 1, x) < BLANK_TILE - 20)
+        if (recupValeurTile(y + 1, x) < SEUIL_TILES_TRAVERSABLES_HAUT - 20)
             return 1;
         else
             return 0;
@@ -219,8 +219,8 @@ int verifSol(GameObject monstre)
     else
     {
         //Même chose quand on va à droite
-        x = (int)(monstre.x + monstre.w + monstre.dirX) / TILE_SIZE;
-        y = (int)(monstre.y + monstre.h - 1) / TILE_SIZE;
+        x = (int)(monstre.x + monstre.w + monstre.dirX) / TAILLE_TILE;
+        y = (int)(monstre.y + monstre.h - 1) / TAILLE_TILE;
         
         if (y <= 0)
             y = 1;
@@ -234,7 +234,7 @@ int verifSol(GameObject monstre)
         if (x >= MAX_MAP_X)
             x = MAX_MAP_X - 1;
         
-        if (recupValeurTile(y + 1, x) < BLANK_TILE - 20)
+        if (recupValeurTile(y + 1, x) < SEUIL_TILES_TRAVERSABLES_HAUT - 20)
             return 1;
         else
             return 0;
@@ -242,7 +242,7 @@ int verifSol(GameObject monstre)
 }
  
  
-void dessineMonstre(GameObject *monstre)
+void dessineMonstre(Personnage *monstre)
 {
     
     /* Rectangle de destination à dessiner */

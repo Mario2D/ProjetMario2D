@@ -131,16 +131,16 @@ void dessineTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
     
     dest.x = destx;
     dest.y = desty;
-    dest.w = TILE_SIZE;
-    dest.h = TILE_SIZE;
+    dest.w = TAILLE_TILE;
+    dest.h = TAILLE_TILE;
     
     /* Rectangle source */
     SDL_Rect src;
     
     src.x = srcx;
     src.y = srcy;
-    src.w = TILE_SIZE;
-    src.h = TILE_SIZE;
+    src.w = TAILLE_TILE;
+    src.h = TAILLE_TILE;
     
     /* Dessine la tile choisie sur l'écran aux coordonnées x et y */
     SDL_RenderCopy(recupRendu(), image, &src, &dest);
@@ -181,7 +181,7 @@ void dessineHUD(void)
     
     
     /* Affiche le nombre de vies en bas à droite - Adaptation à la fenêtre auto */
-    dessineImage(HUD_vie, SCREEN_WIDTH - 125, 18);
+    dessineImage(HUD_vie, LARGEUR_FENETRE - 125, 18);
     
     //Pour afficher le nombre de vies, on formate notre string pour qu'il prenne la valeur de la variable
     sprintf_s(text, sizeof(text), "x %d", recupNombreDeVies());
@@ -190,8 +190,8 @@ void dessineHUD(void)
     //Puis on utilise notre fonction créée précédemment pour écrire en noir (0, 0, 0, 255)
     //et en blanc (255, 255, 255, 255) afin de surligner le texte et de le rendre plus
     //visible
-    afficheTexte(text, SCREEN_WIDTH - 80, 20, 0, 0, 0, 255);
-    afficheTexte(text, SCREEN_WIDTH - 82, 20, 255, 255, 255, 255);
+    afficheTexte(text, LARGEUR_FENETRE - 80, 20, 0, 0, 0, 255);
+    afficheTexte(text, LARGEUR_FENETRE - 82, 20, 255, 255, 255, 255);
     
     /* Affiche le nombre de pièces en haut à gauche */
     dessineImage(HUD_pieces, 20, 15);
