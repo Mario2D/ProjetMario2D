@@ -10,7 +10,7 @@
 
 #include "prototypes.h"
  
-int level;
+int niveau;
 int vies, pieces;
 Personnage player;
 SDL_Texture *playerSpriteSheet;
@@ -55,7 +55,7 @@ void initJoueurY(int valeur)
 
 int recupNiveau(void)
 {
-    return level;
+    return niveau;
 }
 
 
@@ -87,7 +87,7 @@ void initNombreDePieces(int valeur)
 
 void changeNiveau(int valeur)
 {
-    level = valeur;
+    niveau = valeur;
 }
 
 

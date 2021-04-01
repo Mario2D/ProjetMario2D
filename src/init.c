@@ -22,8 +22,6 @@ SDL_Renderer *recupRendu(void)
 
 
 
-
-
 void chargementJeu(void)
 {
     
