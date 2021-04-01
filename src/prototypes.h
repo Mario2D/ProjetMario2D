@@ -69,7 +69,7 @@ extern void closeFont(void);
 
 /*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
  *  
- *  \param[in]  unsigned int frameLimit      
+ *  \param[in]  unsigned int frameLimit     
  * 
  *  \return void
  */ 
@@ -77,9 +77,11 @@ extern void delay(unsigned int frameLimit);
 
 /*! \brief  Affiche à l'écran les différentes interfaces graphiques du jeu
  *  
+ *  \param[in] int pauseMenu  
+ *
  *  \return void
  */
-extern void drawGame(void);
+extern void drawGame(int pauseMenu);
 
 /*! \brief  Dessine les compteurs de vie et de pièces sur le rendu
  *  
@@ -546,6 +548,67 @@ extern void getItem(int itemNumber);
  *  \return void
  */
 extern void resetCheckpoint(void);
+
+/*! \brief  Fonction qui renvoi 0 si on est en jeu et 1 si on est dans un menu
+ *  
+ *  \return void
+ */
+extern int getOnMenu(void);
+
+/*! \brief  Fonction qui renvoi le type de menu actuel
+ *  
+ *  \return void
+ */
+extern int getMenuType(void);
+
+/*! \brief  Fonction qui définit si on est dans un menu et quel type de menu
+ *  
+ *  param[in]   int valeur valeur correspond à jeu ou menu
+ *  param[in]   int type valeur correspondant au menu start ou menu pause
+ * 
+ *  \return void
+ */
+extern void setOnMenu(int valeur, int type);
+
+/*! \brief  Fonction qui charge l'image du menu
+ *  
+ *  \return void
+ */
+extern void initMenus(void);
+
+/*! \brief  Fonction qui libère l'image du menu
+ *  
+ *  \return void
+ */
+extern void cleanMenus(void);
+
+/*! \brief  Fonction qui gère les évênements du menu start
+ *  
+ *  param[in]   Input *input 
+ * 
+ *  \return void
+ */
+extern void updateStartMenu(Input *input);
+
+/*! \brief  Fonction qui gère les évênements du menu pause
+ *  
+ *  param[in]   Input *input 
+ * 
+ *  \return void
+ */
+extern void updatePauseMenu(Input *input);
+
+/*! \brief  Fonction qui dessine le menu start à l'écran
+ *  
+ *  \return void
+ */
+extern void drawStartMenu(void);
+
+/*! \brief  Fonction qui dessine le menu pause à l'écran
+ *  
+ *  \return void
+ */
+extern void drawPauseMenu(void);
 
 
  

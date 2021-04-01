@@ -27,7 +27,7 @@ void getInput(Input *input)
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
-                        exit(0);
+                        input->pause = 1;
                     break;
  
                     case SDLK_DELETE:
@@ -36,10 +36,6 @@ void getInput(Input *input)
  
                     case SDLK_SPACE:
                         input->jump = 1;
-                    break;
- 
-                    case SDLK_v:
-                        input->attack = 1;
                     break;
  
                     case SDLK_LEFT:
@@ -57,7 +53,6 @@ void getInput(Input *input)
                     case SDLK_UP:
                         input->up = 1;
                     break;
- 
  
                     case SDLK_RETURN:
                         input->enter = 1;

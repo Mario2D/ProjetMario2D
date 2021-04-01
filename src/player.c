@@ -318,6 +318,14 @@ void updatePlayer(Input *input)
         }
         input->jump = 0;
     }
+
+    //Si on appuie sur Echap
+    if (input->pause == 1)
+    {
+        //On met le jeu en pause
+        setOnMenu(1, PAUSE);
+        input->pause = 0;
+    }
        
     
     //On gère l'anim du saut
@@ -363,6 +371,12 @@ void updatePlayer(Input *input)
             // Si on est mort, on perd une vie
             setNombreDeVies(getNombreDeVies() - 1);
 
+            //Sauf si on a plus de vies...
+            if (getNombreDeVies() < 0)
+            {
+                //Dans ce cas on retourne au menu start
+                setOnMenu(1, START);
+            }
             
             // Si on est mort, on réinitialise le niveau
             changeLevel(getLevel());

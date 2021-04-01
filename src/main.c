@@ -15,7 +15,7 @@
 
 #include "prototypes.h"
  
-//gcc src/main.c src/sounds.c src/font.c src/draw.c src/init.c src/input.c src/map.c src/player.c src/monster.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+//gcc src/main.c src/menu.c src/sounds.c src/font.c src/draw.c src/init.c src/input.c src/map.c src/player.c src/monster.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
 /* Déclaration des variables / structures utilisées par le jeu */
 Input input;
@@ -46,15 +46,40 @@ int main(int argc, char *argv[])
     {
         //Gestion des inputs clavier
         gestionInputs(&input);
+        //Si on n'est pas dans un menu
+        if (getOnMenu() == 0)
+        {
+            /* On met à jour le jeu */
+            updatePlayer(&input);
+            updateMonsters();
+        }
 
-        // On met à jour le jeu, en commençant par le joueur
-        updatePlayer(&input);
-
-        //On update les monstres
-        updateMonsters();
- 
-        //On dessine tout
-        drawGame();
+        else
+        {
+            if (getMenuType() == START)
+                updateStartMenu(&input);
+            
+            else if (getMenuType() == PAUSE)
+                updatePauseMenu(&input);
+        }
+        
+        
+        //Si on n'est pas dans un menu, on affiche le jeu
+        if (getOnMenu() == 0)
+            drawGame(0);
+        
+        else
+        {
+            if (getMenuType() == START)
+            {
+                drawStartMenu();
+                SDL_RenderPresent(getrenderer());
+                SDL_Delay(1);
+            }
+        
+            else if (getMenuType() == PAUSE)
+                drawGame(1);
+        }
  
         // Gestion des 60 fps (1000ms/60 = 16.6 -> 16
         delay(frameLimit);

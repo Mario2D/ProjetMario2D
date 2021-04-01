@@ -14,7 +14,7 @@ SDL_Texture *HUD_vie, *HUD_pieces;
  
 
 
-void drawGame(void)
+void drawGame(int pauseMenu)
 {
     // Affiche le fond (background) aux coordonnées (0,0)
     drawImage(getBackground(), 0, 0);
@@ -36,6 +36,10 @@ void drawGame(void)
 
     //On affiche le HUD par-dessus tout le reste
     drawHud();
+
+    //On affiche le menu Pause, si on est en Pause
+    if (pauseMenu)
+        drawPauseMenu();
     
     // Affiche l'écran
     SDL_RenderPresent(getrenderer());

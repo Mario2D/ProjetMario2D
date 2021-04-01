@@ -29,6 +29,9 @@ void loadGame(void)
     
     //On charge les données pour la map
     initMaps(1);
+
+    //On initialise les menus
+    initMenus();    
     
     //On charge la feuille de sprited de mario
     initPlayerSprites();
@@ -53,6 +56,9 @@ void loadGame(void)
     /* On charge les sounds Fx */
     loadSound();
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+
+    //On commence par le menu start
+    setOnMenu(1, START);
  
 }
  
@@ -130,8 +136,9 @@ void init(char *title)
 
 void cleanup()
 {
-    //Nettoie les sprites de la map
+    //Nettoie les sprites de la map et des menus
     cleanMaps();
+    cleanMenus();
     
     //Libère le sprite du héros 
     cleanPlayer();

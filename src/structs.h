@@ -20,7 +20,7 @@
 typedef struct Input
 {
  
-    int left, right, up, down, jump, attack, enter, erase, pause;
+    int left, right, up, down, jump, enter, erase, pause;
  
 } Input;
 
@@ -104,6 +104,13 @@ enum
     MORT_MOB,
     MORT_HERO,
     MUSIQUE
+};
+
+//Une enum pour la gestion du menu.
+enum
+{
+START,
+PAUSE
 };
 
 #endif
