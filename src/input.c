@@ -1,14 +1,14 @@
 #include "prototypes.h"
  
 
-void gestionInputs(Input *input)
+void gestionTouches(Input *touche)
 {
     //On gère le clavier 
-    getInput(input);
+    recupTouche(touche);
 }
  
 
-void getInput(Input *input)
+void recupTouche(Input *touche)
 {
     SDL_Event event;
  
@@ -27,35 +27,35 @@ void getInput(Input *input)
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
-                        input->pause = 1;
+                        touche->pause = 1;
                     break;
  
                     case SDLK_DELETE:
-                        input->erase = 1;
+                        touche->erase = 1;
                     break;
  
                     case SDLK_SPACE:
-                        input->jump = 1;
+                        touche->jump = 1;
                     break;
  
                     case SDLK_LEFT:
-                        input->left = 1;
+                        touche->left = 1;
                     break;
  
                     case SDLK_RIGHT:
-                        input->right = 1;
+                        touche->right = 1;
                     break;
  
                     case SDLK_DOWN:
-                        input->down = 1;
+                        touche->down = 1;
                     break;
  
                     case SDLK_UP:
-                        input->up = 1;
+                        touche->up = 1;
                     break;
  
                     case SDLK_RETURN:
-                        input->enter = 1;
+                        touche->enter = 1;
                     break;
  
  
@@ -68,31 +68,31 @@ void getInput(Input *input)
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_DELETE:
-                        input->erase = 0;
+                        touche->erase = 0;
                     break;
  
                     case SDLK_SPACE:
-                        input->jump = 0;
+                        touche->jump = 0;
                     break;
  
                     case SDLK_LEFT:
-                        input->left = 0;
+                        touche->left = 0;
                     break;
  
                     case SDLK_RIGHT:
-                        input->right = 0;
+                        touche->right = 0;
                     break;
  
                     case SDLK_DOWN:
-                        input->down = 0;
+                        touche->down = 0;
                     break;
  
                     case SDLK_UP:
-                        input->up = 0;
+                        touche->up = 0;
                     break;
  
                     case SDLK_RETURN:
-                        input->enter = 0;
+                        touche->enter = 0;
                     break;
  
                     default:

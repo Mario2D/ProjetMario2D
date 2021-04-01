@@ -18,7 +18,7 @@
 //gcc src/main.c src/menu.c src/sounds.c src/font.c src/draw.c src/init.c src/input.c src/map.c src/player.c src/monster.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
 /* Déclaration des variables / structures utilisées par le jeu */
-Input input;
+Input touche;
  
  
 int main(int argc, char *argv[])
@@ -31,54 +31,54 @@ int main(int argc, char *argv[])
     init("Mario2D");
 
     // Chargement des ressources (graphismes, sons)
-    loadGame();
+    chargementJeu();
 
     /* On initialise le joueur */
-    initializePlayer(1);
+    initJoueur(1);
  
-    // Appelle la fonction cleanup à la fin du programme
-    atexit(cleanup);
+    // Appelle la fonction nettoyageAll à la fin du programme
+    atexit(nettoyageAll);
  
     go = 1;
  
     // Boucle infinie, principale, du jeu
     while (go == 1)
     {
-        //Gestion des inputs clavier
-        gestionInputs(&input);
+        //Gestion des touches clavier
+        gestionTouches(&touche);
         //Si on n'est pas dans un menu
-        if (getOnMenu() == 0)
+        if (recupStatutMenu() == 0)
         {
             /* On met à jour le jeu */
-            updatePlayer(&input);
-            updateMonsters();
+            majJoueur(&touche);
+            majMonstre();
         }
 
         else
         {
-            if (getMenuType() == START)
-                updateStartMenu(&input);
+            if (recupTypeMenu() == START)
+                majMenuPrincipal(&touche);
             
-            else if (getMenuType() == PAUSE)
-                updatePauseMenu(&input);
+            else if (recupTypeMenu() == PAUSE)
+                majMenuPause(&touche);
         }
         
         
         //Si on n'est pas dans un menu, on affiche le jeu
-        if (getOnMenu() == 0)
-            drawGame(0);
+        if (recupStatutMenu() == 0)
+            chargeJeu(0);
         
         else
         {
-            if (getMenuType() == START)
+            if (recupTypeMenu() == START)
             {
-                drawStartMenu();
-                SDL_RenderPresent(getrenderer());
+                dessineMenuPrincipal();
+                SDL_RenderPresent(recupRendu());
                 SDL_Delay(1);
             }
         
-            else if (getMenuType() == PAUSE)
-                drawGame(1);
+            else if (recupTypeMenu() == PAUSE)
+                chargeJeu(1);
         }
  
         // Gestion des 60 fps (1000ms/60 = 16.6 -> 16

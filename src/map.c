@@ -12,14 +12,14 @@
 Map map;
  
 
-void initMaps(int level)
+void initMaps(int niveau)
 {
     // Charge l'image du fond (background)
-    if(level == 1){
-        map.background = loadImage("images/background.png");
+    if(niveau == 1){
+        map.background = chargeImage("images/background.png");
     }
     else{
-        map.background = loadImage("images/background2.png");
+        map.background = chargeImage("images/background2.png");
     }
 }
  
@@ -32,7 +32,7 @@ SDL_Texture *getBackground(void)
  
  
 
-void cleanMaps(void)
+void nettoyageMaps(void)
 {
     // Libère la texture du background
     if (map.background != NULL)
@@ -51,21 +51,21 @@ void cleanMaps(void)
 }
 
 
-int getTileValue(int y, int x)
+int recupValeurTile(int y, int x)
 {
     return map.tile[y][x];
 } 
 
 
  
-void loadMap(char *name)
+void chargeMap(char *nom)
 {
     int x, y;
     FILE *fp;
     int err;
     
     //Ouvre le fichier en lecture (renvoie une erreur s'il n'existe pas)
-    if ((err = fopen_s(&fp, name, "rb")) != 0)
+    if ((err = fopen_s(&fp, nom, "rb")) != 0)
     {
         printf("Le fichier map n'a pas pu etre ouvert.\n");
         exit(1);
@@ -130,7 +130,7 @@ void loadMap(char *name)
 
 
 
-void drawMap(int layer)
+void dessineMap(int couche)
 {
     int x, y, mapX, x1, x2, mapY, y1, y2, xsource, ysource, a;
     
@@ -155,7 +155,7 @@ void drawMap(int layer)
     /* Dessine la carte en commençant par startX et startY */
     
     // On dessine ligne par ligne 
-    if (layer == 1)
+    if (couche == 1)
     {
         for (y = y1; y < y2; y += TILE_SIZE)
         {
@@ -174,7 +174,7 @@ void drawMap(int layer)
                     if (map.tile[mapY][mapX] == TILE_MONSTRE)
                     {
                         //On initialise un monstre en envoyant les coordonnées de la tile
-                        initializeNewMonster(mapX * TILE_SIZE, mapY * TILE_SIZE);
+                        initNouveauMonstre(mapX * TILE_SIZE, mapY * TILE_SIZE);
                         
                         //Et on efface cette tile de notre tableau pour éviter un spawn de monstres
                         //infini !
@@ -194,7 +194,7 @@ void drawMap(int layer)
                 xsource = a % 10 * TILE_SIZE;
                 
                 //on dessine la tile sur notre rendu
-                drawTile(map.tileSet, x, y, xsource, ysource);
+                dessineTile(map.tileSet, x, y, xsource, ysource);
 
                 mapX++;
             }
@@ -203,7 +203,7 @@ void drawMap(int layer)
         }
     }
     
-    else if (layer == 2)
+    else if (couche == 2)
     {
         //Deuxième couche de tiles ;)
         for (y = y1; y < y2; y += TILE_SIZE)
@@ -219,7 +219,7 @@ void drawMap(int layer)
                     if (map.tile2[mapY][mapX] == TILE_MONSTRE)
                     {
                         //On initialise un monstre en envoyant les coordonnées de la tile
-                        initializeNewMonster(mapX * TILE_SIZE, mapY * TILE_SIZE);
+                        initNouveauMonstre(mapX * TILE_SIZE, mapY * TILE_SIZE);
                         
                         //Et on efface cette tile de notre tableau pour éviter un spawn de monstres
                         //infini !
@@ -236,7 +236,7 @@ void drawMap(int layer)
                 /* Et son x */
                 xsource = a % 10 * TILE_SIZE;
 
-                drawTile(map.tileSet, x, y, xsource, ysource);
+                dessineTile(map.tileSet, x, y, xsource, ysource);
 
                 mapX++;
             }
@@ -249,14 +249,14 @@ void drawMap(int layer)
 
 
  
-void changeLevel(int level)
+void chargeNiveau(int niveau)
 {
     
     char file[200];
     
     /* Charge la map depuis le fichier */
-    sprintf_s(file, sizeof(file), "map/map%d.txt", getLevel());
-    loadMap(file);
+    sprintf_s(file, sizeof(file), "map/map%d.txt", recupNiveau());
+    chargeMap(file);
     
     //Charge le tileset
     if (map.tileSet != NULL)
@@ -264,10 +264,10 @@ void changeLevel(int level)
         SDL_DestroyTexture(map.tileSet);
     }
 
-    initMaps(getLevel());
+    initMaps(recupNiveau());
     
     sprintf_s(file, sizeof(file), "images/tileset%d.png", map.tilesetAffiche);
-    map.tileSet = loadImage(file);
+    map.tileSet = chargeImage(file);
  
 }
 
@@ -276,7 +276,7 @@ void changeLevel(int level)
 
 
 
-int getStartX(void)
+int recupPersoStartX(void)
 {
     return map.startX;
 }
@@ -284,7 +284,7 @@ int getStartX(void)
 
 
  
-void setStartX(int valeur)
+void initDepartMapX(int valeur)
 {
     map.startX = valeur;
 }
@@ -292,7 +292,7 @@ void setStartX(int valeur)
 
 
 
-int getStartY(void)
+int recupPersoStartY(void)
 {
     return map.startY;
 }
@@ -300,7 +300,7 @@ int getStartY(void)
 
 
 
-void setStartY(int valeur)
+void initDepartMapY(int valeur)
 {
     map.startY = valeur;
 }
@@ -308,7 +308,7 @@ void setStartY(int valeur)
 
 
  
-int getMaxX(void)
+int recupFinMapX(void)
 {
     return map.maxX;
 }
@@ -316,7 +316,7 @@ int getMaxX(void)
 
 
 
-int getMaxY(void)
+int recupFinMapY(void)
 {
     return map.maxY;
 }
@@ -324,7 +324,7 @@ int getMaxY(void)
 
 
  
-int getBeginX(void)
+int recupDebutMapX(void)
 {
     return map.beginx;
 }
@@ -332,36 +332,36 @@ int getBeginX(void)
 
 
 
-int getBeginY(void)
+int recupDebutMapY(void)
 {
     return map.beginy;
 }
 
 
-SDL_Texture *getTileSetA(void)
+SDL_Texture *recupTileset(void)
 {
     return map.tileSet;
 }
 
 
 
-void mapCollision(GameObject *entity)
+void mapCollision(GameObject *entite)
 {
  
     int i, x1, x2, y1, y2;
     
     //Le joueur commence en l'air et tombe sur le sol
-    entity->onGround = 0;
+    entite->onGround = 0;
     
     /* Ensuite, on va tester les mouvements horizontaux en premier
     (axe des X). On va se servir de i comme compteur pour notre boucle.
     En fait, on va découper notre sprite en blocs de tiles pour voir
     quelles tiles il est susceptible de recouvrir. */
 
-    if (entity->h > TILE_SIZE)
+    if (entite->h > TILE_SIZE)
         i = TILE_SIZE;
     else
-        i = entity->h;
+        i = entite->h;
     
     
     //On lance alors une boucle for infinie car on l'interrompra selon
@@ -369,25 +369,25 @@ void mapCollision(GameObject *entity)
     for (;;)
     {
         //On va calculer ici les coins de notre sprite à gauche et à droite pour voi si ça touche
-        x1 = (entity->x + entity->dirX) / TILE_SIZE;
-        x2 = (entity->x + entity->dirX + entity->w - 1) / TILE_SIZE;
+        x1 = (entite->x + entite->dirX) / TILE_SIZE;
+        x2 = (entite->x + entite->dirX + entite->w - 1) / TILE_SIZE;
         
         //Même chose avec y
-        y1 = (entity->y) / TILE_SIZE;
-        y2 = (entity->y + i - 1) / TILE_SIZE;
+        y1 = (entite->y) / TILE_SIZE;
+        y2 = (entite->y + i - 1) / TILE_SIZE;
         
-        //On va tester les mouvements initiés dans updatePlayer
+        //On va tester les mouvements initiés dans majJoueur
         if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
         {
             //Si on a un mouvement à droite
-            if (entity->dirX > 0)
+            if (entite->dirX > 0)
             {
 
                 //Test des tiles Power-up
                 if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y1][x2] = 0;
@@ -396,8 +396,8 @@ void mapCollision(GameObject *entity)
 
                 else if (map.tile[y2][x2] >= TILE_POWER_UP_DEBUT && map.tile[y2][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y2][x2] = 0;
@@ -407,11 +407,11 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y1][x2] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x2 * TILE_SIZE;
-                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x2 * TILE_SIZE;
+                    entite->respawnY = (y1 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y1][x2] += 1;
@@ -420,11 +420,11 @@ void mapCollision(GameObject *entity)
                 else if (map.tile[y2][x2] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x2 * TILE_SIZE;
-                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x2 * TILE_SIZE;
+                    entite->respawnY = (y2 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y2][x2] += 1;
@@ -436,15 +436,15 @@ void mapCollision(GameObject *entity)
                 {
                     // Si c'est le cas, on place le joueur très proche de la tile 
         
-                    entity->x = x2 * TILE_SIZE;
-                    entity->x -= entity->w + 1;
-                    entity->dirX = 0;
+                    entite->x = x2 * TILE_SIZE;
+                    entite->x -= entite->w + 1;
+                    entite->dirX = 0;
                 
                 }
             }
             
             //Même chose à gauche
-            else if (entity->dirX < 0)
+            else if (entite->dirX < 0)
             {
 
 
@@ -452,8 +452,8 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y1][x1] = 0;
@@ -462,8 +462,8 @@ void mapCollision(GameObject *entity)
                 else if (map.tile[y2][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y2][x1] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y2][x1] = 0;
@@ -473,11 +473,11 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y1][x1] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x1 * TILE_SIZE;
-                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x1 * TILE_SIZE;
+                    entite->respawnY = (y1 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y1][x1] += 1;
@@ -485,11 +485,11 @@ void mapCollision(GameObject *entity)
                 else if (map.tile[y2][x1] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x1 * TILE_SIZE;
-                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x1 * TILE_SIZE;
+                    entite->respawnY = (y2 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y2][x1] += 1;
@@ -497,14 +497,14 @@ void mapCollision(GameObject *entity)
 
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y2][x1] > BLANK_TILE)
                 {
-                    entity->x = (x1 + 1) * TILE_SIZE;
-                    entity->dirX = 0;
+                    entite->x = (x1 + 1) * TILE_SIZE;
+                    entite->dirX = 0;
                 }
             }
         }
         
         //On sort de la boucle si on a testé toutes les tiles le long de la hauteur du sprite.
-        if (i == entity->h)
+        if (i == entite->h)
         {
             break;
         }
@@ -512,31 +512,31 @@ void mapCollision(GameObject *entity)
         //Sinon, on teste les tiles supérieures en se limitant à la heuteur du sprite.
         i += TILE_SIZE;
         
-        if (i > entity->h)
+        if (i > entite->h)
         {
-            i = entity->h;
+            i = entite->h;
         }
     }
     
     
     //On recommence la même chose avec le mouvement vertical (axe des Y)
-    if (entity->w > TILE_SIZE)
+    if (entite->w > TILE_SIZE)
         i = TILE_SIZE;
     else
-        i = entity->w;
+        i = entite->w;
     
     
     for (;;)
     {
-        x1 = (entity->x) / TILE_SIZE;
-        x2 = (entity->x + i) / TILE_SIZE;
+        x1 = (entite->x) / TILE_SIZE;
+        x2 = (entite->x + i) / TILE_SIZE;
         
-        y1 = (entity->y + entity->dirY) / TILE_SIZE;
-        y2 = (entity->y + entity->dirY + entity->h) / TILE_SIZE;
+        y1 = (entite->y + entite->dirY) / TILE_SIZE;
+        y2 = (entite->y + entite->dirY + entite->h) / TILE_SIZE;
         
         if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
         {
-            if (entity->dirY > 0)
+            if (entite->dirY > 0)
             {
                 /* Déplacement en bas */
 
@@ -545,8 +545,8 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y2][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y2][x1] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y2][x1] = 0;
@@ -554,8 +554,8 @@ void mapCollision(GameObject *entity)
                 else if (map.tile[y2][x2] >= TILE_POWER_UP_DEBUT
                 && map.tile[y2][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y2][x2] = 0;
@@ -565,11 +565,11 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y2][x1] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x1 * TILE_SIZE;
-                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x1 * TILE_SIZE;
+                    entite->respawnY = (y2 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y2][x1] += 1;
@@ -578,11 +578,11 @@ void mapCollision(GameObject *entity)
                 else if (map.tile[y2][x2] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x2 * TILE_SIZE;
-                    entity->respawnY = (y2 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x2 * TILE_SIZE;
+                    entite->respawnY = (y2 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y2][x2] += 1;
@@ -594,26 +594,26 @@ void mapCollision(GameObject *entity)
                 {
                 
                     //On joue le son
-                    playSoundFx(MORT_HERO);
+                    joueSon(MORT_HERO);
                     //On fait sauter le joueur
-                    entity->dirY = -JUMP_HEIGHT;
+                    entite->dirY = -JUMP_HEIGHT;
                 
-                    if (entity->life > 1)
+                    if (entite->life > 1)
                     {
                         //Si le timer d'invincibilité est à 0
                         //on perd un coeur
-                        if (entity->invincibleTimer == 0)
+                        if (entite->invincibleTimer == 0)
                         {
-                        entity->life--;
-                        entity->invincibleTimer = 80;
+                        entite->life--;
+                        entite->invincibleTimer = 80;
                         }
                     }
                     else
                     {
                         //On met le timer à 1 pour tuer le joueur intantanément
-                        entity->timerMort = 1;
+                        entite->timerMort = 1;
                         //On joue le son
-                        playSoundFx(MORT_HERO);
+                        joueSon(MORT_HERO);
                     }
                 }
 
@@ -625,15 +625,15 @@ void mapCollision(GameObject *entity)
                 {
                     //Si la tile est une plateforme ou une tile solide, on y colle le joueur et
                     //on le déclare sur le sol (onGround).
-                    entity->y = y2 * TILE_SIZE;
-                    entity->y -= entity->h;
-                    entity->dirY = 0;
-                    entity->onGround = 1;
+                    entite->y = y2 * TILE_SIZE;
+                    entite->y -= entite->h;
+                    entite->dirY = 0;
+                    entite->onGround = 1;
                 }
                 
             }
         
-            else if (entity->dirY < 0)
+            else if (entite->dirY < 0)
             {
             
                 /* Déplacement vers le haut */
@@ -642,8 +642,8 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y1][x1] = 0;
@@ -651,8 +651,8 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT
                 && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction getItem()
-                    getItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
+                    //On appelle la fonction recupItem()
+                    recupItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y1][x2] = 0;
@@ -662,11 +662,11 @@ void mapCollision(GameObject *entity)
                 if (map.tile[y1][x1] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x1 * TILE_SIZE;
-                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x1 * TILE_SIZE;
+                    entite->respawnY = (y1 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y1][x1] += 1;
@@ -674,11 +674,11 @@ void mapCollision(GameObject *entity)
                 else if (map.tile[y1][x2] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
-                    entity->checkpointActif = 1;
+                    entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entity->respawnX = x2 * TILE_SIZE;
-                    entity->respawnY = (y1 * TILE_SIZE) - entity->h;
+                    entite->respawnX = x2 * TILE_SIZE;
+                    entite->respawnY = (y1 * TILE_SIZE) - entite->h;
                     
                     //On change la tile
                     map.tile[y1][x2] += 1;
@@ -687,110 +687,110 @@ void mapCollision(GameObject *entity)
 
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y1][x2] > BLANK_TILE)
                 {
-                    entity->y = (y1 + 1) * TILE_SIZE;
-                    entity->dirY = 0;
+                    entite->y = (y1 + 1) * TILE_SIZE;
+                    entite->dirY = 0;
                 }
             
             }
         }
             
         //On teste la largeur du sprite (même technique que pour la hauteur du sprite)
-        if (i == entity->w)
+        if (i == entite->w)
         {
             break;
         }
         
         i += TILE_SIZE;
         
-        if (i > entity->w)
+        if (i > entite->w)
         {
-            i = entity->w;
+            i = entite->w;
         }
     }
     
     /* Maintenant, on applique les vecteurs de mouvement si le sprite n'est pas bloqué */
-    entity->x += entity->dirX;
-    entity->y += entity->dirY;
+    entite->x += entite->dirX;
+    entite->y += entite->dirY;
     
     //Et on empèche le dépassement de l'écran.
-    if (entity->x < 0)
+    if (entite->x < 0)
     {
-        entity->x = 0;
+        entite->x = 0;
     }
     
 
-    else if (entity->x + entity->w >= map.maxX)
+    else if (entite->x + entite->w >= map.maxX)
     {
         //Si on touche le bord droit de l'écran, on passe au niveau sup
-        SetValeurDuNiveau(getLevel() + 1);
+        changeNiveau(recupNiveau() + 1);
         //Si on dépasse le niveau max, on annule et on limite le déplacement du joueur
-        if (getLevel() > LEVEL_MAX)
+        if (recupNiveau() > LEVEL_MAX)
         {
-            SetValeurDuNiveau(LEVEL_MAX);
-            entity->x = map.maxX - entity->w - 1;
+            changeNiveau(LEVEL_MAX);
+            entite->x = map.maxX - entite->w - 1;
         }
         //Sinon, on passe au niveau sup, on charge la nouvelle map et on réinitialise le joueur
         else
         {
             //On désactive le checkpoint
-            entity->checkpointActif = 0;
+            entite->checkpointActif = 0;
             
-            changeLevel(getLevel());
-            initializePlayer(1);
+            chargeNiveau(recupNiveau());
+            initJoueur(1);
         }
     }
     
     //S'il sort de l'écran par le bas (chute dans un trou), on lance le timer qui va gérer sa mort et son respawn
-    if (entity->y > map.maxY)
+    if (entite->y > map.maxY)
     {
-        entity->timerMort = 60;
+        entite->timerMort = 60;
     }
 }
 
-void monsterCollisionToMap(GameObject *entity)
+void monsterCollisionToMap(GameObject *entite)
 {
  
     int i, x1, x2, y1, y2;
     
-    entity->onGround = 0;
+    entite->onGround = 0;
     
-    if (entity->h > TILE_SIZE)
+    if (entite->h > TILE_SIZE)
         i = TILE_SIZE;
     else
-        i = entity->h;
+        i = entite->h;
     
     for (;;)
     {
-        x1 = (entity->x + entity->dirX) / TILE_SIZE;
-        x2 = (entity->x + entity->dirX + entity->w - 1) / TILE_SIZE;
+        x1 = (entite->x + entite->dirX) / TILE_SIZE;
+        x2 = (entite->x + entite->dirX + entite->w - 1) / TILE_SIZE;
         
-        y1 = (entity->y) / TILE_SIZE;
-        y2 = (entity->y + i - 1) / TILE_SIZE;
+        y1 = (entite->y) / TILE_SIZE;
+        y2 = (entite->y + i - 1) / TILE_SIZE;
         
         if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
         {
             //Si on a un mouvement à droite
-            if (entity->dirX > 0)
+            if (entite->dirX > 0)
             {
                 //On vérifie si les tiles recouvertes sont solides
                 if (map.tile[y1][x2] > BLANK_TILE || map.tile[y2][x2] > BLANK_TILE)
                 {
-                    entity->x = x2 * TILE_SIZE;
-                    entity->x -= entity->w + 1;
-                    entity->dirX = 0;
+                    entite->x = x2 * TILE_SIZE;
+                    entite->x -= entite->w + 1;
+                    entite->dirX = 0;
                 
                 }
             
             }
             
             //Même chose à gauche
-            else if (entity->dirX < 0)
+            else if (entite->dirX < 0)
             {
         
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y2][x1] > BLANK_TILE)
                 {
-                entity->x = (x1 + 1) * TILE_SIZE;
-                entity->dirX = 0;
+                entite->x = (x1 + 1) * TILE_SIZE;
+                entite->dirX = 0;
                 }
         
             }
@@ -798,7 +798,7 @@ void monsterCollisionToMap(GameObject *entity)
         }
     
         //On sort de la boucle si on a testé toutes les tiles le long de la hauteur du sprite.
-        if (i == entity->h)
+        if (i == entite->h)
         {
             break;
         }
@@ -806,92 +806,92 @@ void monsterCollisionToMap(GameObject *entity)
         //Sinon, on teste les tiles supérieures en se limitant à la heuteur du sprite.
         i += TILE_SIZE;
         
-        if (i > entity->h)
+        if (i > entite->h)
         {
-            i = entity->h;
+            i = entite->h;
         }
     }
     
     //On recommence la même chose avec le mouvement vertical (axe des Y)
-    if (entity->w > TILE_SIZE)
+    if (entite->w > TILE_SIZE)
         i = TILE_SIZE;
     else
-        i = entity->w;
+        i = entite->w;
     
     
     for (;;)
     {
-        x1 = (entity->x) / TILE_SIZE;
-        x2 = (entity->x + i) / TILE_SIZE;
+        x1 = (entite->x) / TILE_SIZE;
+        x2 = (entite->x + i) / TILE_SIZE;
         
-        y1 = (entity->y + entity->dirY) / TILE_SIZE;
-        y2 = (entity->y + entity->dirY + entity->h) / TILE_SIZE;
+        y1 = (entite->y + entite->dirY) / TILE_SIZE;
+        y2 = (entite->y + entite->dirY + entite->h) / TILE_SIZE;
         
         if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
         {
-            if (entity->dirY > 0)
+            if (entite->dirY > 0)
             {
             
                 /* Déplacement en bas */
                 
                 if (map.tile[y2][x1] > TILE_TRAVERSABLE || map.tile[y2][x2] > TILE_TRAVERSABLE)
                 {
-                    entity->y = y2 * TILE_SIZE;
-                    entity->y -= entity->h;
-                    entity->dirY = 0;
-                    entity->onGround = 1;
+                    entite->y = y2 * TILE_SIZE;
+                    entite->y -= entite->h;
+                    entite->dirY = 0;
+                    entite->onGround = 1;
                 }
             
             }
         
-            else if (entity->dirY < 0)
+            else if (entite->dirY < 0)
             {
             
                 /* Déplacement vers le haut */
                 
                 if (map.tile[y1][x1] > BLANK_TILE || map.tile[y1][x2] > BLANK_TILE)
                 {
-                    entity->y = (y1 + 1) * TILE_SIZE;
-                    entity->dirY = 0;
+                    entite->y = (y1 + 1) * TILE_SIZE;
+                    entite->dirY = 0;
                 }
         
             }
         }
         
         //On teste la largeur du sprite (même technique que pour la hauteur précédemment)
-        if (i == entity->w)
+        if (i == entite->w)
         {
             break;
         }
         
         i += TILE_SIZE;
         
-        if (i > entity->w)
+        if (i > entite->w)
         {
-            i = entity->w;
+            i = entite->w;
         }
     }
     
     /* Maintenant, on applique les vecteurs de mouvement si le sprite n'est pas bloqué */
-    entity->x += entity->dirX;
-    entity->y += entity->dirY;
+    entite->x += entite->dirX;
+    entite->y += entite->dirY;
     
     //Et on contraint son déplacement aux limites de l'écran, comme avant.
-    if (entity->x < 0)
+    if (entite->x < 0)
     {
-        entity->x = 0;
+        entite->x = 0;
     }
     
-    else if (entity->x + entity->w >= map.maxX)
+    else if (entite->x + entite->w >= map.maxX)
     {
-        entity->x = map.maxX - entity->w - 1;
+        entite->x = map.maxX - entite->w - 1;
     }
     
     //Maintenant, s'il sort de l'écran par le bas (chute dans un trou sans fond), on lance le timer
     //qui gère sa mort et sa réinitialisation (plus tard on gèrera aussi les vies).
-    if (entity->y > map.maxY)
+    if (entite->y > map.maxY)
     {
-        entity->timerMort = 60;
+        entite->timerMort = 60;
     }
 }
 

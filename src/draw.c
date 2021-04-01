@@ -14,35 +14,35 @@ SDL_Texture *HUD_vie, *HUD_pieces;
  
 
 
-void drawGame(int pauseMenu)
+void chargeJeu(int pauseMenu)
 {
     // Affiche le fond (background) aux coordonnées (0,0)
-    drawImage(getBackground(), 0, 0);
+    dessineImage(getBackground(), 0, 0);
     
     /* Affiche la map de tiles : layer 2 (couche du fond) */
-    drawMap(2);
+    dessineMap(2);
     
     /* Affiche la map de tiles : layer 1 (couche active : sol, etc.)*/
-    drawMap(1);
+    dessineMap(1);
     
     /* Affiche le joueur */
-    drawPlayer();
+    dessineJoueur();
 
     /* Affiche les monstres */
-    for (int i = 0; i < getMonsterNumber(); i++)
+    for (int i = 0; i < recupNombreMonstres(); i++)
     {
-    drawMonster(getMonster(i));
+    dessineMonstre(recupMonstre(i));
     }
 
     //On affiche le HUD par-dessus tout le reste
-    drawHud();
+    dessineHUD();
 
     //On affiche le menu Pause, si on est en Pause
     if (pauseMenu)
-        drawPauseMenu();
+        dessineMenuPause();
     
     // Affiche l'écran
-    SDL_RenderPresent(getrenderer());
+    SDL_RenderPresent(recupRendu());
     
     // Délai pour laisser respirer le proc
     SDL_Delay(1);
@@ -52,19 +52,19 @@ void drawGame(int pauseMenu)
 
 
 
-SDL_Texture *loadImage(char *name)
+SDL_Texture *chargeImage(char *nom)
 {
     
     /* Charge les images avec SDL Image dans une SDL_Surface */
     
     SDL_Surface *loadedImage = NULL;
     SDL_Texture *texture = NULL;
-    loadedImage = IMG_Load(name);
+    loadedImage = IMG_Load(nom);
     
     if (loadedImage != NULL)
     {
     // Conversion de l'image en texture
-    texture = SDL_CreateTextureFromSurface(getrenderer(), loadedImage);
+    texture = SDL_CreateTextureFromSurface(recupRendu(), loadedImage);
     
     // On se débarrasse du pointeur vers une surface
     SDL_FreeSurface(loadedImage);
@@ -81,7 +81,7 @@ SDL_Texture *loadImage(char *name)
 
 
   
-void drawImage(SDL_Texture *image, int x, int y)
+void dessineImage(SDL_Texture *image, int x, int y)
 {
     
     SDL_Rect dest;
@@ -92,7 +92,7 @@ void drawImage(SDL_Texture *image, int x, int y)
     
     /* Dessine l'image entière sur l'écran aux coordonnées x et y */
     SDL_QueryTexture(image, NULL, NULL, &dest.w, &dest.h);
-    SDL_RenderCopy(getrenderer(), image, NULL, &dest);
+    SDL_RenderCopy(recupRendu(), image, NULL, &dest);
  
 }
  
@@ -124,7 +124,7 @@ void delay(unsigned int frameLimit)
 
 
 
-void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
+void dessineTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 {
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
@@ -143,7 +143,7 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
     src.h = TILE_SIZE;
     
     /* Dessine la tile choisie sur l'écran aux coordonnées x et y */
-    SDL_RenderCopy(getrenderer(), image, &src, &dest);
+    SDL_RenderCopy(recupRendu(), image, &src, &dest);
 }
 
 
@@ -151,13 +151,13 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 void initHUD(void)
 {
     /* On charge les images du HUD */
-    HUD_vie = loadImage("images/life.png");
-    HUD_pieces = loadImage("images/piece.png");
+    HUD_vie = chargeImage("images/life.png");
+    HUD_pieces = chargeImage("images/piece.png");
 }
  
 
 
-void cleanHUD(void)
+void nettoyageHUD(void)
 {
     if (HUD_pieces != NULL)
     {
@@ -172,7 +172,7 @@ void cleanHUD(void)
 
 
 
-void drawHud(void)
+void dessineHUD(void)
 {
     //On crée une varuiable qui contiendra notre texte (jusqu'à 200 caractères, y'a de la marge ;) ).
     char text[200];
@@ -181,23 +181,23 @@ void drawHud(void)
     
     
     /* Affiche le nombre de vies en bas à droite - Adaptation à la fenêtre auto */
-    drawImage(HUD_vie, SCREEN_WIDTH - 125, 18);
+    dessineImage(HUD_vie, SCREEN_WIDTH - 125, 18);
     
     //Pour afficher le nombre de vies, on formate notre string pour qu'il prenne la valeur de la variable
-    sprintf_s(text, sizeof(text), "x %d", getNombreDeVies());
+    sprintf_s(text, sizeof(text), "x %d", recupNombreDeVies());
     
     
     //Puis on utilise notre fonction créée précédemment pour écrire en noir (0, 0, 0, 255)
     //et en blanc (255, 255, 255, 255) afin de surligner le texte et de le rendre plus
     //visible
-    drawString(text, SCREEN_WIDTH - 80, 20, 0, 0, 0, 255);
-    drawString(text, SCREEN_WIDTH - 82, 20, 255, 255, 255, 255);
+    afficheTexte(text, SCREEN_WIDTH - 80, 20, 0, 0, 0, 255);
+    afficheTexte(text, SCREEN_WIDTH - 82, 20, 255, 255, 255, 255);
     
     /* Affiche le nombre de pièces en haut à gauche */
-    drawImage(HUD_pieces, 20, 15);
+    dessineImage(HUD_pieces, 20, 15);
     
-    sprintf_s(text, sizeof(text), "%d", getNombreDepieces());
-    drawString(text, 60, 20, 0, 0, 0, 255);
-    drawString(text, 60, 18, 255, 255, 255, 255);
+    sprintf_s(text, sizeof(text), "%d", recupNombreDePieces());
+    afficheTexte(text, 60, 20, 0, 0, 0, 255);
+    afficheTexte(text, 60, 18, 255, 255, 255, 255);
  
 }

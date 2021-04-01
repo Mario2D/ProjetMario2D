@@ -24,48 +24,49 @@
  * 
  *  \return void
  */
-extern void centerScrollingOnPlayer(void);
+extern void scrollSurJoueur(void);
 
 /*! \brief  Charge une nouvelle map en nettoyant la mémoire qui est occupé à ce moment précis
  *      
- * 
+ *  param[in]   int niveau  niveau choisi
+ *
  *  \return void
  */
-extern void changeLevel(int level);
+extern void chargeNiveau(int niveau);
 
 /*! \brief  Nettoie et libère proprement les textures
  *  
  * 
  *  \return void
  */ 
-extern void cleanHUD(void);
+extern void nettoyageHUD(void);
 
 /*! \brief  Nettoie et libère proprement le background et le tileset
  *      
  * 
  *  \return void
  */ 
-extern void cleanMaps(void);
+extern void nettoyageMaps(void);
 
 /*! \brief  Vide la mémoire liée au sprite proprement
  *  
  * 
  *  \return void
  */
-extern void cleanPlayer(void);
+extern void nettoyageJoueur(void);
 
 /*! \brief  La fonction quitte tous les outils proprement on libérant la mémoire 
  *  
  *  \return void
  */ 
-extern void cleanup(void);
+extern void nettoyageAll(void);
 
 /*! \brief  Libère la police proprement
  *  
  * 
  *  \return void
  */ 
-extern void closeFont(void);
+extern void fermeturePolice(void);
 
 /*! \brief  Fonction qui va gérer les FPS pour laisser respirer le processeur de la machine
  *  
@@ -81,16 +82,16 @@ extern void delay(unsigned int frameLimit);
  *
  *  \return void
  */
-extern void drawGame(int pauseMenu);
+extern void chargeJeu(int pauseMenu);
 
 /*! \brief  Dessine les compteurs de vie et de pièces sur le rendu
  *  
  * 
  *  \return void
  */ 
-extern void drawHud(void);
+extern void dessineHUD(void);
 
-/*! \brief  Dessine une image en fonction des paremètres passés en paramètres
+/*! \brief  Dessine une image en fonction des paramètres passés en paramètres
  *  
  *  \param[in]  SDL_Texture *image      Une image
  *  \param[in]  int x                   Coordonnées en abscisses (coin en haut à gauche de l'image)
@@ -98,22 +99,22 @@ extern void drawHud(void);
  * 
  *  \return void
  */ 
-extern void drawImage(SDL_Texture *, int, int);
+extern void dessineImage(SDL_Texture *, int, int);
 
 /*! \brief  Dessine la map sur un rendu en récupérant les coordonnées de la matrice pour une couche donnée.
  *      
- *  param[in] int layer Nom de la couche à modéliser
+ *  param[in] int couche Nom de la couche à modéliser
  * 
  *  \return void
  */ 
-extern void drawMap(int);
+extern void dessineMap(int couche);
 
 /*! \brief  Dessine le héros aux coordonnées récupérées dans la fonction
  *  
  * 
  *  \return void
  */
-extern void drawPlayer(void);
+extern void dessineJoueur(void);
 
 /*! \brief  Dessine le texte sur le rendu pour des coordonnées et une couleur donnée
  *  
@@ -129,7 +130,7 @@ extern void drawPlayer(void);
  * 
  *  \return void
  */ 
-extern void drawString(char *text, int x, int y, int r, int g, int b, int a);
+extern void afficheTexte(char *text, int x, int y, int r, int g, int b, int a);
 
 /*! \brief  charge une image dans un rectangle dans les coordonnées sont passées en paramètres
  *  \param[in]  SDL_Texture *image      l'image à charger
@@ -140,15 +141,15 @@ extern void drawString(char *text, int x, int y, int r, int g, int b, int a);
  * 
  *  \return void
  */ 
-extern void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy);
+extern void dessineTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy);
 
-/*! \brief  Appelle la fonction getInput() 
+/*! \brief  Appelle la fonction recupTouche() 
  *  
- *  param[in]   Input *input    Une entrée    
+ *  param[in]   Input *touche    Une entrée    
  * 
  *  \return void
  */ 
-extern void gestionInputs(Input *input);
+extern void gestionTouches(Input *touche);
 
 /*! \brief  Récupère la texture background
  *      
@@ -162,108 +163,109 @@ extern SDL_Texture *getBackground(void);
  * 
  *  \return int
  */
-extern int getBeginX(void);
+extern int recupDebutMapX(void);
 
 /*! \brief  Récupère les coordonnées en ordonnée du début de la map
  *      
  * 
  *  \return int
  */ 
-extern int getBeginY(void);
+extern int recupDebutMapY(void);
 
 /*! \brief  Fonction qui va gérer les touches du clavier, c'est-à-dire qu'elle va boucler sur chaque évènement qui pourra être traité par le jeu.
  *  
- *  param[in]   Input *input    Une entrée  
+ *  param[in]   Input *touche une entrée  
+ *
  *  \return void
  */ 
-extern void getInput(Input *input);
+extern void recupTouche(Input *touche);
 
 /*! \brief Récupère l'entier lié au level
  *  
  * 
  *  \return int
  */
-extern int getLevel(void);
+extern int recupNiveau(void);
 
 /*! \brief  Récupère les coordonnées en abscisse de la fin de la map
  *      
  * 
  *  \return int
  */ 
-extern int getMaxX(void);
+extern int recupFinMapX(void);
 
 /*! \brief  Récupère les coordonnées en ordonnée de la fin de la map
  *      
  * 
  *  \return int
  */ 
-extern int getMaxY(void);
+extern int recupFinMapY(void);
 
 /*! \brief Récupère le nombre de pièce(s)
  *  
  * 
  *  \return int
  */
-extern int getNombreDepieces(void);
+extern int recupNombreDePieces(void);
 
 /*! \brief Récupère le nombre de vie(s)
  *  
  * 
  *  \return int
  */
-extern int getNombreDeVies(void);
+extern int recupNombreDeVies(void);
 
 /*! \brief  Récupère le GameObject de player
  *  
  * 
  *  \return GameObject
  */ 
-extern GameObject *getPlayer(void);
+extern GameObject *recupJoueur(void);
 
 /*! \brief  Récupère les coordonnées en abscisse du héros
  *  
  * 
  *  \return int
  */
-extern int getPlayerx(void);
+extern int recupJoueurX(void);
 
 /*! \brief  Récupère les coordonnées en ordonnée du héros
  *  
  * 
  *  \return int
  */
-extern int getPlayery(void);
+extern int recupJoueurY(void);
 
 /*! \brief  Récupère un rendu
  * 
  *  \return SDL_Renderer
  */ 
-extern SDL_Renderer *getrenderer(void);
+extern SDL_Renderer *recupRendu(void);
 
 /*! \brief  Récupère les coordonnées de départ en abscisse du personnage
  *      
  * 
  *  \return int
  */ 
-extern int getStartX(void);
+extern int recupPersoStartX(void);
 
 /*! \brief  Récupère les coordonnées de départ en ordonnée du personnage
  *      
  * 
  *  \return int
  */ 
-extern int getStartY(void);
+extern int recupPersoStartY(void);
 
-/*! \brief  Récupère le tileSet A
+/*! \brief  Récupère le tileSet 
  *      
  * 
  *  \return SDL_Texture
  */ 
-extern SDL_Texture *getTileSetA(void);
+extern SDL_Texture *recupTileset(void);
 
 /*! \brief  Initialisation globale des outils SDL
  *  
- *  \param[in]  char *title     Nom de la fenêtre à générer
+ *  \param[in]  char *titre  Nom de la fenêtre à générer
  * 
  *  \return void
  */ 
@@ -276,75 +278,75 @@ extern void init(char *);
  */ 
 extern void initHUD(void);
 
-/*! \brief  Charge les images de fond pour un level donné.
+/*! \brief  Charge les images de fond pour un niveau donné.
  *  
- *  \param[in]  int level   entier lié à un level (1, 2, 3 etc...)
+ *  \param[in]  int niveau   entier lié à un niveau (1, 2, 3 etc...)
  * 
  *  \return void
  */ 
-extern void initMaps(int level);
+extern void initMaps(int niveau);
 
 /*! \brief  Charge le spritesheet du héros au début du level
  *  
  * 
  *  \return void
  */
-extern void initPlayerSprites(void);
+extern void initSpriteJoueur(void);
 
 /*! \brief  Initialise le héros dans un niveau donné
  *  
- *  param[in]   int newLevel  Valeur du niveau dans laquelle il faut charger le héros
+ *  param[in]   int nouveauNiveau  Valeur du niveau dans laquelle il faut charger le héros
  * 
  *  \return void
  */
-extern void initializePlayer(int newLevel);
+extern void initJoueur(int nouveauNiveau);
 
 /*! \brief  On charge du texte à l'aide de SDL_TTF dans une taille et une police spécifiée
  *  
- *  param[in] char * name  Chaine à charger
- *  param[in] int size     Taille du texte à charger
+ *  param[in] char * nom  Chaine à charger
+ *  param[in] int taille     Taille du texte à charger
  * 
  *  \return void
  */
-extern void loadFont(char *name , int size);
+extern void chargePolice(char *nom , int taille);
 
 /*! \brief  S'occupe de charger le jeu, c'est-à-dire la map et le sprite du personnage
  *  
  *  \return void
  */ 
-extern void loadGame(void);
+extern void chargementJeu(void);
 
-/*! \brief  Charge une image de nom *name
+/*! \brief  Charge une image de nom *nom
  *  
- *  \param[in]  char *name  Chaine de caractères correspondant un nom de l'image à charger
+ *  \param[in]  char *nom  Chaine de caractères correspondant un nom de l'image à charger
  * 
  *  \return SDL_Texture 
  */ 
-extern SDL_Texture *loadImage(char *name);
+extern SDL_Texture *chargeImage(char *nom);
 
 /*! \brief  Lis le fichier texte et stocke la map dans des matrices pour pouvoir réutiliser facilement les coordonnées ensuite
  *      
- *  param[in] char *name    Nom de la map à modéliser
+ *  param[in] char *nom    Nom de la map à modéliser
  * 
  *  \return void
  */
-extern void loadMap(char *name);
+extern void chargeMap(char *nom);
 
 /*! \brief  Gère les collisions avec les différentes textures de la map
  *      
- *  param[in]   GameObject *entity  Une entité (texture animée)
+ *  param[in]   GameObject *personnage  un personnage (texture animée)
  * 
  *  \return void
  */ 
-extern void mapCollision(GameObject *entity);
+extern void mapCollision(GameObject *personnage);
 
-/*! \brief Récupère le nombre de vie(s)
+/*! \brief Défini le nombre de vie(s)
  *  
  *  param[in]  int valeur  Nombre de vie(s)
  * 
  *  \return int
  */
-extern void setNombreDeVies(int valeur);
+extern void initNombreDeVies(int valeur);
 
 /*! \brief Initialise le nombre de piece(s)
  *  
@@ -352,7 +354,7 @@ extern void setNombreDeVies(int valeur);
  * 
  *  \return int
  */
-extern void setNombreDePieces(int valeur);
+extern void initNombreDePieces(int valeur);
 
 /*! \brief  Initialise les coordonnées en abscisse du héros
  *  
@@ -360,7 +362,7 @@ extern void setNombreDePieces(int valeur);
  * 
  *  \return void
  */
-extern void setPlayerx(int valeur);
+extern void initJoueurX(int valeur);
 
 /*! \brief  Initialise les coordonnées en ordonnée du héros
  *  
@@ -368,7 +370,7 @@ extern void setPlayerx(int valeur);
  * 
  *  \return void
  */
-extern void setPlayery(int valeur);
+extern void initJoueurY(int valeur);
 
 
 /*! \brief  Initialise les coordonnées de départ en abscisse sur la map
@@ -377,7 +379,7 @@ extern void setPlayery(int valeur);
  * 
  *  \return void
  */ 
-extern void setStartX(int valeur);
+extern void initDepartMapX(int valeur);
 
 /*! \brief  Initialise les coordonnées de départ en ordonnée sur la map
  *      
@@ -385,7 +387,7 @@ extern void setStartX(int valeur);
  * 
  *  \return void
  */  
-extern void setStartY(int valeur);
+extern void initDepartMapY(int valeur);
 
 /*! \brief  Change la valeur du niveau en cours
  *  
@@ -393,15 +395,15 @@ extern void setStartY(int valeur);
  * 
  *  \return void
  */
-extern void SetValeurDuNiveau(int valeur);
+extern void changeNiveau(int valeur);
 
-/*! \brief  Fonction qui va reposistionner le personnage au dernier checkpoint, c'est-à-dire soit au début, soit au milieu du niveau
+/*! \brief  Fonction qui va reposistionner le personnage sur la map
  *  
- *  param[in]   Input *input
+ *  param[in]   Input *touche
  * 
  *  \return void
  */
-extern void updatePlayer(Input *input);
+extern void majJoueur(Input *touche);
 
 /*! \brief  Fonction qui va charger et jouer une musique à l'infini
  *  
@@ -409,36 +411,36 @@ extern void updatePlayer(Input *input);
  * 
  *  \return void
  */
-extern void loadSong(char filename[200]);
+extern void chargeMusique(char filename[200]);
 
 /*! \brief  Fonction qui va libérer une musique
  *  
  * 
  *  \return void
  */
-extern void cleanUpMusic(void);
+extern void libereMusique(void);
 
 /*! \brief  Fonction qui va charger un son
  *  
  * 
  *  \return void
  */
-extern void loadSound(void);
+extern void chargeSon(void);
 
 /*! \brief  Fonction qui va libérer un son
  *  
  * 
  *  \return void
  */
-extern void freeSound(void);
+extern void libereSon(void);
 
-/*! \brief  Fonction qui va jouer un son enfonction d'un évènement
+/*! \brief  Fonction qui va jouer un son en fonction d'un évènement
  *  
  *  param[in]   int type type d'évènement
  * 
  *  \return void
  */
-extern void playSoundFx(int type);
+extern void joueSon(int type);
 
 /*! \brief  Fonction qui va récupérer le monstre à l'indice nombre
  *  
@@ -446,31 +448,31 @@ extern void playSoundFx(int type);
  * 
  *  \return void
  */
-extern GameObject *getMonster(int nombre);
+extern GameObject *recupMonstre(int nombre);
 
 /*! \brief  Fonction qui va récuperer le nombre de monstres
  *  
  *  \return void
  */
-extern int getMonsterNumber(void);
+extern int recupNombreMonstres(void);
 
 /*! \brief  Fonction qui va initialiser le nombre de monstre à 0
  *   
  *  \return void
  */
-extern void resetMonsters(void);
+extern void resetMonstres(void);
 
 /*! \brief  Fonction qui va charger le sprite du monstre
  *   
  *  \return void
  */
-extern void initMonsterSprites(void);
+extern void chargeSpriteMonstre(void);
 
 /*! \brief  Fonction qui va libérer le sprite des monstres
  *   
  *  \return void
  */
-extern void cleanMonsters(void);
+extern void libereMonstre(void);
 
 /*! \brief  Fonction qui va initialiser un nouveau monstre aux coordonnées données
  *  
@@ -479,38 +481,38 @@ extern void cleanMonsters(void);
  * 
  *  \return void
  */
-extern void initializeNewMonster(int x, int y);
+extern void initNouveauMonstre(int x, int y);
 
 /*! \brief  Fonction qui va gérer les déplacements et collisions des monstres
  *   
  *  \return void
  */
-extern void updateMonsters(void);
+extern void majMonstre(void);
 
 /*! \brief  Fonction qui va gérer les collisions entre un monstre et le héro
  *  
- *  param[in]   GameObject *player objet héro
+ *  param[in]   GameObject *joueur objet héro
  *  param[in]   GameObject *monstre objet monstre
  * 
  *  \return void
  */
-extern int collide(GameObject *player, GameObject *monster);
+extern int collisionMonstreJoueur(GameObject *joueur, GameObject *monstre);
 
 /*! \brief  Fonction qui va vérifier si le monstre est sur le sol
  *  
- *  param[in]   GameObject *monster objet monstre
+ *  param[in]   GameObject *monstre objet monstre
  * 
  *  \return void
  */
-extern int checkFall(GameObject monster);
+extern int verifSol(GameObject monstre);
 
 /*! \brief  Fonction qui va dessiner le monstre sur notre rendu
  *  
- *  param[in]   GameObject *entity objet monstre
+ *  param[in]   GameObject *monstre objet monstre
  * 
  *  \return void
  */
-extern void drawMonster(GameObject *entity);
+extern void dessineMonstre(GameObject *monstre);
 
 /*! \brief  Fonction qui va retourner la valeur d'une tile
  *  
@@ -519,21 +521,21 @@ extern void drawMonster(GameObject *entity);
  * 
  *  \return void
  */
-extern int getTileValue(int y, int x);
+extern int recupValeurTile(int y, int x);
 
 /*! \brief  Fonction qui va gérer les collisions entre le monstre et la map
  *  
- *  param[in]   GameObject *entity objet monstre
+ *  param[in]   GameObject *monstre objet monstre
  * 
  *  \return void
  */
-extern void monsterCollisionToMap(GameObject *entity);
+extern void monsterCollisionToMap(GameObject *monstre);
 
 /*! \brief  Fonction qui va gérer la mort du héro
  *   
  *  \return void
  */
-extern void killPlayer(void);
+extern void tuerJoueur(void);
 
 /*! \brief  Met à jour les compteurs de pièces et de vies en fonction des power-up (tiles spéciales)
  *  
@@ -541,7 +543,7 @@ extern void killPlayer(void);
  * 
  *  \return void
  */
-extern void getItem(int itemNumber);
+extern void recupItem(int itemNumber);
 
 /*! \brief  Fonction qui remet le checkpoint du joueur à 0
  *  
@@ -553,13 +555,13 @@ extern void resetCheckpoint(void);
  *  
  *  \return void
  */
-extern int getOnMenu(void);
+extern int recupStatutMenu(void);
 
 /*! \brief  Fonction qui renvoi le type de menu actuel
  *  
  *  \return void
  */
-extern int getMenuType(void);
+extern int recupTypeMenu(void);
 
 /*! \brief  Fonction qui définit si on est dans un menu et quel type de menu
  *  
@@ -568,7 +570,7 @@ extern int getMenuType(void);
  * 
  *  \return void
  */
-extern void setOnMenu(int valeur, int type);
+extern void initTypeMenu(int valeur, int type);
 
 /*! \brief  Fonction qui charge l'image du menu
  *  
@@ -580,35 +582,35 @@ extern void initMenus(void);
  *  
  *  \return void
  */
-extern void cleanMenus(void);
+extern void libereMenus(void);
 
 /*! \brief  Fonction qui gère les évênements du menu start
  *  
- *  param[in]   Input *input 
+ *  param[in]   Input *touche 
  * 
  *  \return void
  */
-extern void updateStartMenu(Input *input);
+extern void majMenuPrincipal(Input *touche);
 
 /*! \brief  Fonction qui gère les évênements du menu pause
  *  
- *  param[in]   Input *input 
+ *  param[in]   Input *touche 
  * 
  *  \return void
  */
-extern void updatePauseMenu(Input *input);
+extern void majMenuPause(Input *touche);
 
 /*! \brief  Fonction qui dessine le menu start à l'écran
  *  
  *  \return void
  */
-extern void drawStartMenu(void);
+extern void dessineMenuPrincipal(void);
 
 /*! \brief  Fonction qui dessine le menu pause à l'écran
  *  
  *  \return void
  */
-extern void drawPauseMenu(void);
+extern void dessineMenuPause(void);
 
 
  

@@ -2,68 +2,68 @@
  
  
 int nombreMonstres;
-GameObject monster[MONSTRES_MAX];
-SDL_Texture *MonsterSprite;
+GameObject monstre[MONSTRES_MAX];
+SDL_Texture *MonstreSprite;
  
  
-GameObject *getMonster(int nombre)
+GameObject *recupMonstre(int nombre)
 {
-    return &monster[nombre];
+    return &monstre[nombre];
 }
  
  
-int getMonsterNumber(void)
+int recupNombreMonstres(void)
 {
     return nombreMonstres;
 }
  
  
-void resetMonsters(void)
+void resetMonstres(void)
 {
     nombreMonstres = 0;
 }
  
  
-void initMonsterSprites(void)
+void chargeSpriteMonstre(void)
 {
-    MonsterSprite = loadImage("images/monster1.png");
+    MonstreSprite = chargeImage("images/monster1.png");
 }
  
  
-void cleanMonsters(void)
+void libereMonstre(void)
 {
     /* Libère le sprite des monstres */
-    if (MonsterSprite != NULL)
+    if (MonstreSprite != NULL)
     {
-        SDL_DestroyTexture(MonsterSprite);
-        MonsterSprite = NULL;
+        SDL_DestroyTexture(MonstreSprite);
+        MonstreSprite = NULL;
     }
 }
  
  
  
-void initializeNewMonster(int x, int y)
+void initNouveauMonstre(int x, int y)
 {
     //Si on n'est pas rendu au max, on rajoute un monstre dont le numéro est égal
-    //à nombreMonstres : monster[0] si c'est le 1er, monster[1], si c'est le 2eme, etc...
+    //à nombreMonstres : monstre[0] si c'est le 1er, monstre[1], si c'est le 2eme, etc...
     
     if (nombreMonstres < MONSTRES_MAX)
     {
     
         //On indique sa direction (il viendra à l'inverse du joueur, logique)
-        monster[nombreMonstres].direction = LEFT;
+        monstre[nombreMonstres].direction = LEFT;
         
-        /* Ses coordonnées de démarrage seront envoyées par la fonction drawMap() en arguments */
-        monster[nombreMonstres].x = x;
-        monster[nombreMonstres].y = y;
+        /* Ses coordonnées de démarrage seront envoyées par la fonction dessineMap() en arguments */
+        monstre[nombreMonstres].x = x;
+        monstre[nombreMonstres].y = y;
         
         /* Hauteur et largeur de notre monstre (rajouté dans les defs ;) ) */
-        monster[nombreMonstres].w = MONSTER_WIDTH;
-        monster[nombreMonstres].h = MONSTER_HEIGTH;
+        monstre[nombreMonstres].w = MONSTER_WIDTH;
+        monstre[nombreMonstres].h = MONSTER_HEIGTH;
         
         //Variables nécessaires au fonctionnement de la gestion des collisions comme pour le héros
-        monster[nombreMonstres].timerMort = 0;
-        monster[nombreMonstres].onGround = 0;
+        monstre[nombreMonstres].timerMort = 0;
+        monstre[nombreMonstres].onGround = 0;
         
         nombreMonstres++;
     
@@ -73,7 +73,7 @@ void initializeNewMonster(int x, int y)
  
  
  
-void updateMonsters()
+void majMonstre()
 {
     int i;
     
@@ -81,70 +81,70 @@ void updateMonsters()
     for (i = 0; i < nombreMonstres; i++)
     {
         //Même fonctionnement que pour le joueur
-        if (monster[i].timerMort == 0)
+        if (monstre[i].timerMort == 0)
         {
             
-            monster[i].dirX = 0;
-            monster[i].dirY += GRAVITY_SPEED;
+            monstre[i].dirX = 0;
+            monstre[i].dirY += GRAVITY_SPEED;
         
-            if (monster[i].dirY >= MAX_FALL_SPEED)
-                monster[i].dirY = MAX_FALL_SPEED;
+            if (monstre[i].dirY >= MAX_FALL_SPEED)
+                monstre[i].dirY = MAX_FALL_SPEED;
             
             //Test de collision dans un mur : si la variable x reste la même, deux tours de boucle
             //durant, le monstre est bloqué et on lui fait faire demi-tour.
-            if (monster[i].x == monster[i].saveX || checkFall(monster[i]) == 1)
+            if (monstre[i].x == monstre[i].saveX || verifSol(monstre[i]) == 1)
             {
-                if (monster[i].direction == LEFT)
+                if (monstre[i].direction == LEFT)
                 {
-                    monster[i].direction = RIGHT;
+                    monstre[i].direction = RIGHT;
                 }
                 else
                 {
-                    monster[i].direction = LEFT;
+                    monstre[i].direction = LEFT;
                 }
         }
         
         //Déplacement du monstre selon la direction
-        if (monster[i].direction == LEFT)
-            monster[i].dirX -= 1;
-        else if(monster[i].direction == RIGHT)
-            monster[i].dirX += 1;
+        if (monstre[i].direction == LEFT)
+            monstre[i].dirX -= 1;
+        else if(monstre[i].direction == RIGHT)
+            monstre[i].dirX += 1;
         
         
         //On sauvegarde les coordonnées du monstre pour gérer le demi-tour
         //avant que mapCollision() ne les modifie.
-        monster[i].saveX = monster[i].x;
+        monstre[i].saveX = monstre[i].x;
         
         //On détecte les collisions avec la map comme pour le joueur
-        monsterCollisionToMap(&monster[i]);
+        monsterCollisionToMap(&monstre[i]);
         
         //On détecte les collisions avec le joueur
         //Si c'est égal à 1, on tue le joueur
-        if (collide(getPlayer(), &monster[i]) == 1)
+        if (collisionMonstreJoueur(recupJoueur(), &monstre[i]) == 1)
         {
-            killPlayer();
+            tuerJoueur();
         }
         
-        else if (collide(getPlayer(), &monster[i]) == 2)
+        else if (collisionMonstreJoueur(recupJoueur(), &monstre[i]) == 2)
         {
             //On met le timer à 1 pour tuer le monstre intantanément
-            monster[i].timerMort = 1;
-            playSoundFx(MORT_MOB);
+            monstre[i].timerMort = 1;
+            joueSon(MORT_MOB);
         }
         
         }
         
         //Si le monstre meurt, on active une tempo
-        if (monster[i].timerMort > 0)
+        if (monstre[i].timerMort > 0)
         {
-            monster[i].timerMort--;
+            monstre[i].timerMort--;
             
             /* Et on le remplace simplement par le dernier du tableau puis on
             rétrécit le tableau d'une case (on ne peut pas laisser de case vide) */
-            if (monster[i].timerMort == 0)
+            if (monstre[i].timerMort == 0)
             {
             
-                monster[i] = monster[nombreMonstres - 1];
+                monstre[i] = monstre[nombreMonstres - 1];
                 nombreMonstres--;
             
             }
@@ -155,22 +155,22 @@ void updateMonsters()
  
  
 //Fonction de gestion des collisions
-int collide(GameObject *player, GameObject *monster)
+int collisionMonstreJoueur(GameObject *joueur, GameObject *monstre)
 {
     //On teste pour voir s'il n'y a pas collision, si c'est le cas, on renvoie 0
-    if ((player->x >= monster->x + monster->w)
-    || (player->x + player->w <= monster->x)
-    || (player->y >= monster->y + monster->h)
-    || (player->y + player->h <= monster->y)
+    if ((joueur->x >= monstre->x + monstre->w)
+    || (joueur->x + joueur->w <= monstre->x)
+    || (joueur->y >= monstre->y + monstre->h)
+    || (joueur->y + joueur->h <= monstre->y)
     )
         return 0;
     
     //Sinon, il y a collision. Si le joueur est au-dessus du monstre (avec une marge
     //de 10 pixels pour éviter les frustrations dues au pixel perfect), on renvoie 2.
     //On devra alors tuer le monstre et on fera rebondir le joueur.
-    else if (player->y + player->h <= monster->y + 20)
+    else if (joueur->y + joueur->h <= monstre->y + 20)
     {
-        player->dirY = -JUMP_HEIGHT;
+        joueur->dirY = -JUMP_HEIGHT;
         return 2;
     }
     
@@ -181,7 +181,7 @@ int collide(GameObject *player, GameObject *monster)
  
  
  
-int checkFall(GameObject monster)
+int verifSol(GameObject monstre)
 {
     int x, y;
     
@@ -189,13 +189,13 @@ int checkFall(GameObject monster)
     //Retourne 1 s'il doit tomber, 0 sinon
     
     //On teste la direction, pour savoir si on doit prendre en compte x ou x + w (cf. schéma)
-    if (monster.direction == LEFT)
+    if (monstre.direction == LEFT)
     {
         //On va à gauche : on calcule là où devrait se trouver le monstre après déplacement.
         //S'il sort de la map, on met à jour x et y pour éviter de sortir de notre tableau
         //(source d'erreur possible qui peut planter notre jeu...).
-        x = (int)(monster.x + monster.dirX) / TILE_SIZE;
-        y = (int)(monster.y + monster.h - 1) / TILE_SIZE;
+        x = (int)(monstre.x + monstre.dirX) / TILE_SIZE;
+        y = (int)(monstre.y + monstre.h - 1) / TILE_SIZE;
         
         if (y < 0)
             y = 1;
@@ -211,7 +211,7 @@ int checkFall(GameObject monster)
         
         //On teste si la tile sous le monstre est traversable (du vide quoi...).
         //Si c'est le cas, on renvoie 1, sinon 0.
-        if (getTileValue(y + 1, x) < BLANK_TILE - 20)
+        if (recupValeurTile(y + 1, x) < BLANK_TILE - 20)
             return 1;
         else
             return 0;
@@ -219,8 +219,8 @@ int checkFall(GameObject monster)
     else
     {
         //Même chose quand on va à droite
-        x = (int)(monster.x + monster.w + monster.dirX) / TILE_SIZE;
-        y = (int)(monster.y + monster.h - 1) / TILE_SIZE;
+        x = (int)(monstre.x + monstre.w + monstre.dirX) / TILE_SIZE;
+        y = (int)(monstre.y + monstre.h - 1) / TILE_SIZE;
         
         if (y <= 0)
             y = 1;
@@ -234,7 +234,7 @@ int checkFall(GameObject monster)
         if (x >= MAX_MAP_X)
             x = MAX_MAP_X - 1;
         
-        if (getTileValue(y + 1, x) < BLANK_TILE - 20)
+        if (recupValeurTile(y + 1, x) < BLANK_TILE - 20)
             return 1;
         else
             return 0;
@@ -242,7 +242,7 @@ int checkFall(GameObject monster)
 }
  
  
-void drawMonster(GameObject *entity)
+void dessineMonstre(GameObject *monstre)
 {
     
     /* Rectangle de destination à dessiner */
@@ -250,19 +250,19 @@ void drawMonster(GameObject *entity)
     
     // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle
     //au scrolling :
-    dest.x = entity->x - getStartX();
-    dest.y = entity->y - getStartY();
-    dest.w = entity->w;
-    dest.h = entity->h;
+    dest.x = monstre->x - recupPersoStartX();
+    dest.y = monstre->y - recupPersoStartY();
+    dest.w = monstre->w;
+    dest.h = monstre->h;
     
     /* Rectangle source */
     SDL_Rect src;
     
     
     //Gestion du flip (retournement de l'image selon que le monstre regarde à droite ou à gauche
-    if (entity->direction == LEFT)
-        SDL_RenderCopyEx(getrenderer(), MonsterSprite, NULL, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
+    if (monstre->direction == LEFT)
+        SDL_RenderCopyEx(recupRendu(), MonstreSprite, NULL, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else
-        SDL_RenderCopyEx(getrenderer(), MonsterSprite, NULL, &dest, 0, 0, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(recupRendu(), MonstreSprite, NULL, &dest, 0, 0, SDL_FLIP_NONE);
  
 }

@@ -17,21 +17,21 @@ SDL_Texture *playerSpriteSheet;
  
  
 
-GameObject *getPlayer(void)
+GameObject *recupJoueur(void)
 {
     return &player;
 }
  
  
 
-int getPlayerx(void)
+int recupJoueurX(void)
 {
     return player.x;
 }
  
  
 
-int getPlayery(void)
+int recupJoueurY(void)
 {
     return player.y;
 }
@@ -39,62 +39,62 @@ int getPlayery(void)
 
 
 
-void setPlayerx(int valeur)
+void initJoueurX(int valeur)
 {
     player.x = valeur;
 }
  
  
 
-void setPlayery(int valeur)
+void initJoueurY(int valeur)
 {
     player.y = valeur;
 }
  
  
 
-int getLevel(void)
+int recupNiveau(void)
 {
     return level;
 }
 
 
 
-int getNombreDeVies(void)
+int recupNombreDeVies(void)
 {
     return vies;
 }
  
 
 
-void setNombreDeVies(int valeur)
+void initNombreDeVies(int valeur)
 {
     vies = valeur;
 }
 
 
-int getNombreDepieces(void)
+int recupNombreDePieces(void)
 {
     return pieces;
 }
  
-void setNombreDePieces(int valeur)
+void initNombreDePieces(int valeur)
 {
     pieces = valeur;
 }
  
  
 
-void SetValeurDuNiveau(int valeur)
+void changeNiveau(int valeur)
 {
     level = valeur;
 }
 
 
 
-void initPlayerSprites(void)
+void initSpriteJoueur(void)
 {
-    playerSpriteSheet = loadImage("images/mario.png");
+    playerSpriteSheet = chargeImage("images/mario.png");
 }
 
 void resetCheckpoint(void)
@@ -104,7 +104,7 @@ void resetCheckpoint(void)
  
  
 
-void cleanPlayer(void)
+void nettoyageJoueur(void)
 {
     if (playerSpriteSheet != NULL)
     {
@@ -114,16 +114,16 @@ void cleanPlayer(void)
 }
  
  
-void killPlayer(void)
+void tuerJoueur(void)
 {
     //On met le timer à 1 pour tuer le joueur intantanément
     player.timerMort = 1;
     player.etat = DEAD;
-    playSoundFx(MORT_HERO);
+    joueSon(MORT_HERO);
 }
  
 
-void initializePlayer(int newLevel)
+void initJoueur(int nouveauNiveau)
 {
  
     //PV à 3
@@ -151,17 +151,17 @@ void initializePlayer(int newLevel)
     }
     else
     {
-        player.x = getBeginX();
-        player.y = getBeginY();
+        player.x = recupDebutMapX();
+        player.y = recupDebutMapY();
     }
 
     
     //On réinitiliase les coordonnées de la caméra
     //si on change de niveau
-    if (newLevel == 1)
+    if (nouveauNiveau == 1)
     {
-    setStartX(getBeginX());
-    setStartY(getBeginY());
+    initDepartMapX(recupDebutMapX());
+    initDepartMapY(recupDebutMapY());
     }
     
     /* Hauteur et largeur de notre héros */
@@ -175,13 +175,13 @@ void initializePlayer(int newLevel)
     
     //Réinitialise les monstres
     /* Libère le sprite des monstres */
-    resetMonsters();
+    resetMonstres();
  
 }
 
 
 
-void drawPlayer(void)
+void dessineJoueur(void)
 {
     /* Gestion du timer */
     // Si notre timer (un compte à rebours en fait) arrive à zéro
@@ -207,8 +207,8 @@ void drawPlayer(void)
     SDL_Rect dest;
     
     // On soustrait des coordonnées de notre héros, ceux du début de la map, pour qu'il colle au scrolling
-    dest.x = player.x - getStartX();
-    dest.y = player.y - getStartY();
+    dest.x = player.x - recupPersoStartX();
+    dest.y = player.y - recupPersoStartY();
     dest.w = player.w;
     dest.h = player.h;
     
@@ -225,16 +225,16 @@ void drawPlayer(void)
     
     //Gestion du flip (retournement de l'image selon que le sprite regarde à droite ou à gauche
     if (player.direction == LEFT)
-        SDL_RenderCopyEx(getrenderer(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
+        SDL_RenderCopyEx(recupRendu(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else
-        SDL_RenderCopyEx(getrenderer(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(recupRendu(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_NONE);
  
 }
 
 
 
 
-void updatePlayer(Input *input)
+void majJoueur(Input *touche)
 {
     //On rajoute un timer si l'on meurt
     //Si le timer vaut 0, c'est que tout va bien, sinon, on le décrémente jusqu'à 0
@@ -253,7 +253,7 @@ void updatePlayer(Input *input)
             player.dirY = MAX_FALL_SPEED;
     
     
-        if (input->left == 1)
+        if (touche->left == 1)
         {
             player.dirX -= PLAYER_SPEED;
             //Et on indique qu'il va à gauche (pour le flip)
@@ -272,7 +272,7 @@ void updatePlayer(Input *input)
     }
     
     //Si on détecte un appui sur la touche "fléchée droite"
-    else if (input->right == 1)
+    else if (touche->right == 1)
     {
         //On augmente les coordonnées en x du joueur
         player.dirX += PLAYER_SPEED;
@@ -291,7 +291,7 @@ void updatePlayer(Input *input)
     }
     
     //Si on n'appuie sur rien et qu'on est sur le sol, on charge l'animation marquant l'inactivité (Idle)
-    else if (input->right == 0 && input->left == 0 && player.onGround == 1)
+    else if (touche->right == 0 && touche->left == 0 && player.onGround == 1)
     {
         //On teste si le joueur n'était pas déjà inactif, pour ne pas recharger l'animation
         if (player.etat != IDLE)
@@ -307,24 +307,24 @@ void updatePlayer(Input *input)
     
     //Si on appuie sur la touche saut et qu'on est sur le sol, alors on attribue une valeur négative à Y
 
-    if (input->jump == 1)
+    if (touche->jump == 1)
     {
         if (player.onGround == 1)
         {
             player.dirY = -JUMP_HEIGHT;
             player.onGround = 0;
             player.jump = 1;
-            playSoundFx(JUMP);
+            joueSon(JUMP);
         }
-        input->jump = 0;
+        touche->jump = 0;
     }
 
     //Si on appuie sur Echap
-    if (input->pause == 1)
+    if (touche->pause == 1)
     {
         //On met le jeu en pause
-        setOnMenu(1, PAUSE);
-        input->pause = 0;
+        initTypeMenu(1, PAUSE);
+        touche->pause = 0;
     }
        
     
@@ -347,7 +347,7 @@ void updatePlayer(Input *input)
     mapCollision(&player);
     
     //On gère le scrolling 
-    centerScrollingOnPlayer();
+    scrollSurJoueur();
     
     }
     
@@ -366,24 +366,24 @@ void updatePlayer(Input *input)
             player.frameMax = 1;
 
             //tue le personnage
-            killPlayer();
+            tuerJoueur();
 
             // Si on est mort, on perd une vie
-            setNombreDeVies(getNombreDeVies() - 1);
+            initNombreDeVies(recupNombreDeVies() - 1);
 
             //Sauf si on a plus de vies...
-            if (getNombreDeVies() < 0)
+            if (recupNombreDeVies() < 0)
             {
                 //Dans ce cas on retourne au menu start
-                setOnMenu(1, START);
+                initTypeMenu(1, START);
             }
             
             // Si on est mort, on réinitialise le niveau
-            changeLevel(getLevel());
-            initializePlayer(0);
+            chargeNiveau(recupNiveau());
+            initJoueur(0);
 
             SDL_Delay(3000);
-            loadSong("sounds/overworld.wav");
+            chargeMusique("sounds/overworld.wav");
 
         }
     }
@@ -391,7 +391,7 @@ void updatePlayer(Input *input)
 
 
 
-void centerScrollingOnPlayer(void)
+void scrollSurJoueur(void)
 {
     // on crée une "boîte" imaginaire autour du joueur.
     //Quand on dépasse un de ses bords (en haut, en bas,
@@ -399,54 +399,54 @@ void centerScrollingOnPlayer(void)
 
     int cxperso = player.x + player.w / 2;
     int cyperso = player.y + player.h / 2;
-    int xlimmin = getStartX() + LIMITE_X;
+    int xlimmin = recupPersoStartX() + LIMITE_X;
     int xlimmax = xlimmin + LIMITE_W;
-    int ylimmin = getStartY() + LIMITE_Y;
+    int ylimmin = recupPersoStartY() + LIMITE_Y;
     int ylimmax = ylimmin + LIMITE_H;
     
     //Effet de retour en arrière quand on est mort :
 
-    if (cxperso < getStartX())
+    if (cxperso < recupPersoStartX())
     {
-        setStartX(getStartX() - 30);
+        initDepartMapX(recupPersoStartX() - 30);
     }
     
     //Si on dépasse par la gauche, on recule la caméra
     else if (cxperso < xlimmin)
     {
-        setStartX(getStartX() - 4);
+        initDepartMapX(recupPersoStartX() - 4);
     }
     
     //Effet de retour en avant quand on est mort
 
-    if (cxperso > getStartX() + SCREEN_WIDTH)
+    if (cxperso > recupPersoStartX() + SCREEN_WIDTH)
     {
-        setStartX(getStartX() + 30);
+        initDepartMapX(recupPersoStartX() + 30);
     }
     
     //Si on dépasse par la droite, on avance la caméra
     else if (cxperso > xlimmax)
     {
-        setStartX(getStartX() + 4);
+        initDepartMapX(recupPersoStartX() + 4);
     }
     
     //Si on arrive au bout de la map à gauche, on stoppe le scrolling
-    if (getStartX() < 0)
+    if (recupPersoStartX() < 0)
     {
-        setStartX(0);
+        initDepartMapX(0);
     }
     
     //Si on arrive au bout de la map à droite, on stoppe le scrolling à la
     //valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
-    else if (getStartX() + SCREEN_WIDTH >= getMaxX())
+    else if (recupPersoStartX() + SCREEN_WIDTH >= recupFinMapX())
     {
-        setStartX(getMaxX() - SCREEN_WIDTH);
+        initDepartMapX(recupFinMapX() - SCREEN_WIDTH);
     }
     
     //Si on dépasse par le haut, on remonte la caméra
     if (cyperso < ylimmin)
     {
-        setStartY(getStartY() - 4);
+        initDepartMapY(recupPersoStartY() - 4);
     }
     
     //Si on dépasse par le bas, on descend la caméra
@@ -455,47 +455,47 @@ void centerScrollingOnPlayer(void)
         //Sauf si on tombe très vite, auquel cas, on accélère la caméra :
         if (player.dirY >= MAX_FALL_SPEED - 2)
         {
-            setStartY(getStartY() + MAX_FALL_SPEED + 1);
+            initDepartMapY(recupPersoStartY() + MAX_FALL_SPEED + 1);
         }
         else
         {
-            setStartY(getStartY() + 4);
+            initDepartMapY(recupPersoStartY() + 4);
         }
     }
     
     //Si on arrive au bout de la map en haut, on stoppe le scrolling
-    if (getStartY() < 0)
+    if (recupPersoStartY() < 0)
     {
-        setStartY(0);
+        initDepartMapY(0);
     }
     
     //Si on arrive au bout de la map en bas, on stoppe le scrolling à la
     //valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
-    else if (getStartY() + SCREEN_HEIGHT >= getMaxY())
+    else if (recupPersoStartY() + SCREEN_HEIGHT >= recupFinMapY())
     {
-        setStartY(getMaxY() - SCREEN_HEIGHT);
+        initDepartMapY(recupFinMapY() - SCREEN_HEIGHT);
     }
     
 }
 
 
-void getItem(int itemNumber)
+void recupItem(int itemNumber)
 {
     switch (itemNumber)
     {
         //Gestion des étoiles
         case 1:
         //On incrémente le compteur Etoile
-        setNombreDePieces(getNombreDepieces() + 1);
-        playSoundFx(COIN);
+        initNombreDePieces(recupNombreDePieces() + 1);
+        joueSon(COIN);
         
         //On teste s'il y a 100 étoiles : on remet le compteur à 0 et on rajoute une vie ;)
-        if (getNombreDepieces() >= 100)
+        if (recupNombreDePieces() >= 100)
         {
-            setNombreDePieces(0);
+            initNombreDePieces(0);
             //On incrémente le nombre de vies (max 99)
-            if (getNombreDeVies() < 99)
-                setNombreDeVies(getNombreDeVies() + 1);
+            if (recupNombreDeVies() < 99)
+                initNombreDeVies(recupNombreDeVies() + 1);
         }
         break;
         
@@ -505,16 +505,16 @@ void getItem(int itemNumber)
         if (player.life < 3)
             player.life++;
         
-        playSoundFx(COIN);
+        joueSon(COIN);
         break;
         
         //Gestion des vies
         case 3:
         //On incrémente le nombre de vies (max 99)
-        if (getNombreDeVies() < 99)
-            setNombreDeVies(getNombreDeVies() + 1);
+        if (recupNombreDeVies() < 99)
+            initNombreDeVies(recupNombreDeVies() + 1);
         
-        playSoundFx(COIN);
+        joueSon(COIN);
         break;
         
         default:

@@ -8,7 +8,7 @@ Mix_Chunk *bumper_sound, *jump_sound, *coin_sound, *mob_sound, *mort_sound;
 //Musique
 Mix_Music *musique;
  
-void loadSong(char filename[200])
+void chargeMusique(char filename[200])
 {
  
     /* On libère la chanson précédente s'il y en a une */
@@ -22,7 +22,7 @@ void loadSong(char filename[200])
     musique = Mix_LoadMUS(filename);
     if (musique == NULL)
     {
-        fprintf(stderr, "Can't read the music \n");
+        fprintf(stderr, "Impossible de lire la musique. \n");
         exit(1);
     }
     
@@ -35,7 +35,7 @@ void loadSong(char filename[200])
 }
  
  
-void cleanUpMusic(void)
+void libereMusique(void)
 {
     /* On libère la musique */
     if (musique != NULL)
@@ -43,41 +43,41 @@ void cleanUpMusic(void)
 }
  
  
-void loadSound(void)
+void chargeSon(void)
 {
  
     bumper_sound = Mix_LoadWAV("sounds/blockhit.wav");
     if (bumper_sound == NULL)
     {
-        fprintf(stderr, "Can't read the bumper sound FX \n");
+        fprintf(stderr, "Impossible de lire le son de mob\n");
         exit(1);
     }
     
     jump_sound = Mix_LoadWAV("sounds/jump.wav");
     if (jump_sound == NULL)
     {
-        fprintf(stderr, "Can't read the jump sound FX \n");
+        fprintf(stderr, "Impossible de lire le son de saut du héro \n");
         exit(1);
     }
     
     coin_sound = Mix_LoadWAV("sounds/coin.wav");
     if (coin_sound == NULL)
     {
-        fprintf(stderr, "Can't read the coin sound FX \n");
+        fprintf(stderr, "Impossible de lire le son des pièces \n");
         exit(1);
     }
 
     mob_sound = Mix_LoadWAV("sounds/blockbreak.wav");
     if (mob_sound == NULL)
     {
-        fprintf(stderr, "Can't read the destroy sound FX \n");
+        fprintf(stderr, "Impossible de lire le son de mob \n");
         exit(1);
     }
 
     mort_sound = Mix_LoadWAV("sounds/death.wav");
     if(mort_sound == NULL)
     {
-        fprintf(stderr, "Can't read the death sound FX \n");
+        fprintf(stderr, "CImpossible de lire le son de mort du héro \n");
         exit(1);
 
     }
@@ -92,7 +92,7 @@ void loadSound(void)
 }
  
  
-void freeSound(void)
+void libereSon(void)
 {
  
     Mix_FreeChunk(bumper_sound);
@@ -104,7 +104,7 @@ void freeSound(void)
 }
  
  
-void playSoundFx(int type)
+void joueSon(int type)
 {
  
     switch (type)

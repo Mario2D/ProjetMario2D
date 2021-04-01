@@ -15,7 +15,7 @@ SDL_Renderer *renderer;
 
 
 
-SDL_Renderer *getrenderer(void)
+SDL_Renderer *recupRendu(void)
 {
     return renderer;
 }
@@ -24,7 +24,7 @@ SDL_Renderer *getrenderer(void)
 
 
 
-void loadGame(void)
+void chargementJeu(void)
 {
     
     //On charge les données pour la map
@@ -34,31 +34,31 @@ void loadGame(void)
     initMenus();    
     
     //On charge la feuille de sprited de mario
-    initPlayerSprites();
+    initSpriteJoueur();
 
     //On charge la feuille de sprites du monstre
-    initMonsterSprites();
+    chargeSpriteMonstre();
 
     //On commence au premier niveau
-    SetValeurDuNiveau(1);
-    changeLevel(getLevel());
+    changeNiveau(1);
+    chargeNiveau(recupNiveau());
 
     /* On initialise les variables du jeu */
-    setNombreDeVies(3);
-    setNombreDePieces(0);
+    initNombreDeVies(3);
+    initNombreDePieces(0);
     
     /* On charge le HUD */
     initHUD();
 
     //On charge la musique
-    loadSong("sounds/overworld.wav");
+    chargeMusique("sounds/overworld.wav");
  
     /* On charge les sounds Fx */
-    loadSound();
+    chargeSon();
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
 
     //On commence par le menu start
-    setOnMenu(1, START);
+    initTypeMenu(1, START);
  
 }
  
@@ -106,7 +106,7 @@ void init(char *title)
     
     
     /* Chargement de la police */
-    loadFont("font/mario.ttf", 32);
+    chargePolice("font/mario.ttf", 32);
     
     
     //On initialise SDL_Mixer , qui gérera la musique et les effets sonores
@@ -134,26 +134,26 @@ void init(char *title)
  
  
 
-void cleanup()
+void nettoyageAll()
 {
     //Nettoie les sprites de la map et des menus
-    cleanMaps();
-    cleanMenus();
+    nettoyageMaps();
+    libereMenus();
     
     //Libère le sprite du héros 
-    cleanPlayer();
+    nettoyageJoueur();
 
     /* Libère le sprite des monstres */
-    cleanMonsters();
+    libereMonstre();
 
     //Libère le HUD
-    cleanHUD();
+    nettoyageHUD();
     
     /* On libère la musique */
-    cleanUpMusic();
+    libereMusique();
     
     //On libère les sons
-    freeSound();
+    libereSon();
 
     //On quitte SDL_Mixer 2 et on décharge la mémoire
     Mix_CloseAudio();

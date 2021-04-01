@@ -253,7 +253,7 @@ extern DECLSPEC const char *SDLCALL SDL_GetAudioDriver(int index);
 /* @} */
 
 /**
- *  \name Initialization and cleanup
+ *  \name Initialization and nettoyageAll
  *
  *  \internal These functions are used internally, and should not be used unless
  *            you have a specific need to specify the audio driver you want to

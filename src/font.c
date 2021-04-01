@@ -6,7 +6,7 @@
 TTF_Font *font;
  
  
-void loadFont(char *name, int size)
+void chargePolice(char *name, int size)
 {
     /* On utilise SDL_TTF pour charger la police (font) à la taille spécicifiée par size */
     
@@ -21,7 +21,7 @@ void loadFont(char *name, int size)
 }
     
     
-void closeFont()
+void fermeturePolice()
 {
     /* On ferme la police (font) */
     
@@ -32,7 +32,7 @@ void closeFont()
 }
     
     
-void drawString(char *text, int x, int y, int r, int g, int b, int a)
+void afficheTexte(char *text, int x, int y, int r, int g, int b, int a)
 {
     SDL_Rect dest;
     SDL_Surface *surface; //Pour écrire le texte
@@ -54,7 +54,7 @@ void drawString(char *text, int x, int y, int r, int g, int b, int a)
         /* NOUS MODIFIONS QUELQUE PEU NOTRE CODE POUR PROFITER DE LA MEMOIRE GRAPHIQUE
         QUI GERE LES TEXTURES */
         // Conversion de l'image en texture
-        texture = SDL_CreateTextureFromSurface(getrenderer(), surface);
+        texture = SDL_CreateTextureFromSurface(recupRendu(), surface);
         
         // On se débarrasse du pointeur vers une surface
         /* On libère la SDL_Surface temporaire (pour éviter les fuites de mémoire) */
@@ -66,7 +66,7 @@ void drawString(char *text, int x, int y, int r, int g, int b, int a)
         dest.y = y;
         
         SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
-        SDL_RenderCopy(getrenderer(), texture, NULL, &dest);
+        SDL_RenderCopy(recupRendu(), texture, NULL, &dest);
         
         //On supprime la texture
         SDL_DestroyTexture(texture);  
