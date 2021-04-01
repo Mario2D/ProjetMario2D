@@ -4,7 +4,7 @@
  
  
 //Gestion des menus
-int onMenu, menuType, choice;
+int onMenu, menuType, choix;
 SDL_Texture *titlescreen;
  
  
@@ -45,9 +45,9 @@ void majMenuPrincipal(Input *touche)
     //Si on appuie sur BAS
     if (touche->haut == 1)
     {
-        //Si choice = O (il est sur start), on le met à 1 (quit)
-        if (choice == 0)
-            choice++;
+        //Si choix = O (il est sur start), on le met à 1 (quit)
+        if (choix == 0)
+            choix++;
         
         touche->haut = 0;
     }
@@ -55,9 +55,9 @@ void majMenuPrincipal(Input *touche)
     //Si on appuie sur HAUT
     if (touche->bas == 1)
     {
-        //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
-        if (choice == 1)
-            choice--;
+        //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
+        if (choix == 1)
+            choix--;
         
         touche->bas = 0;
     }
@@ -65,7 +65,7 @@ void majMenuPrincipal(Input *touche)
     //Choix du level
     if (touche->droite == 1)
     {
-        //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
+        //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
         if (recupNiveau() >= NIVEAU_MAX)
             changeNiveau(1);
         else
@@ -76,7 +76,7 @@ void majMenuPrincipal(Input *touche)
  
 if (touche->gauche == 1)
 {
-    //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
+    //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
     if (recupNiveau() <= 1)
         changeNiveau(NIVEAU_MAX);
     else
@@ -89,7 +89,7 @@ if (touche->gauche == 1)
 //Si on appuie sur Enter ou A (manette Xbox 360) et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
 if (touche->entrer || touche->saut)
 {
-    if (choice == 0)
+    if (choix == 0)
     {
         resetCheckpoint();
         initJoueur(1);
@@ -102,7 +102,7 @@ if (touche->entrer || touche->saut)
     }
     
     //Sinon, on quitte le jeu
-    else if (choice == 1)
+    else if (choix == 1)
     {
         exit(0);
     }
@@ -121,9 +121,9 @@ void majMenuPause(Input *touche)
 //Si on appuie sur BAS
 if (touche->bas == 1)
 {
-    //Si choice = O (il est sur start), on le met à 1 (quit)
-    if (choice == 0)
-        choice++;
+    //Si choix = O (il est sur start), on le met à 1 (quit)
+    if (choix == 0)
+        choix++;
         
         touche->bas = 0;
     }
@@ -131,9 +131,9 @@ if (touche->bas == 1)
     //Si on appuie sur HAUT
     if (touche->haut == 1)
     {
-        //Si choice = 1 (il est sur Quit), on le met à 0 (Start)
-        if (choice == 1)
-            choice--;
+        //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
+        if (choix == 1)
+            choix--;
         
         touche->haut = 0;
     }
@@ -141,16 +141,16 @@ if (touche->bas == 1)
     //Si on appuie sur Enter ou A (manette Xbox 360) et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
     if (touche->entrer || touche->saut)
     {
-        if (choice == 0)
+        if (choix == 0)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
         }
         
         //Sinon, on quitte le jeu
-        else if (choice == 1)
+        else if (choix == 1)
         {
-            choice = 0;
+            choix = 0;
             menuType = START;
         }
         
@@ -170,14 +170,14 @@ void dessineMenuPrincipal(void)
     dessineImage(titlescreen, 0, 0);
     
     //Si l'option n'est pas en surbrillance, on l'affiche normalement
-    if (choice != 0)
+    if (choix != 0)
     {
         sprintf_s(text, sizeof(text), "START: Lvl %d", recupNiveau());
         //Ombrage en noir
         afficheTexte(text, 260, 252, 0, 0, 0, 255);
         afficheTexte(text, 258, 250, 255, 255, 255, 255);
     }
-    if (choice != 1)
+    if (choix != 1)
     {
         sprintf_s(text, sizeof(text), "QUIT");
         //Ombrage en noir
@@ -186,14 +186,14 @@ void dessineMenuPrincipal(void)
     }
     
     //Si l'option est en surbrillance, on change la couleur
-    if (choice == 0)
+    if (choix == 0)
     {
         sprintf_s(text, sizeof(text), "START: Lvl %d", recupNiveau());
         //Ombrage en noir
         afficheTexte(text, 260, 252, 0, 0, 0, 255);
         afficheTexte(text, 258, 250, 255, 255, 0, 255);
     }
-    else if (choice == 1)
+    else if (choix == 1)
     {
         sprintf_s(text, sizeof(text), "QUIT");
         //Ombrage en noir
@@ -216,14 +216,14 @@ void dessineMenuPause(void)
     
     
     //Si l'option n'est pas en surbrillance, on l'affiche normalement
-    if (choice != 0)
+    if (choix != 0)
     {
         sprintf_s(text, sizeof(text), "Continue");
         //Ombrage en noir
         afficheTexte(text, 346, 252, 0, 0, 0, 255);
         afficheTexte(text, 344, 250, 255, 255, 255, 255);
     }
-    if (choice != 1)
+    if (choix != 1)
     {
         sprintf_s(text, sizeof(text), "Exit");
         //Ombrage en noir
@@ -233,14 +233,14 @@ void dessineMenuPause(void)
     
     
     //Si l'option est en surbrillance, on change la couleur
-    if (choice == 0)
+    if (choix == 0)
     {
         sprintf_s(text, sizeof(text), "Continue");
         //Ombrage en noir
         afficheTexte(text, 346, 252, 0, 0, 0, 255);
         afficheTexte(text, 344, 250, 255, 255, 0, 255);
     }
-    else if (choice == 1)
+    else if (choix == 1)
     {
         sprintf_s(text, sizeof(text), "Exit");
         //Ombrage en noir
