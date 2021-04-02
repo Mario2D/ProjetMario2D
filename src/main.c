@@ -15,7 +15,7 @@
 
 #include "prototypes.h"
  
-//gcc src/main.c src/menu.c src/sounds.c src/font.c src/draw.c src/init.c src/input.c src/map.c src/player.c src/monster.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+//gcc src/main.c src/menu.c src/sons.c src/polices.c src/dessin.c src/init.c src/input.c src/map.c src/joueur.c src/monstre.c -o bin/prog -I include -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;

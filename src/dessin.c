@@ -1,5 +1,5 @@
 /*!
-/*  \file       dessins.c
+/*  \file       dessin.c
 /*  \brief      S'occupe des fonctions graphiques du jeu
 /*  \version    1.7
 /*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON

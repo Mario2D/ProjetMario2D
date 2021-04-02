@@ -1,5 +1,5 @@
 /*!
-/*  \file       son.c
+/*  \file       sons.c
 /*  \brief      S'occupe de charger les sons et musiques
 /*  \version    1.7
 /*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
