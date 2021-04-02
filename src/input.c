@@ -1,3 +1,11 @@
+/*!
+/*  \file       input.c
+/*  \brief      S'occupe de gérer les évènements des touches du clavier
+/*  \version    1.7
+/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+/*  \date 
+ */
+
 #include "prototypes.h"
  
 

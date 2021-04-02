@@ -1,3 +1,10 @@
+/*!
+/*  \file       monstre.c
+/*  \brief      S'occupe des fonctions relatives à l'objet monstre
+/*  \version    1.7
+/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+/*  \date 
+ */
 #include "prototypes.h"
  
  

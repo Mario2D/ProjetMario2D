@@ -1,3 +1,10 @@
+/*!
+/*  \file       menu.c
+/*  \brief      S'occupe des fonctions relatives à l'affichage des menu
+/*  \version    1.7
+/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+/*  \date 
+ */
 
 #include "prototypes.h"
  
