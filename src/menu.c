@@ -93,8 +93,8 @@ if (touche->gauche == 1)
 }
  
  
-//Si on appuie sur Enter ou A (manette Xbox 360) et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
-if (touche->entrer || touche->saut)
+//Si on appuie sur Enter et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
+if (touche->entrer)
 {
     if (choix == 0)
     {
@@ -145,8 +145,8 @@ if (touche->bas == 1)
         touche->haut = 0;
     }
  
-    //Si on appuie sur Enter ou A (manette Xbox 360) et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
-    if (touche->entrer || touche->saut)
+    //Si on appuie sur Enter et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
+    if (touche->entrer)
     {
         if (choix == 0)
         {

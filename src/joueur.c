@@ -373,6 +373,7 @@ void majJoueur(Input *touche)
             // Si on est mort, on perd une vie
             initNombreDeVies(recupNombreDeVies() - 1);
 
+
             //Sauf si on a plus de vies...
             if (recupNombreDeVies() < 1)
             {
@@ -384,7 +385,7 @@ void majJoueur(Input *touche)
             chargeNiveau(recupNiveau());
             initJoueur(0);
 
-            SDL_Delay(3000);
+            SDL_Delay(2800);
             chargeMusique("sounds/overworld.wav");
 
         }
