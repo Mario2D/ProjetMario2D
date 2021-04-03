@@ -98,7 +98,7 @@ typedef struct Personnage
 //Une enum pour la gestion des sons.
 enum
 {
-    BUMPER,
+    PAUSE_GAME,
     JUMP,
     COIN,
     MORT_MOB,

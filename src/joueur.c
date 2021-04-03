@@ -327,6 +327,8 @@ void majJoueur(Input *touche)
     {
         //On met le jeu en pause
         initTypeMenu(1, PAUSE);
+        joueSon(PAUSE_GAME);
+        Mix_PauseMusic();
         touche->pause = 0;
     }
        

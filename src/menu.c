@@ -152,6 +152,7 @@ if (touche->bas == 1)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
+            Mix_ResumeMusic();
         }
         
         //Sinon, on quitte le jeu

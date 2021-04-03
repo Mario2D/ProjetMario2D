@@ -11,7 +11,7 @@
  
  
 //Sounds Fx
-Mix_Chunk *bumper_sound, *jump_sound, *coin_sound, *mob_sound, *mort_sound, *gameover_sound;
+Mix_Chunk *pause_sound, *jump_sound, *coin_sound, *mob_sound, *mort_sound, *gameover_sound;
  
 //Musique
 Mix_Music *musique;
@@ -54,8 +54,8 @@ void libereMusique(void)
 void chargeSon(void)
 {
  
-    bumper_sound = Mix_LoadWAV("../sounds/blockhit.wav");
-    if (bumper_sound == NULL)
+    pause_sound = Mix_LoadWAV("../sounds/pause.wav");
+    if (pause_sound == NULL)
     {
         fprintf(stderr, "Impossible de lire le son de mob\n");
         exit(1);
@@ -98,7 +98,7 @@ void chargeSon(void)
 
     }
 
-    Mix_VolumeChunk(bumper_sound, MIX_MAX_VOLUME/4);
+    Mix_VolumeChunk(pause_sound, MIX_MAX_VOLUME/4);
     Mix_VolumeChunk(jump_sound, MIX_MAX_VOLUME/4);
     Mix_VolumeChunk(coin_sound, MIX_MAX_VOLUME/4);
     Mix_VolumeChunk(mob_sound, MIX_MAX_VOLUME/4);
@@ -112,7 +112,7 @@ void chargeSon(void)
 void libereSon(void)
 {
  
-    Mix_FreeChunk(bumper_sound);
+    Mix_FreeChunk(pause_sound);
     Mix_FreeChunk(jump_sound);
     Mix_FreeChunk(coin_sound);
     Mix_FreeChunk(mob_sound);
@@ -128,8 +128,8 @@ void joueSon(int type)
     switch (type)
     {
     
-        case BUMPER:
-            Mix_PlayChannel(-1, bumper_sound, 0);
+        case PAUSE_GAME:
+            Mix_PlayChannel(-1, pause_sound, 0);
             break;
         
         case JUMP:
