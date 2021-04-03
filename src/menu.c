@@ -33,7 +33,7 @@ void initTypeMenu(int valeur, int type)
  
 void initMenus(void)
 {
-    titlescreen = chargeImage("images/title.png");
+    titlescreen = chargeImage("../images/title.png");
 }
  
 void libereMenus(void)

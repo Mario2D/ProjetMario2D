@@ -33,7 +33,7 @@ void resetMonstres(void)
  
 void chargeSpriteMonstre(void)
 {
-    MonstreSprite = chargeImage("images/monster1.png");
+    MonstreSprite = chargeImage("../images/monster1.png");
 }
  
  

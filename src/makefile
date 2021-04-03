@@ -6,7 +6,7 @@ INCLUDES = -I ../include
 LIBS = -L ../lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 EXEC = ../bin/prog  
 
-OBJ= sounds.o font.o draw.o init.o input.o map.o player.o
+OBJ= sons.o polices.o dessin.o init.o input.o map.o joueur.o monstre.o menu.o main.o
 all: $(EXEC)
 
 $(EXEC): $(OBJ)

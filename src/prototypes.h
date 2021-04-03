@@ -533,9 +533,10 @@ extern void monsterCollisionToMap(Personnage *monstre);
 
 /*! \brief  Fonction qui va gérer la mort du héro
  *   
+ * 
  *  \return void
  */
-extern void tuerJoueur(void);
+extern void tuerJoueur();
 
 /*! \brief  Met à jour les compteurs de pièces et de vies en fonction des power-up (tiles spéciales)
  *  
@@ -611,6 +612,8 @@ extern void dessineMenuPrincipal(void);
  *  \return void
  */
 extern void dessineMenuPause(void);
+
+void dessineGameOver(void);
 
 
  

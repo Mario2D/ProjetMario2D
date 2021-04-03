@@ -36,7 +36,7 @@ void chargementJeu(void)
     initHUD();
 
     //On charge la musique
-    chargeMusique("sounds/overworld.wav");
+    chargeMusique("../sounds/overworld.wav");
  
     /* On charge les sounds Fx */
     chargeSon();

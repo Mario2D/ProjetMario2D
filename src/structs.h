@@ -103,6 +103,7 @@ enum
     COIN,
     MORT_MOB,
     MORT_HERO,
+    GAME_OVER,
     MUSIQUE
 };
 

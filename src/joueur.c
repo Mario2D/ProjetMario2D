@@ -94,7 +94,7 @@ void changeNiveau(int valeur)
 
 void initSpriteJoueur(void)
 {
-    joueurSpriteSheet = chargeImage("images/mario.png");
+    joueurSpriteSheet = chargeImage("../images/mario.png");
 }
 
 void resetCheckpoint(void)
@@ -114,7 +114,7 @@ void nettoyageJoueur(void)
 }
  
  
-void tuerJoueur(void)
+void tuerJoueur()
 {
     //On met le timer à 1 pour tuer le joueur intantanément
     joueur.timerMort = 1;
@@ -122,9 +122,7 @@ void tuerJoueur(void)
     joueur.etat = MORT;
     joueur.frameNumber = 0;
     joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
-    joueur.frameMax = 1;
-
-    joueSon(MORT_HERO);
+    joueur.frameMax = 1;  
 }
  
 
@@ -367,12 +365,21 @@ void majJoueur(Input *touche)
         {
             Mix_PauseMusic();
 
-            //tue le personnage
-            tuerJoueur();
-
             // Si on est mort, on perd une vie
             initNombreDeVies(recupNombreDeVies() - 1);
 
+            tuerJoueur();
+
+            if(recupNombreDeVies() == 0){
+                joueSon(GAME_OVER);
+                SDL_Delay(3700);
+            }
+                
+            else{
+                joueSon(MORT_HERO);
+                dessineGameOver();
+                SDL_Delay(2800);            
+            }
 
             //Sauf si on a plus de vies...
             if (recupNombreDeVies() < 1)
@@ -385,8 +392,7 @@ void majJoueur(Input *touche)
             chargeNiveau(recupNiveau());
             initJoueur(0);
 
-            SDL_Delay(2800);
-            chargeMusique("sounds/overworld.wav");
+            chargeMusique("../sounds/overworld.wav");
 
         }
     }

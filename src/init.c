@@ -49,7 +49,7 @@ void chargementJeu(void)
     initHUD();
 
     //On charge la musique
-    chargeMusique("sounds/overworld.wav");
+    chargeMusique("../sounds/overworld.wav");
  
     /* On charge les sounds Fx */
     chargeSon();
@@ -104,7 +104,7 @@ void init(char *title)
     
     
     /* Chargement de la police */
-    chargePolice("font/mario.ttf", 32);
+    chargePolice("../font/mario.ttf", 32);
     
     
     //On initialise SDL_Mixer , qui gérera la musique et les effets sonores

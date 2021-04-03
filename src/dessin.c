@@ -121,9 +121,6 @@ void delay(unsigned int frameLimit)
 }
 
 
-
-
-
 void dessineTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 {
     /* Rectangle de destination à dessiner */
@@ -151,8 +148,8 @@ void dessineTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy)
 void initHUD(void)
 {
     /* On charge les images du HUD */
-    HUD_vie = chargeImage("images/life.png");
-    HUD_pieces = chargeImage("images/piece.png");
+    HUD_vie = chargeImage("../images/life.png");
+    HUD_pieces = chargeImage("../images/piece.png");
 }
  
 
@@ -200,4 +197,12 @@ void dessineHUD(void)
     afficheTexte(text, 60, 20, 0, 0, 0, 255);
     afficheTexte(text, 60, 18, 255, 255, 255, 255);
  
+}
+
+void dessineGameOver(){
+
+    SDL_Texture * gameover;
+    gameover = chargeImage("../images/title.png");
+    dessineImage(gameover, 0, 0);
+    
 }

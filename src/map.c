@@ -16,10 +16,10 @@ void initMaps(int niveau)
 {
     // Charge l'image du fond (background)
     if(niveau == 1){
-        map.background = chargeImage("images/background.png");
+        map.background = chargeImage("../images/background.png");
     }
     else{
-        map.background = chargeImage("images/background2.png");
+        map.background = chargeImage("../images/background2.png");
     }
 }
  
@@ -255,7 +255,7 @@ void chargeNiveau(int niveau)
     char file[200];
     
     /* Charge la map depuis le fichier */
-    sprintf_s(file, sizeof(file), "map/map%d.txt", recupNiveau());
+    sprintf_s(file, sizeof(file), "../map/map%d.txt", recupNiveau());
     chargeMap(file);
     
     //Charge le tileset
@@ -266,7 +266,7 @@ void chargeNiveau(int niveau)
 
     initMaps(recupNiveau());
     
-    sprintf_s(file, sizeof(file), "images/tileset%d.png", map.tilesetAffiche);
+    sprintf_s(file, sizeof(file), "../images/tileset%d.png", map.tilesetAffiche);
     map.tileSet = chargeImage(file);
  
 }
@@ -593,8 +593,6 @@ void mapCollision(Personnage *entite)
                 if ((map.tile[y2][x1] == TILE_PIKES) || (map.tile[y2][x2] == TILE_PIKES))
                 {
                 
-                    //On joue le son
-                    joueSon(MORT_HERO);
                     //On fait sauter le joueur
                     entite->dirY = -HAUTEUR_SAUT;
                 
