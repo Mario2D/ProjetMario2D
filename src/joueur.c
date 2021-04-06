@@ -369,7 +369,6 @@ void majJoueur(Input *touche)
 
             // Si on est mort, on perd une vie
             initNombreDeVies(recupNombreDeVies() - 1);
-
             tuerJoueur();
 
             if(recupNombreDeVies() == 0){
@@ -379,7 +378,6 @@ void majJoueur(Input *touche)
                 
             else{
                 joueSon(MORT_HERO);
-                dessineGameOver();
                 SDL_Delay(2800);            
             }
 
@@ -501,7 +499,7 @@ void recupItem(int itemNumber)
         joueSon(COIN);
         
         //On teste s'il y a 100 étoiles : on remet le compteur à 0 et on rajoute une vie ;)
-        if (recupNombreDePieces() >= 20)
+        if (recupNombreDePieces() >= 50)
         {
             initNombreDePieces(0);
             //On incrémente le nombre de vies (max 99)

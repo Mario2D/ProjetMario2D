@@ -18,8 +18,11 @@ void initMaps(int niveau)
     if(niveau == 1){
         map.background = chargeImage("../images/background.png");
     }
-    else{
+    else if(niveau == 2){
         map.background = chargeImage("../images/background2.png");
+    }
+    else{
+        map.background = chargeImage("../images/background3.png"); 
     }
 }
  
@@ -593,16 +596,18 @@ void mapCollision(Personnage *entite)
                 if ((map.tile[y2][x1] == TILE_PIKES) || (map.tile[y2][x2] == TILE_PIKES))
                 {
                 
-                    //On fait sauter le joueur
-                    entite->dirY = -HAUTEUR_SAUT;
+                    //On met le timer à 1 pour tuer le joueur intantanément
+                    entite->timerMort = 1;   
+                    
+                }
+
+                /* Gestion de la lave */
+                if ((map.tile[y2][x1] == TILE_LAVE) || (map.tile[y2][x2] == TILE_LAVE))
+                {
                 
-                    if (entite->vie < 1)
-                    {
-                        //On met le timer à 1 pour tuer le joueur intantanément
-                        entite->timerMort = 1;
-                        //On joue le son
-                        joueSon(MORT_HERO);
-                    }
+                    //On met le timer à 1 pour tuer le joueur intantanément
+                    entite->timerMort = 1;   
+                    
                 }
 
 

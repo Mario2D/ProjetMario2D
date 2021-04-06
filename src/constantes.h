@@ -92,11 +92,12 @@
 
 //Tiles Power-ups
 #define TILE_POWER_UP_DEBUT 9
-#define TILE_POWER_UP_FIN 10
+#define TILE_POWER_UP_FIN 9
  
 //Autres Tiles spéciales
 #define TILE_CHECKPOINT 11
 #define TILE_PIKES 10
+#define TILE_LAVE 7
 #define TILE_MONSTRE 2
 
 
