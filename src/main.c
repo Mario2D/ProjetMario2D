@@ -19,7 +19,7 @@
 
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;
- 
+extern int reccord; 
  
 int main(int argc, char *argv[])
 {
@@ -38,6 +38,25 @@ int main(int argc, char *argv[])
  
     // Appelle la fonction nettoyageAll à la fin du programme
     atexit(nettoyageAll);
+
+    FILE* fichier = NULL;
+    char chaine[4] = ""; // Chaîne vide de taille TAILLE_MAX
+ 
+    fichier = fopen("../reccord.txt", "r");
+ 
+    if (fichier != NULL)
+    {
+        fgets(chaine, 4, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+        fclose(fichier);
+    }
+
+    else{
+        printf("Impossible d'ouvrir le fichier.\n");
+        exit(1);
+    }
+
+    reccord = atoi(chaine);
+    printf("%d", reccord);
  
     go = 1;
  
@@ -65,8 +84,9 @@ int main(int argc, char *argv[])
         
         
         //Si on n'est pas dans un menu, on affiche le jeu
-        if (recupStatutMenu() == 0)
+        if (recupStatutMenu() == 0){
             chargeJeu(0);
+        }
         
         else
         {

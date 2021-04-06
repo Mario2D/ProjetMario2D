@@ -123,6 +123,7 @@ void tuerJoueur()
     joueur.frameNumber = 0;
     joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
     joueur.frameMax = 1;  
+
 }
  
 
@@ -369,7 +370,7 @@ void majJoueur(Input *touche)
 
             // Si on est mort, on perd une vie
             initNombreDeVies(recupNombreDeVies() - 1);
-            tuerJoueur();
+
             initNombreDePieces(0);
 
             if(recupNombreDeVies() == 0){
@@ -388,7 +389,7 @@ void majJoueur(Input *touche)
                 //Dans ce cas on retourne au menu start
                 initTypeMenu(1, START);
             }
-            
+
             // Si on est mort, on réinitialise le niveau
             chargeNiveau(recupNiveau());
             initJoueur(0);

@@ -10,7 +10,8 @@
  
  
 Map map;
-int reccord = 200;
+int reccord;
+FILE* fich = NULL;
 
 
 void initMaps(int niveau)
@@ -65,10 +66,6 @@ int recupValeurTile(int y, int x)
 {
     return map.tile[y][x];
 } 
-
-int recupReccord(){
-    return reccord;
-}
  
 void chargeMap(char *nom)
 {
@@ -730,9 +727,19 @@ void mapCollision(Personnage *entite)
         {
             changeNiveau(1);
             entite->x = map.maxX - entite->w - 1;
-            if((SDL_GetTicks()/1000) < reccord)
+            if((SDL_GetTicks()/1000) < reccord){
                 reccord = SDL_GetTicks()/1000;
 
+                fich = fopen("../reccord.txt", "w+");
+            
+                if (fich != NULL)
+                {
+                    // On l'écrit dans le fichier
+                    fprintf(fich, "%d", reccord);
+                    fclose(fich);
+                }
+
+            }
             //Dans ce cas on retourne au menu start
             initTypeMenu(1, START);
         }

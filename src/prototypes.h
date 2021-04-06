@@ -15,9 +15,6 @@
 /* Catalogue des prototypes des fonctions utilisées.
    On le complétera au fur et à mesure. */ 
 
-
-
-
 /*! \brief  Gestion du scrolling de la map, centré sur le héros, et adapté à la vitesse de ce dernier.
  *  
  *  param[in]   int valeur  Valeur x
@@ -614,7 +611,7 @@ extern void dessineMenuPrincipal(void);
 extern void dessineMenuPause(void);
 
 void dessineGameOver(void);
-extern int recupReccord();
+
 
  
 #endif

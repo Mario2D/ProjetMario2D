@@ -12,6 +12,7 @@
 //HUD
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
 
+extern int reccord;
 
 void chargeJeu(int pauseMenu)
 {
@@ -76,9 +77,6 @@ SDL_Texture *chargeImage(char *nom)
     
 }
     
-
-
-
   
 void dessineImage(SDL_Texture *image, int x, int y)
 {
@@ -220,7 +218,7 @@ void dessineHUD(void)
     /* Affiche le temps en haut au centre */
     dessineImage(HUD_reccord, 410, 20);
 
-    sprintf_s(text, sizeof(text), "%d", recupReccord());
+    sprintf_s(text, sizeof(text), "%d", reccord);
     afficheTexte(text, 452, 25, 0, 0, 0, 255);
     afficheTexte(text, 450, 23, 255, 255, 255, 255);
  
