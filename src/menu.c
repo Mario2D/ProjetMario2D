@@ -14,7 +14,6 @@
 int onMenu, menuType, choix;
 SDL_Texture *titlescreen;
  
- 
 int recupStatutMenu(void)
 {
     return onMenu;

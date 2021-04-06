@@ -13,6 +13,7 @@
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
 
 extern int reccord;
+int timer;
 
 void chargeJeu(int pauseMenu)
 {
@@ -21,6 +22,7 @@ void chargeJeu(int pauseMenu)
     
     /* Affiche la map de tiles : layer 2 (couche du fond) */
     dessineMap(2);
+
     
     /* Affiche la map de tiles : layer 1 (couche active : sol, etc.)*/
     dessineMap(1);
@@ -46,6 +48,7 @@ void chargeJeu(int pauseMenu)
     
     // Délai pour laisser respirer le proc
     SDL_Delay(1);
+    
 }
 
 
@@ -185,6 +188,8 @@ void dessineHUD(void)
     char text[200];
     
     int i;
+
+    timer = SDL_GetTicks()/1000;
     
     
     /* Affiche le nombre de vies en haut à droite */
@@ -209,18 +214,18 @@ void dessineHUD(void)
 
 
     /* Affiche le temps en haut au centre */
-    dessineImage(HUD_temps, 310, 20);
+    dessineImage(HUD_temps, 280, 20);
 
-    sprintf_s(text, sizeof(text), "%d", SDL_GetTicks() / 1000); 
-    afficheTexte(text, 352, 25, 0, 0, 0, 255);
-    afficheTexte(text, 350, 23, 255, 255, 255, 255);
+    sprintf_s(text, sizeof(text), "%d", timer); 
+    afficheTexte(text, 322, 25, 0, 0, 0, 255);
+    afficheTexte(text, 320, 23, 255, 255, 255, 255);
 
-    /* Affiche le temps en haut au centre */
-    dessineImage(HUD_reccord, 410, 20);
+    /* Affiche le temps reccord en haut au centre */
+    dessineImage(HUD_reccord, 440, 20);
 
     sprintf_s(text, sizeof(text), "%d", reccord);
-    afficheTexte(text, 452, 25, 0, 0, 0, 255);
-    afficheTexte(text, 450, 23, 255, 255, 255, 255);
+    afficheTexte(text, 482, 25, 0, 0, 0, 255);
+    afficheTexte(text, 480, 23, 255, 255, 255, 255);
  
 }
 

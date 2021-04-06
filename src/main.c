@@ -19,7 +19,7 @@
 
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;
-extern int reccord; 
+extern int reccord;
  
 int main(int argc, char *argv[])
 {
@@ -75,11 +75,13 @@ int main(int argc, char *argv[])
 
         else
         {
+
             if (recupTypeMenu() == START)
                 majMenuPrincipal(&touche);
             
             else if (recupTypeMenu() == PAUSE)
                 majMenuPause(&touche);
+            
         }
         
         
