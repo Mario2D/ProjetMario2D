@@ -159,6 +159,7 @@ if (touche->bas == 1)
         else if (choix == 1)
         {
             choix = 0;
+            Mix_ResumeMusic();
             menuType = START;
         }
         
