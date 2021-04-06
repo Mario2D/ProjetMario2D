@@ -370,6 +370,7 @@ void majJoueur(Input *touche)
             // Si on est mort, on perd une vie
             initNombreDeVies(recupNombreDeVies() - 1);
             tuerJoueur();
+            initNombreDePieces(0);
 
             if(recupNombreDeVies() == 0){
                 joueSon(GAME_OVER);
