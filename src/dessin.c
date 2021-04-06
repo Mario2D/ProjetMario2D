@@ -10,8 +10,7 @@
 
 
 //HUD
-SDL_Texture *HUD_vie, *HUD_pieces;
- 
+SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
 
 
 void chargeJeu(int pauseMenu)
@@ -150,6 +149,9 @@ void initHUD(void)
     /* On charge les images du HUD */
     HUD_vie = chargeImage("../images/life.png");
     HUD_pieces = chargeImage("../images/piece.png");
+    HUD_temps = chargeImage("../images/timer.png");
+    HUD_reccord = chargeImage("../images/reccord.png");
+
 }
  
 
@@ -165,19 +167,29 @@ void nettoyageHUD(void)
     {
         SDL_DestroyTexture(HUD_vie);
     }
+
+    if (HUD_temps != NULL)
+    {
+        SDL_DestroyTexture(HUD_temps);
+    }
+
+    if (HUD_reccord != NULL)
+    {
+        SDL_DestroyTexture(HUD_temps);
+    }
 }
 
 
 
 void dessineHUD(void)
 {
-    //On crée une varuiable qui contiendra notre texte (jusqu'à 200 caractères, y'a de la marge ;) ).
+    //On crée une variable qui contiendra notre texte
     char text[200];
     
     int i;
     
     
-    /* Affiche le nombre de vies en bas à droite - Adaptation à la fenêtre auto */
+    /* Affiche le nombre de vies en haut à droite */
     dessineImage(HUD_vie, LARGEUR_FENETRE - 125, 18);
     
     //Pour afficher le nombre de vies, on formate notre string pour qu'il prenne la valeur de la variable
@@ -196,6 +208,21 @@ void dessineHUD(void)
     sprintf_s(text, sizeof(text), "%d", recupNombreDePieces());
     afficheTexte(text, 60, 20, 0, 0, 0, 255);
     afficheTexte(text, 60, 18, 255, 255, 255, 255);
+
+
+    /* Affiche le temps en haut au centre */
+    dessineImage(HUD_temps, 310, 20);
+
+    sprintf_s(text, sizeof(text), "%d", SDL_GetTicks() / 1000); 
+    afficheTexte(text, 352, 25, 0, 0, 0, 255);
+    afficheTexte(text, 350, 23, 255, 255, 255, 255);
+
+    /* Affiche le temps en haut au centre */
+    dessineImage(HUD_reccord, 410, 20);
+
+    sprintf_s(text, sizeof(text), "%d", recupReccord());
+    afficheTexte(text, 452, 25, 0, 0, 0, 255);
+    afficheTexte(text, 450, 23, 255, 255, 255, 255);
  
 }
 

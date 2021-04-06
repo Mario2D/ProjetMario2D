@@ -69,53 +69,30 @@ void majMenuPrincipal(Input *touche)
         touche->bas = 0;
     }
  
-    //Choix du level
-    if (touche->droite == 1)
+
+    //Si on appuie sur Enter et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
+    if (touche->entrer)
     {
-        //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
-        if (recupNiveau() >= NIVEAU_MAX)
-            changeNiveau(1);
-        else
-            changeNiveau(recupNiveau() + 1);
+        if (choix == 0)
+        {
+            resetCheckpoint();
+            initJoueur(1);
+            chargeNiveau(1);
+            
+            /* On réinitialise les variables du jeu */
+            initNombreDeVies(3);
+            initNombreDePieces(0);
+            onMenu = 0;
+        }
         
-        touche->droite = 0;
-    }
- 
-if (touche->gauche == 1)
-{
-    //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
-    if (recupNiveau() <= 1)
-        changeNiveau(NIVEAU_MAX);
-    else
-        changeNiveau(recupNiveau() - 1);
-    
-    touche->gauche = 0;
-}
- 
- 
-//Si on appuie sur Enter et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
-if (touche->entrer)
-{
-    if (choix == 0)
-    {
-        resetCheckpoint();
-        initJoueur(1);
-        chargeNiveau(recupNiveau());
+        //Sinon, on quitte le jeu
+        else if (choix == 1)
+        {
+            exit(0);
+        }
         
-        /* On réinitialise les variables du jeu */
-        initNombreDeVies(3);
-        initNombreDePieces(0);
-        onMenu = 0;
-    }
-    
-    //Sinon, on quitte le jeu
-    else if (choix == 1)
-    {
-        exit(0);
-    }
-    
-    touche->entrer = 0;
-    touche->saut = 0;
+        touche->entrer = 0;
+        touche->saut = 0;
     }
  
 }
@@ -181,7 +158,7 @@ void dessineMenuPrincipal(void)
     //Si l'option n'est pas en surbrillance, on l'affiche normalement
     if (choix != 0)
     {
-        sprintf_s(text, sizeof(text), "START: Lvl %d", recupNiveau());
+        sprintf_s(text, sizeof(text), "START GAME");
         //Ombrage en noir
         afficheTexte(text, 260, 252, 0, 0, 0, 255);
         afficheTexte(text, 258, 250, 255, 255, 255, 255);
@@ -197,7 +174,7 @@ void dessineMenuPrincipal(void)
     //Si l'option est en surbrillance, on change la couleur
     if (choix == 0)
     {
-        sprintf_s(text, sizeof(text), "START: Lvl %d", recupNiveau());
+        sprintf_s(text, sizeof(text), "START GAME");
         //Ombrage en noir
         afficheTexte(text, 260, 252, 0, 0, 0, 255);
         afficheTexte(text, 258, 250, 255, 255, 0, 255);

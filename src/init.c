@@ -13,8 +13,6 @@ SDL_Window *screen;
 SDL_Renderer *renderer;
  
 
-
-
 SDL_Renderer *recupRendu(void)
 {
     return renderer;
@@ -22,7 +20,7 @@ SDL_Renderer *recupRendu(void)
 
 
 
-void chargementJeu(void)
+void chargementJeu()
 {
     
     //On charge les données pour la map
@@ -39,7 +37,6 @@ void chargementJeu(void)
 
     //On commence au premier niveau
     changeNiveau(1);
-    chargeNiveau(recupNiveau());
 
     /* On initialise les variables du jeu */
     initNombreDeVies(3);
@@ -47,9 +44,6 @@ void chargementJeu(void)
     
     /* On charge le HUD */
     initHUD();
-
-    //On charge la musique
-    chargeMusique("../sounds/overworld.wav");
  
     /* On charge les sounds Fx */
     chargeSon();

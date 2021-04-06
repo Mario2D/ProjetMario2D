@@ -91,7 +91,6 @@ void changeNiveau(int valeur)
 }
 
 
-
 void initSpriteJoueur(void)
 {
     joueurSpriteSheet = chargeImage("../images/mario.png");
@@ -119,6 +118,7 @@ void tuerJoueur()
     //On met le timer à 1 pour tuer le joueur intantanément
     joueur.timerMort = 1;
     
+    //On affiche le héro à l'état mort
     joueur.etat = MORT;
     joueur.frameNumber = 0;
     joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
@@ -392,8 +392,6 @@ void majJoueur(Input *touche)
             // Si on est mort, on réinitialise le niveau
             chargeNiveau(recupNiveau());
             initJoueur(0);
-
-            chargeMusique("../sounds/overworld.wav");
 
         }
     }

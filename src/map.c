@@ -10,7 +10,8 @@
  
  
 Map map;
- 
+int reccord = 200;
+
 
 void initMaps(int niveau)
 {
@@ -24,8 +25,15 @@ void initMaps(int niveau)
     else{
         map.background = chargeImage("../images/background3.png"); 
     }
+
+    //On charge la musique
+    if(niveau == 1)
+        chargeMusique("../sounds/overworld.wav");
+    else if(niveau == 2)
+        chargeMusique("../sounds/underwater.wav");
+    else 
+        chargeMusique("../sounds/underground.wav");
 }
- 
 
  
 SDL_Texture *getBackground(void)
@@ -34,7 +42,6 @@ SDL_Texture *getBackground(void)
 }
  
  
-
 void nettoyageMaps(void)
 {
     // Libère la texture du background
@@ -59,7 +66,9 @@ int recupValeurTile(int y, int x)
     return map.tile[y][x];
 } 
 
-
+int recupReccord(){
+    return reccord;
+}
  
 void chargeMap(char *nom)
 {
@@ -719,8 +728,13 @@ void mapCollision(Personnage *entite)
         //Si on dépasse le niveau max, on annule et on limite le déplacement du joueur
         if (recupNiveau() > NIVEAU_MAX)
         {
-            changeNiveau(NIVEAU_MAX);
+            changeNiveau(1);
             entite->x = map.maxX - entite->w - 1;
+            if((SDL_GetTicks()/1000) < reccord)
+                reccord = SDL_GetTicks()/1000;
+
+            //Dans ce cas on retourne au menu start
+            initTypeMenu(1, START);
         }
         //Sinon, on passe au niveau sup, on charge la nouvelle map et on réinitialise le joueur
         else

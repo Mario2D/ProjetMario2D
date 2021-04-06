@@ -314,7 +314,7 @@ extern void chargePolice(char *nom , int taille);
  *  
  *  \return void
  */ 
-extern void chargementJeu(void);
+extern void chargementJeu();
 
 /*! \brief  Charge une image de nom *nom
  *  
@@ -614,9 +614,7 @@ extern void dessineMenuPrincipal(void);
 extern void dessineMenuPause(void);
 
 void dessineGameOver(void);
+extern int recupReccord();
 
-
- 
- 
  
 #endif
