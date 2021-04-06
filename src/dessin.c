@@ -204,5 +204,5 @@ void dessineGameOver(){
     SDL_Texture * gameover;
     gameover = chargeImage("../images/title.png");
     dessineImage(gameover, 0, 0);
-    
+
 }
