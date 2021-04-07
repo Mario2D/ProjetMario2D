@@ -11,6 +11,7 @@
  
 Map map;
 int reccord;
+extern int timer;
 FILE* fich = NULL;
 
 
@@ -727,8 +728,8 @@ void mapCollision(Personnage *entite)
         {
             changeNiveau(1);
             entite->x = map.maxX - entite->w - 1;
-            if((SDL_GetTicks()/1000) < reccord){
-                reccord = SDL_GetTicks()/1000;
+            if(timer < reccord){
+                reccord = timer;
 
                 fich = fopen("../reccord.txt", "w+");
             

@@ -12,6 +12,7 @@
  
 int niveau;
 int vies, pieces;
+extern int timer_pause;
 Personnage joueur;
 SDL_Texture *joueurSpriteSheet;
  

@@ -13,7 +13,7 @@
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
 
 extern int reccord;
-int timer = 0;
+int timer, timer_reset, timer_pause;
 
 
 void chargeJeu(int pauseMenu)
@@ -196,6 +196,9 @@ void dessineHUD(void)
     char text[200];
     
     int i;
+
+    timer = SDL_GetTicks() / 1000;
+    timer -= (timer_reset + timer_pause);
     
 
     /* Affiche le nombre de vies en haut à droite */

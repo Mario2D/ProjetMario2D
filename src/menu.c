@@ -13,6 +13,7 @@
 //Gestion des menus
 int onMenu, menuType, choix, hero = 1;
 SDL_Texture *titlescreen;
+extern int timer, timer_reset, timer_pause;
 char hero1[10] = "mario";
 char hero2[10] = "luigi";
 char hero3[10] = "peach";
@@ -133,15 +134,15 @@ void majMenuPrincipal(Input *touche)
  
 void majMenuPause(Input *touche)
 {
- 
-//Si on appuie sur BAS
-if (touche->bas == 1)
-{
-    //Si choix = O (il est sur start), on le met à 1 (quit)
-    if (choix == 0)
-        choix++;
-        
-        touche->bas = 0;
+
+    //Si on appuie sur BAS
+    if (touche->bas == 1)
+    {
+        //Si choix = O (il est sur start), on le met à 1 (quit)
+        if (choix == 0)
+            choix++;
+            
+            touche->bas = 0;
     }
     
     //Si on appuie sur HAUT

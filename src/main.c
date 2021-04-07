@@ -20,7 +20,7 @@
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;
 extern int reccord;
-extern int timer;
+extern int timer_reset;
  
 int main(int argc, char *argv[])
 {
@@ -76,11 +76,14 @@ int main(int argc, char *argv[])
         else
         {
 
-            if (recupTypeMenu() == START)
+            if (recupTypeMenu() == START){
                 majMenuPrincipal(&touche);
+                timer_reset = SDL_GetTicks() / 1000;
+            }
             
-            else if (recupTypeMenu() == PAUSE)
+            else if (recupTypeMenu() == PAUSE){
                 majMenuPause(&touche);
+            }
             
         }
         

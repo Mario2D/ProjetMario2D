@@ -75,6 +75,9 @@ void recupTouche(Input *touche)
             case SDL_KEYUP:
                 switch (event.key.keysym.sym)
                 {
+                    case SDLK_ESCAPE:
+                        touche->pause = 0;
+                    break;
                     case SDLK_DELETE:
                         touche->ecraser = 0;
                     break;
