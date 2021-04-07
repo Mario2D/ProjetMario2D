@@ -13,7 +13,8 @@
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
 
 extern int reccord;
-int timer;
+int timer = 0;
+
 
 void chargeJeu(int pauseMenu)
 {
@@ -22,7 +23,6 @@ void chargeJeu(int pauseMenu)
     
     /* Affiche la map de tiles : layer 2 (couche du fond) */
     dessineMap(2);
-
     
     /* Affiche la map de tiles : layer 1 (couche active : sol, etc.)*/
     dessineMap(1);
@@ -180,6 +180,14 @@ void nettoyageHUD(void)
     }
 }
 
+/* Fonction de callback (sera appelée toutes les 30 ms) */
+Uint32 incrementeTimer(Uint32 intervalle, void *parametre)
+{
+    parametre++;
+
+    return intervalle;
+}
+
 
 
 void dessineHUD(void)
@@ -188,10 +196,8 @@ void dessineHUD(void)
     char text[200];
     
     int i;
+    
 
-    timer = SDL_GetTicks()/1000;
-    
-    
     /* Affiche le nombre de vies en haut à droite */
     dessineImage(HUD_vie, LARGEUR_FENETRE - 125, 18);
     
@@ -229,10 +235,3 @@ void dessineHUD(void)
  
 }
 
-void dessineGameOver(){
-
-    SDL_Texture * gameover;
-    gameover = chargeImage("../images/title.png");
-    dessineImage(gameover, 0, 0);
-
-}

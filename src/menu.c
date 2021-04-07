@@ -7,12 +7,15 @@
  */
 
 #include "prototypes.h"
- 
+
  
  
 //Gestion des menus
-int onMenu, menuType, choix;
+int onMenu, menuType, choix, hero = 1;
 SDL_Texture *titlescreen;
+char hero1[10] = "mario";
+char hero2[10] = "luigi";
+char hero3[10] = "peach";
  
 int recupStatutMenu(void)
 {
@@ -48,24 +51,53 @@ void libereMenus(void)
  
 void majMenuPrincipal(Input *touche)
 {
-    //Si on appuie sur BAS
+    //Si on appuie sur HAUT
     if (touche->haut == 1)
     {
         //Si choix = O (il est sur start), on le met à 1 (quit)
         if (choix == 0)
             choix++;
+        //Si choix = 2 (il est sur heros), on le met à 0 (start)    
+        else if(choix == 2)
+            choix-=2;
         
         touche->haut = 0;
     }
  
-    //Si on appuie sur HAUT
+    //Si on appuie sur BAS
     if (touche->bas == 1)
     {
-        //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
+        //Si choix = 1 (il est sur quit), on le met à 0 (start)
         if (choix == 1)
             choix--;
+        //Si choix = 0 (il est sur start), on le met à 2 (heros)
+        else if (choix == 0)
+            choix+=2;
         
         touche->bas = 0;
+    }
+
+    //Choix du héro
+    if (touche->droite == 1 && choix == 2)
+    {
+
+        if (hero >= 3)
+            hero = 1;
+        else
+            hero++;
+        
+        touche->droite = 0;
+    }
+ 
+    if (touche->gauche == 1 && choix == 2)
+    {
+
+        if (hero <= 1)
+            hero = 3;
+        else
+            hero--;
+        
+        touche->gauche = 0;
     }
  
 
@@ -75,6 +107,7 @@ void majMenuPrincipal(Input *touche)
         if (choix == 0)
         {
             resetCheckpoint();
+            initSpriteJoueur(hero);
             initJoueur(1);
             chargeNiveau(1);
             
@@ -131,7 +164,7 @@ if (touche->bas == 1)
             Mix_ResumeMusic();
         }
         
-        //Sinon, on quitte le jeu
+        //Sinon, on quitte la partie
         else if (choix == 1)
         {
             choix = 0;
@@ -169,6 +202,18 @@ void dessineMenuPrincipal(void)
         afficheTexte(text, 105, 60, 0, 0, 0, 255);
         afficheTexte(text, 102, 62, 255, 255, 255, 255);
     }
+    if (choix != 2)
+    {
+        if(hero == 1)
+            sprintf_s(text, sizeof(text), "%s", hero1);
+        else if(hero == 2)
+            sprintf_s(text, sizeof(text), "%s", hero2);
+        else 
+            sprintf_s(text, sizeof(text), "%s", hero3);
+        //Ombrage en noir
+        afficheTexte(text, 320, 322, 0, 0, 0, 255);
+        afficheTexte(text, 318, 320, 255, 255, 255, 255);
+    }
     
     //Si l'option est en surbrillance, on change la couleur
     if (choix == 0)
@@ -184,6 +229,18 @@ void dessineMenuPrincipal(void)
         //Ombrage en noir
         afficheTexte(text, 105, 60, 0, 0, 0, 255);
         afficheTexte(text, 102, 62, 255, 255, 0, 255);
+    }
+    else if (choix == 2)
+    {
+        if(hero == 1)
+            sprintf_s(text, sizeof(text), "%s", hero1);
+        else if(hero == 2)
+            sprintf_s(text, sizeof(text), "%s", hero2);
+        else 
+            sprintf_s(text, sizeof(text), "%s", hero3);
+        //Ombrage en noir
+        afficheTexte(text, 320, 322, 0, 0, 0, 255);
+        afficheTexte(text, 318, 320, 255, 255, 0, 255);
     }
  
 }

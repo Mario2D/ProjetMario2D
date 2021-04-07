@@ -11,7 +11,7 @@
  
 SDL_Window *screen;
 SDL_Renderer *renderer;
- 
+extern int hero;
 
 SDL_Renderer *recupRendu(void)
 {
@@ -30,7 +30,7 @@ void chargementJeu()
     initMenus();    
     
     //On charge la feuille de sprited de mario
-    initSpriteJoueur();
+    initSpriteJoueur(hero);
 
     //On charge la feuille de sprites du monstre
     chargeSpriteMonstre();
@@ -60,7 +60,7 @@ void chargementJeu()
 
 void init(char *title)
 {
-
+    
     screen = SDL_CreateWindow(title,
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,

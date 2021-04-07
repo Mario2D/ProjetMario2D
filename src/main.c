@@ -20,6 +20,7 @@
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;
 extern int reccord;
+extern int timer;
  
 int main(int argc, char *argv[])
 {
@@ -56,7 +57,6 @@ int main(int argc, char *argv[])
     }
 
     reccord = atoi(chaine);
-    printf("%d", reccord);
  
     go = 1;
  

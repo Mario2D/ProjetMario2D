@@ -91,9 +91,14 @@ void changeNiveau(int valeur)
 }
 
 
-void initSpriteJoueur(void)
+void initSpriteJoueur(int hero)
 {
-    joueurSpriteSheet = chargeImage("../images/mario.png");
+    if(hero == 1)
+        joueurSpriteSheet = chargeImage("../images/mario.png");
+    else if(hero == 2)
+        joueurSpriteSheet = chargeImage("../images/luigi.png");
+    else 
+        joueurSpriteSheet = chargeImage("../images/peach.png");
 }
 
 void resetCheckpoint(void)

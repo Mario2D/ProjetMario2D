@@ -288,7 +288,7 @@ extern void initMaps(int niveau);
  * 
  *  \return void
  */
-extern void initSpriteJoueur(void);
+extern void initSpriteJoueur(int hero);
 
 /*! \brief  Initialise le héros dans un niveau donné
  *  
@@ -609,9 +609,6 @@ extern void dessineMenuPrincipal(void);
  *  \return void
  */
 extern void dessineMenuPause(void);
-
-void dessineGameOver(void);
-
 
  
 #endif
