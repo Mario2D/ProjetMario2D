@@ -13,7 +13,7 @@
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
 
 extern int reccord;
-int timer, timer_reset, timer_pause;
+int timer, timer_reset = 0, timer_pause = 0;
 
 
 void chargeJeu(int pauseMenu)
