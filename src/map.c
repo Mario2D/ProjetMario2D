@@ -10,7 +10,7 @@
  
  
 Map map;
-int reccord;
+int record;
 extern int timer;
 FILE* fich = NULL;
 
@@ -728,15 +728,15 @@ void mapCollision(Personnage *entite)
         {
             changeNiveau(1);
             entite->x = map.maxX - entite->w - 1;
-            if(timer < reccord){
-                reccord = timer;
+            if(timer < record){
+                record = timer;
 
-                fich = fopen("../reccord.txt", "w+");
+                fich = fopen("../record.txt", "w+");
             
                 if (fich != NULL)
                 {
                     // On l'écrit dans le fichier
-                    fprintf(fich, "%d", reccord);
+                    fprintf(fich, "%d", record);
                     fclose(fich);
                 }
 

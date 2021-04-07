@@ -19,7 +19,7 @@
 
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;
-extern int reccord;
+extern int record;
 extern int timer_reset;
  
 int main(int argc, char *argv[])
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     FILE* fichier = NULL;
     char chaine[4] = ""; // Chaîne vide de taille TAILLE_MAX
  
-    fichier = fopen("../reccord.txt", "r");
+    fichier = fopen("../record.txt", "r");
  
     if (fichier != NULL)
     {
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    reccord = atoi(chaine);
+    record = atoi(chaine);
  
     go = 1;
  

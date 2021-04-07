@@ -10,9 +10,9 @@
 
 
 //HUD
-SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_reccord; 
+SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_record; 
 
-extern int reccord;
+extern int record;
 int timer, timer_reset = 0, timer_pause = 0;
 
 
@@ -151,7 +151,7 @@ void initHUD(void)
     HUD_vie = chargeImage("../images/life.png");
     HUD_pieces = chargeImage("../images/piece.png");
     HUD_temps = chargeImage("../images/timer.png");
-    HUD_reccord = chargeImage("../images/reccord.png");
+    HUD_record = chargeImage("../images/record.png");
 
 }
  
@@ -174,7 +174,7 @@ void nettoyageHUD(void)
         SDL_DestroyTexture(HUD_temps);
     }
 
-    if (HUD_reccord != NULL)
+    if (HUD_record != NULL)
     {
         SDL_DestroyTexture(HUD_temps);
     }
@@ -229,10 +229,10 @@ void dessineHUD(void)
     afficheTexte(text, 322, 25, 0, 0, 0, 255);
     afficheTexte(text, 320, 23, 255, 255, 255, 255);
 
-    /* Affiche le temps reccord en haut au centre */
-    dessineImage(HUD_reccord, 440, 20);
+    /* Affiche le temps record en haut au centre */
+    dessineImage(HUD_record, 440, 20);
 
-    sprintf_s(text, sizeof(text), "%d", reccord);
+    sprintf_s(text, sizeof(text), "%d", record);
     afficheTexte(text, 482, 25, 0, 0, 0, 255);
     afficheTexte(text, 480, 23, 255, 255, 255, 255);
  
