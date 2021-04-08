@@ -185,7 +185,8 @@ void majMenuPrincipal(Input *touche)
             resetCheckpoint();
             initSpriteJoueur(hero);
             initJoueur(1);
-            chargeNiveau(1);
+            changeNiveau(1);
+            chargeNiveau(recupNiveau());
             
             /* On réinitialise les variables du jeu */
             initNombreDeVies(3);
