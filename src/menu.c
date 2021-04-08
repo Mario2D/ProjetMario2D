@@ -12,11 +12,14 @@
  
 //Gestion des menus
 int onMenu, menuType, choix, hero = 1;
-SDL_Texture *titlescreen;
 extern int timer, timer_reset, timer_pause;
-char hero1[10] = "mario";
-char hero2[10] = "luigi";
-char hero3[10] = "peach";
+
+SDL_Texture *titlescreen;
+SDL_Texture *fleches;
+SDL_Texture *mario;
+SDL_Texture *luigi;
+SDL_Texture *yoshi;
+
  
 int recupStatutMenu(void)
 {
@@ -37,6 +40,10 @@ void initTypeMenu(int valeur, int type)
 void initMenus(void)
 {
     titlescreen = chargeImage("../images/title.png");
+    fleches = chargeImage("../images/fleches.png");
+    mario = chargeImage("../images/choix_mario.png");
+    luigi = chargeImage("../images/choix_luigi.png");
+    yoshi = chargeImage("../images/choix_yoshi.png");
 }
  
 void libereMenus(void)
@@ -46,6 +53,32 @@ void libereMenus(void)
     {
         SDL_DestroyTexture(titlescreen);
         titlescreen = NULL;
+    }
+
+    // Libère la texture des fleches de selection  
+    if (fleches != NULL)
+    {
+        SDL_DestroyTexture(fleches);
+        fleches = NULL;
+    }
+
+    // Libère la texture des héros
+    if (mario != NULL)
+    {
+        SDL_DestroyTexture(mario);
+        mario = NULL;
+    }
+
+    if (luigi != NULL)
+    {
+        SDL_DestroyTexture(luigi);
+        luigi = NULL;
+    }
+
+    if (yoshi != NULL)
+    {
+        SDL_DestroyTexture(yoshi);
+        yoshi = NULL;
     }
 }
  
@@ -206,14 +239,11 @@ void dessineMenuPrincipal(void)
     if (choix != 2)
     {
         if(hero == 1)
-            sprintf_s(text, sizeof(text), "%s", hero1);
+            dessineImage(mario, 340, 322);
         else if(hero == 2)
-            sprintf_s(text, sizeof(text), "%s", hero2);
+            dessineImage(luigi, 340, 322);
         else 
-            sprintf_s(text, sizeof(text), "%s", hero3);
-        //Ombrage en noir
-        afficheTexte(text, 320, 322, 0, 0, 0, 255);
-        afficheTexte(text, 318, 320, 255, 255, 255, 255);
+            dessineImage(yoshi, 340, 322);
     }
     
     //Si l'option est en surbrillance, on change la couleur
@@ -234,14 +264,14 @@ void dessineMenuPrincipal(void)
     else if (choix == 2)
     {
         if(hero == 1)
-            sprintf_s(text, sizeof(text), "%s", hero1);
+            dessineImage(mario, 340, 322);
         else if(hero == 2)
-            sprintf_s(text, sizeof(text), "%s", hero2);
+            dessineImage(luigi, 340, 322);
         else 
-            sprintf_s(text, sizeof(text), "%s", hero3);
-        //Ombrage en noir
-        afficheTexte(text, 320, 322, 0, 0, 0, 255);
-        afficheTexte(text, 318, 320, 255, 255, 0, 255);
+            dessineImage(yoshi, 340, 322);
+
+        dessineImage(fleches, 315, 360);
+
     }
  
 }

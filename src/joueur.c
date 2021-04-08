@@ -99,7 +99,7 @@ void initSpriteJoueur(int hero)
     else if(hero == 2)
         joueurSpriteSheet = chargeImage("../images/luigi.png");
     else 
-        joueurSpriteSheet = chargeImage("../images/peach.png");
+        joueurSpriteSheet = chargeImage("../images/yoshi.png");
 }
 
 void resetCheckpoint(void)
