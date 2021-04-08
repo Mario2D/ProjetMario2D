@@ -20,6 +20,7 @@ SDL_Texture *volume_off;
 SDL_Texture *mario;
 SDL_Texture *luigi;
 SDL_Texture *yoshi;
+SDL_Texture *dk;
 
 SDL_bool volume = SDL_TRUE;
 
@@ -49,6 +50,7 @@ void initMenus(void)
     mario = chargeImage("../images/choix_mario.png");
     luigi = chargeImage("../images/choix_luigi.png");
     yoshi = chargeImage("../images/choix_yoshi.png");
+    dk = chargeImage("../images/choix_dk.png");
 }
  
 void libereMenus(void)
@@ -65,6 +67,19 @@ void libereMenus(void)
     {
         SDL_DestroyTexture(fleches);
         fleches = NULL;
+    }
+
+    //Libère la texture des bouttons de volume
+    if (volume_on != NULL)
+    {
+        SDL_DestroyTexture(volume_on);
+        volume_on = NULL;
+    }
+
+    if (volume_off != NULL)
+    {
+        SDL_DestroyTexture(volume_off);
+        volume_off = NULL;
     }
 
     // Libère la texture des héros
@@ -86,16 +101,10 @@ void libereMenus(void)
         yoshi = NULL;
     }
 
-    if (volume_on != NULL)
+    if (dk != NULL)
     {
-        SDL_DestroyTexture(volume_on);
-        volume_on = NULL;
-    }
-
-    if (volume_off != NULL)
-    {
-        SDL_DestroyTexture(volume_off);
-        volume_off = NULL;
+        SDL_DestroyTexture(dk);
+        dk = NULL;
     }
 }
  
@@ -148,7 +157,7 @@ void majMenuPrincipal(Input *touche)
     if (touche->droite == 1 && choix == 2)
     {
 
-        if (hero >= 3)
+        if (hero >= 4)
             hero = 1;
         else
             hero++;
@@ -160,7 +169,7 @@ void majMenuPrincipal(Input *touche)
     {
 
         if (hero <= 1)
-            hero = 3;
+            hero = 4;
         else
             hero--;
         
@@ -271,14 +280,18 @@ void dessineMenuPrincipal(void)
         afficheTexte(text, 105, 60, 0, 0, 0, 255);
         afficheTexte(text, 102, 62, 255, 255, 255, 255);
     }
+
+    //On dessine les icones des héros
     if (choix != 2)
     {
         if(hero == 1)
             dessineImage(mario, 340, 322);
         else if(hero == 2)
             dessineImage(luigi, 340, 322);
-        else 
+        else if(hero == 3) 
             dessineImage(yoshi, 340, 322);
+        else if(hero == 4)
+            dessineImage(dk, 340, 322);
     }
     
     //Si l'option est en surbrillance, on change la couleur
@@ -296,19 +309,23 @@ void dessineMenuPrincipal(void)
         afficheTexte(text, 105, 60, 0, 0, 0, 255);
         afficheTexte(text, 102, 62, 255, 255, 0, 255);
     }
+
+    //On dessine les icones des héros et les flèches de selection
     else if (choix == 2)
     {
         if(hero == 1)
             dessineImage(mario, 340, 322);
         else if(hero == 2)
             dessineImage(luigi, 340, 322);
-        else 
+        else if(hero == 3) 
             dessineImage(yoshi, 340, 322);
+        else if(hero == 4)
+            dessineImage(dk, 340, 322);
 
         dessineImage(fleches, 315, 360);
-
     }
 
+    //On dessine les bouttons de volume
     if(volume == SDL_FALSE)
         dessineImage(volume_off, 750, 20);
     else    
