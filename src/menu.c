@@ -12,13 +12,16 @@
  
 //Gestion des menus
 int onMenu, menuType, choix, hero = 1;
-extern int timer, timer_reset, timer_pause;
 
 SDL_Texture *titlescreen;
 SDL_Texture *fleches;
+SDL_Texture *volume_on;
+SDL_Texture *volume_off;
 SDL_Texture *mario;
 SDL_Texture *luigi;
 SDL_Texture *yoshi;
+
+SDL_bool volume = SDL_TRUE;
 
  
 int recupStatutMenu(void)
@@ -41,6 +44,8 @@ void initMenus(void)
 {
     titlescreen = chargeImage("../images/title.png");
     fleches = chargeImage("../images/fleches.png");
+    volume_on = chargeImage("../images/volume.png");
+    volume_off = chargeImage("../images/mute.png");
     mario = chargeImage("../images/choix_mario.png");
     luigi = chargeImage("../images/choix_luigi.png");
     yoshi = chargeImage("../images/choix_yoshi.png");
@@ -80,11 +85,39 @@ void libereMenus(void)
         SDL_DestroyTexture(yoshi);
         yoshi = NULL;
     }
+
+    if (volume_on != NULL)
+    {
+        SDL_DestroyTexture(volume_on);
+        volume_on = NULL;
+    }
+
+    if (volume_off != NULL)
+    {
+        SDL_DestroyTexture(volume_off);
+        volume_off = NULL;
+    }
 }
  
  
 void majMenuPrincipal(Input *touche)
 {
+    //Si on appuie sur m
+    if(touche->volume == 1)
+    {
+        //Si volume sur on
+        if(volume == SDL_TRUE){
+            volume = SDL_FALSE; //On passe le volume sur off
+            Mix_PauseMusic(); //On coupe le son
+        }
+        //Si volume sur off
+        else if(volume == SDL_FALSE){
+            volume = SDL_TRUE; //On passe le volume sur on
+            Mix_ResumeMusic(); //On relance la musique
+        }
+        touche->volume == 0;
+    }
+
     //Si on appuie sur HAUT
     if (touche->haut == 1)
     {
@@ -195,14 +228,16 @@ void majMenuPause(Input *touche)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
-            Mix_ResumeMusic();
+            if(volume == SDL_TRUE)
+                Mix_ResumeMusic();
         }
         
         //Sinon, on quitte la partie
         else if (choix == 1)
         {
             choix = 0;
-            Mix_ResumeMusic();
+            if(volume == SDL_TRUE)
+                Mix_ResumeMusic();
             menuType = START;
         }
         
@@ -273,6 +308,11 @@ void dessineMenuPrincipal(void)
         dessineImage(fleches, 315, 360);
 
     }
+
+    if(volume == SDL_FALSE)
+        dessineImage(volume_off, 750, 20);
+    else    
+        dessineImage(volume_on, 750, 20);
  
 }
  
@@ -284,8 +324,8 @@ void dessineMenuPause(void)
     
     //On écrit PAUSE
     sprintf_s(text, sizeof(text), "** PAUSE **");
-    afficheTexte(text, 322, 200, 0, 0, 0, 255);
-    afficheTexte(text, 320, 198, 255, 255, 255, 255);
+    afficheTexte(text, 282, 200, 0, 0, 0, 255);
+    afficheTexte(text, 280, 198, 255, 255, 255, 255);
     
     
     //Si l'option n'est pas en surbrillance, on l'affiche normalement
@@ -293,15 +333,15 @@ void dessineMenuPause(void)
     {
         sprintf_s(text, sizeof(text), "Continue");
         //Ombrage en noir
-        afficheTexte(text, 346, 252, 0, 0, 0, 255);
-        afficheTexte(text, 344, 250, 255, 255, 255, 255);
+        afficheTexte(text, 306, 252, 0, 0, 0, 255);
+        afficheTexte(text, 304, 250, 255, 255, 255, 255);
     }
     if (choix != 1)
     {
         sprintf_s(text, sizeof(text), "Exit");
         //Ombrage en noir
-        afficheTexte(text, 386, 292, 0, 0, 0, 255);
-        afficheTexte(text, 384, 290, 255, 255, 255, 255);
+        afficheTexte(text, 346, 292, 0, 0, 0, 255);
+        afficheTexte(text, 344, 290, 255, 255, 255, 255);
     }
     
     
@@ -310,15 +350,15 @@ void dessineMenuPause(void)
     {
         sprintf_s(text, sizeof(text), "Continue");
         //Ombrage en noir
-        afficheTexte(text, 346, 252, 0, 0, 0, 255);
-        afficheTexte(text, 344, 250, 255, 255, 0, 255);
+        afficheTexte(text, 306, 252, 0, 0, 0, 255);
+        afficheTexte(text, 304, 250, 255, 255, 0, 255);
     }
     else if (choix == 1)
     {
         sprintf_s(text, sizeof(text), "Exit");
         //Ombrage en noir
-        afficheTexte(text, 386, 292, 0, 0, 0, 255);
-        afficheTexte(text, 384, 290, 255, 255, 0, 255);
+        afficheTexte(text, 346, 292, 0, 0, 0, 255);
+        afficheTexte(text, 344, 290, 255, 255, 0, 255);
     }
  
 }

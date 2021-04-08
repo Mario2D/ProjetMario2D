@@ -20,7 +20,7 @@
 typedef struct Input
 {
  
-    int gauche, droite, haut, bas, saut, entrer, ecraser, pause;
+    int gauche, droite, haut, bas, saut, entrer, volume, pause;
  
 } Input;
 

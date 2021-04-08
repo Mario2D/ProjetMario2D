@@ -13,6 +13,7 @@
 int niveau;
 int vies, pieces;
 extern int timer_pause;
+extern SDL_bool volume;
 Personnage joueur;
 SDL_Texture *joueurSpriteSheet;
  
@@ -324,7 +325,8 @@ void majJoueur(Input *touche)
             joueur.dirY = -HAUTEUR_SAUT;
             joueur.surSol = 0;
             joueur.jump = 1;
-            joueSon(JUMP);
+            if(volume == SDL_TRUE)
+                joueSon(JUMP);
         }
         touche->saut = 0;
     }
@@ -334,7 +336,8 @@ void majJoueur(Input *touche)
     {
         //On met le jeu en pause
         initTypeMenu(1, PAUSE);
-        joueSon(PAUSE_GAME);
+        if(volume == SDL_TRUE)
+            joueSon(PAUSE_GAME);
         Mix_PauseMusic();
         touche->pause = 0;
     }
@@ -380,12 +383,14 @@ void majJoueur(Input *touche)
             initNombreDePieces(0);
 
             if(recupNombreDeVies() == 0){
-                joueSon(GAME_OVER);
+                if(volume == SDL_TRUE)
+                    joueSon(GAME_OVER);
                 SDL_Delay(3700);
             }
                 
             else{
-                joueSon(MORT_HERO);
+                if(volume == SDL_TRUE)
+                    joueSon(MORT_HERO);
                 SDL_Delay(2800);            
             }
 
@@ -502,7 +507,8 @@ void recupItem(int itemNumber)
         case 1:
         //On incrémente le compteur Etoile
         initNombreDePieces(recupNombreDePieces() + 1);
-        joueSon(COIN);
+        if(volume == SDL_TRUE)
+            joueSon(COIN);
         
         //On teste s'il y a 100 étoiles : on remet le compteur à 0 et on rajoute une vie ;)
         if (recupNombreDePieces() >= 30)
@@ -519,8 +525,9 @@ void recupItem(int itemNumber)
         //On incrémente le compteur Etoile
         if (joueur.vie < 3)
             joueur.vie++;
-        
-        joueSon(COIN);
+
+        if(volume == SDL_TRUE)
+            joueSon(COIN);
         break;
         
         //Gestion des vies
@@ -529,7 +536,8 @@ void recupItem(int itemNumber)
         if (recupNombreDeVies() < 99)
             initNombreDeVies(recupNombreDeVies() + 1);
         
-        joueSon(COIN);
+        if(volume == SDL_TRUE)
+            joueSon(COIN);
         break;
         
         default:

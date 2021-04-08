@@ -12,6 +12,7 @@
 Map map;
 int record;
 extern int timer;
+extern SDL_bool volume;
 FILE* fich = NULL;
 
 
@@ -29,12 +30,18 @@ void initMaps(int niveau)
     }
 
     //On charge la musique
-    if(niveau == 1)
-        chargeMusique("../sounds/overworld.wav");
-    else if(niveau == 2)
-        chargeMusique("../sounds/underwater.wav");
-    else 
-        chargeMusique("../sounds/underground.wav");
+    if(niveau == 1){
+        if(volume == SDL_TRUE)
+            chargeMusique("../sounds/overworld.wav");
+    }
+    else if(niveau == 2){
+        if(volume == SDL_TRUE)
+            chargeMusique("../sounds/underwater.wav");
+    }
+    else{
+        if(volume == SDL_TRUE)
+            chargeMusique("../sounds/underground.wav");
+    }
 }
 
  

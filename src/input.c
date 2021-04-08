@@ -38,8 +38,8 @@ void recupTouche(Input *touche)
                         touche->pause = 1;
                     break;
  
-                    case SDLK_DELETE:
-                        touche->ecraser = 1;
+                    case SDLK_m:
+                        touche->volume = 1;
                     break;
  
                     case SDLK_SPACE:
@@ -78,8 +78,8 @@ void recupTouche(Input *touche)
                     case SDLK_ESCAPE:
                         touche->pause = 0;
                     break;
-                    case SDLK_DELETE:
-                        touche->ecraser = 0;
+                    case SDLK_m:
+                        touche->volume = 0;
                     break;
  
                     case SDLK_SPACE:

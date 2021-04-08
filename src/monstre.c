@@ -11,6 +11,7 @@
 int nombreMonstres;
 Personnage monstre[MONSTRES_MAX];
 SDL_Texture *MonstreSprite;
+extern SDL_bool volume;
  
  
 Personnage *recupMonstre(int nombre)
@@ -136,7 +137,8 @@ void majMonstre()
         {
             //On met le timer à 1 pour tuer le monstre intantanément
             monstre[i].timerMort = 1;
-            joueSon(MORT_MOB);
+            if(volume == SDL_TRUE)
+                joueSon(MORT_MOB);
         }
         
         }
