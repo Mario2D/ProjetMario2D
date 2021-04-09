@@ -111,7 +111,9 @@ enum
 enum
 {
 START,
-PAUSE
+PAUSE,
+GAMEOVER,
+FIN
 };
 
 #endif

@@ -10,7 +10,7 @@
  
  
 Map map;
-int record;
+int record, record_battu = 0;
 extern int timer;
 extern SDL_bool volume;
 FILE* fich = NULL;
@@ -737,6 +737,7 @@ void mapCollision(Personnage *entite)
             entite->x = map.maxX - entite->w - 1;
             if(timer < record){
                 record = timer;
+                record_battu = 1;
 
                 fich = fopen("../record.txt", "w+");
             
@@ -748,8 +749,11 @@ void mapCollision(Personnage *entite)
                 }
 
             }
+            Mix_PauseMusic();
             //Dans ce cas on retourne au menu start
-            initTypeMenu(1, START);
+            initTypeMenu(1, FIN);
+            if(volume == SDL_TRUE)
+                chargeMusique("../sounds/castleend.wav");
         }
         //Sinon, on passe au niveau sup, on charge la nouvelle map et on réinitialise le joueur
         else

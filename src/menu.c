@@ -12,8 +12,11 @@
  
 //Gestion des menus
 int onMenu, menuType, choix, hero = 1;
+extern int timer, record, record_battu;
 
-SDL_Texture *titlescreen;
+SDL_Texture *fond_menu_principal;
+SDL_Texture *fond_menu_fin;
+SDL_Texture *img_gameover;
 SDL_Texture *fleches;
 SDL_Texture *volume_on;
 SDL_Texture *volume_off;
@@ -43,7 +46,9 @@ void initTypeMenu(int valeur, int type)
  
 void initMenus(void)
 {
-    titlescreen = chargeImage("../images/title.png");
+    fond_menu_principal = chargeImage("../images/title.png");
+    fond_menu_fin = chargeImage("../images/fin.png");
+    img_gameover = chargeImage("../images/img_gameover.png");
     fleches = chargeImage("../images/fleches.png");
     volume_on = chargeImage("../images/volume.png");
     volume_off = chargeImage("../images/mute.png");
@@ -55,11 +60,25 @@ void initMenus(void)
  
 void libereMenus(void)
 {
-    // Libère la texture de l'écran-titre
-    if (titlescreen != NULL)
+    // Libère la texture du menu principal
+    if (fond_menu_principal != NULL)
     {
-        SDL_DestroyTexture(titlescreen);
-        titlescreen = NULL;
+        SDL_DestroyTexture(fond_menu_principal);
+        fond_menu_principal = NULL;
+    }
+
+    // Libère la texture du menu de fin
+    if (fond_menu_fin != NULL)
+    {
+        SDL_DestroyTexture(fond_menu_fin);
+        fond_menu_fin = NULL;
+    }
+
+    // Libère la texture de l'image de fin
+    if (img_gameover != NULL)
+    {
+        SDL_DestroyTexture(img_gameover);
+        img_gameover = NULL;
     }
 
     // Libère la texture des fleches de selection  
@@ -205,7 +224,25 @@ void majMenuPrincipal(Input *touche)
     }
  
 }
- 
+
+void majMenuFin(Input *touche){
+    //Si on appuie sur ECHAP
+    if(touche->pause == 1){
+        initTypeMenu(1, START);
+        if(volume == SDL_TRUE)
+            chargeMusique("../sounds/overworld.wav");
+        record_battu = 0;
+    }
+}
+
+void majMenuGameover(Input *touche){
+    //On attend 3,7 secondes
+    Mix_PauseMusic();
+    SDL_Delay(3700);
+    initTypeMenu(1, START);
+    if(volume == SDL_TRUE)
+        chargeMusique("../sounds/overworld.wav");
+}
  
  
 void majMenuPause(Input *touche)
@@ -247,7 +284,7 @@ void majMenuPause(Input *touche)
         {
             choix = 0;
             if(volume == SDL_TRUE)
-                Mix_ResumeMusic();
+                chargeMusique("../sounds/overworld.wav");
             menuType = START;
         }
         
@@ -264,15 +301,15 @@ void dessineMenuPrincipal(void)
     char text[200];
     
     //On affiche l'écran-titre
-    dessineImage(titlescreen, 0, 0);
+    dessineImage(fond_menu_principal, 0, 0);
     
     //Si l'option n'est pas en surbrillance, on l'affiche normalement
     if (choix != 0)
     {
         sprintf_s(text, sizeof(text), "START GAME");
         //Ombrage en noir
-        afficheTexte(text, 260, 252, 0, 0, 0, 255);
-        afficheTexte(text, 258, 250, 255, 255, 255, 255);
+        afficheTexte(text, 290, 252, 0, 0, 0, 255);
+        afficheTexte(text, 288, 250, 255, 255, 255, 255);
     }
     if (choix != 1)
     {
@@ -300,8 +337,8 @@ void dessineMenuPrincipal(void)
     {
         sprintf_s(text, sizeof(text), "START GAME");
         //Ombrage en noir
-        afficheTexte(text, 260, 252, 0, 0, 0, 255);
-        afficheTexte(text, 258, 250, 255, 255, 0, 255);
+        afficheTexte(text, 290, 252, 0, 0, 0, 255);
+        afficheTexte(text, 288, 250, 255, 255, 0, 255);
     }
     else if (choix == 1)
     {
@@ -332,6 +369,57 @@ void dessineMenuPrincipal(void)
     else    
         dessineImage(volume_on, 750, 20);
  
+}
+
+void dessineMenuFin(void)
+{
+ 
+    //On crée une variable qui contiendra notre texte
+    char text[200];
+    
+    //On affiche le fond d'écran
+    dessineImage(fond_menu_fin, 0, 0);
+    
+    //On écrit le message de fin
+    sprintf_s(text, sizeof(text), "** FIN ! **");
+    afficheTexte(text, 332, 80, 0, 0, 0, 255);
+    afficheTexte(text, 330, 78, 255, 255, 255, 255);
+
+    //On écrit le temps du joueur
+    sprintf_s(text, sizeof(text), "Ton temps         %d", timer);
+    afficheTexte(text, 282, 220, 0, 0, 0, 255);
+    afficheTexte(text, 280, 218, 255, 255, 255, 255);
+
+    //On écrit le temps record
+    if(record_battu == 0)
+        sprintf_s(text, sizeof(text), "Le record          %d", record);
+    else
+        sprintf_s(text, sizeof(text), "Nouveau record  %d", record);
+
+    afficheTexte(text, 282, 260, 0, 0, 0, 255);
+    afficheTexte(text, 280, 258, 255, 255, 255, 255);
+
+    //On écrit échap en haut à gauche
+    sprintf_s(text, sizeof(text), "echap");
+    afficheTexte(text, 20, 20, 0, 0, 0, 255);
+    afficheTexte(text, 18, 18, 255, 255, 255, 255);
+
+}
+
+void dessineMenuGameover(void)
+{
+ 
+    //On crée une variable qui contiendra notre texte
+    char text[200];
+    
+    //On affiche l'écran-titre
+    dessineImage(img_gameover, 0, 0);
+    
+    //On écrit le message de gameover
+    sprintf_s(text, sizeof(text), "** GAMEOVER **");
+    afficheTexte(text, 267, 230, 0, 0, 0, 255);
+    afficheTexte(text, 265, 228, 255, 255, 255, 255);
+
 }
  
  

@@ -598,6 +598,23 @@ extern void majMenuPrincipal(Input *touche);
  */
 extern void majMenuPause(Input *touche);
 
+
+/*! \brief  Fonction qui gère les évênements du menu gameover
+ *  
+ *  param[in]   Input *touche 
+ * 
+ *  \return void
+ */
+extern void majMenuGameover(Input *touche);
+
+/*! \brief  Fonction qui gère les évênements du menu de fin de partie
+ *  
+ *  param[in]   Input *touche 
+ * 
+ *  \return void
+ */
+extern void majMenuFin(Input *touche);
+
 /*! \brief  Fonction qui dessine le menu start à l'écran
  *  
  *  \return void
@@ -610,5 +627,15 @@ extern void dessineMenuPrincipal(void);
  */
 extern void dessineMenuPause(void);
 
- 
+/*! \brief  Fonction qui dessine le menu de fin de partie à l'écran
+ *  
+ *  \return void
+ */
+extern void dessineMenuFin(void);
+
+/*! \brief  Fonction qui dessine le menu de gameover
+ *  
+ *  \return void
+ */
+extern void dessineMenuGameover(void);
 #endif

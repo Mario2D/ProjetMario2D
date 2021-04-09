@@ -59,12 +59,9 @@ void afficheTexte(char *text, int x, int y, int r, int g, int b, int a)
     
     if (surface != NULL)
     {
-        /* NOUS MODIFIONS QUELQUE PEU NOTRE CODE POUR PROFITER DE LA MEMOIRE GRAPHIQUE
-        QUI GERE LES TEXTURES */
         // Conversion de l'image en texture
         texture = SDL_CreateTextureFromSurface(recupRendu(), surface);
         
-        // On se débarrasse du pointeur vers une surface
         /* On libère la SDL_Surface temporaire (pour éviter les fuites de mémoire) */
         SDL_FreeSurface(surface);
         surface = NULL;

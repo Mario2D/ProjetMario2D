@@ -76,13 +76,25 @@ int main(int argc, char *argv[])
         else
         {
 
-            if (recupTypeMenu() == START){
+            if (recupTypeMenu() == START)
+            {
                 majMenuPrincipal(&touche);
                 timer_reset = SDL_GetTicks() / 1000;
             }
+
+            else if (recupTypeMenu() == FIN)
+            {
+                majMenuFin(&touche);
+            }
             
-            else if (recupTypeMenu() == PAUSE){
+            else if (recupTypeMenu() == PAUSE)
+            {
                 majMenuPause(&touche);
+            }
+
+            else
+            {
+                majMenuGameover(&touche);
             }
             
         }
@@ -101,9 +113,24 @@ int main(int argc, char *argv[])
                 SDL_RenderPresent(recupRendu());
                 SDL_Delay(1);
             }
+
+            else if (recupTypeMenu() == FIN)
+            {
+                dessineMenuFin();
+                SDL_RenderPresent(recupRendu());
+                SDL_Delay(1);
+            }
         
             else if (recupTypeMenu() == PAUSE)
                 chargeJeu(1);
+            
+            else 
+            {
+                dessineMenuGameover();
+                SDL_RenderPresent(recupRendu());
+                SDL_Delay(1);
+            }
+
         }
  
         // Gestion des 60 fps (1000ms/60 = 16.6 -> 16

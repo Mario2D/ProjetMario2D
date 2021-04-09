@@ -103,7 +103,7 @@ void init(char *title)
     
     
     /* Chargement de la police */
-    chargePolice("../font/mario.ttf", 32);
+    chargePolice("../font/mario.ttf", 25);
     
     
     //On initialise SDL_Mixer , qui gérera la musique et les effets sonores

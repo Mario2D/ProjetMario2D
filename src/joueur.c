@@ -384,23 +384,19 @@ void majJoueur(Input *touche)
 
             initNombreDePieces(0);
 
-            if(recupNombreDeVies() == 0){
-                if(volume == SDL_TRUE)
-                    joueSon(GAME_OVER);
-                SDL_Delay(3700);
-            }
-                
-            else{
-                if(volume == SDL_TRUE)
-                    joueSon(MORT_HERO);
-                SDL_Delay(2800);            
-            }
 
-            //Sauf si on a plus de vies...
+            if(volume == SDL_TRUE)
+                joueSon(MORT_HERO);
+            SDL_Delay(2800);            
+ 
+
+            //si on a plus de vies
             if (recupNombreDeVies() < 1)
             {
                 //Dans ce cas on retourne au menu start
-                initTypeMenu(1, START);
+                if(volume == SDL_TRUE)
+                    joueSon(GAME_OVER);
+                initTypeMenu(1, GAMEOVER);
             }
 
             // Si on est mort, on réinitialise le niveau
@@ -513,7 +509,7 @@ void recupItem(int itemNumber)
             joueSon(COIN);
         
         //On teste s'il y a 100 étoiles : on remet le compteur à 0 et on rajoute une vie ;)
-        if (recupNombreDePieces() >= 30)
+        if (recupNombreDePieces() >= 20)
         {
             initNombreDePieces(0);
             //On incrémente le nombre de vies (max 99)
