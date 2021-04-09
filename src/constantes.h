@@ -26,7 +26,7 @@
 
 
 // Taille de la fenêtre : 800x480 pixels 
-#define LARGEUR_FENETRE 400
+#define LARGEUR_FENETRE 800
 #define HAUTEUR_FENETRE 480
 
 
@@ -56,7 +56,7 @@
  
 
 //Vitesse de déplacement en pixels du sprite
-#define VITESSE_JOUEUR 10
+#define VITESSE_JOUEUR 4
  
 
 //Valeurs attribuées aux états/directions
@@ -92,13 +92,13 @@
  
 
 //Tiles Power-ups
-#define TILE_POWER_UP_DEBUT 7
-#define TILE_POWER_UP_FIN 7
+#define TILE_POWER_UP_DEBUT 9
+#define TILE_POWER_UP_FIN 9
  
 //Autres Tiles spéciales
 #define TILE_CHECKPOINT 11
 #define TILE_PIKES 10
-#define TILE_LAVE 9
+#define TILE_LAVE 7
 #define TILE_MONSTRE 2
 
 
