@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
                 majMenuPause(&touche);
             }
 
-            else
+            else if (recupTypeMenu() == GAMEOVER)
             {
                 majMenuGameover(&touche);
             }
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
             else if (recupTypeMenu() == PAUSE)
                 chargeJeu(1);
             
-            else 
+            else if (recupTypeMenu() == GAMEOVER)
             {
                 dessineMenuGameover();
                 SDL_RenderPresent(recupRendu());

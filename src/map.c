@@ -750,7 +750,7 @@ void mapCollision(Personnage *entite)
 
             }
             Mix_PauseMusic();
-            //Dans ce cas on retourne au menu start
+            //Dans ce cas on affiche le menu de fin 
             initTypeMenu(1, FIN);
             if(volume == SDL_TRUE)
                 chargeMusique("../sounds/castleend.wav");
