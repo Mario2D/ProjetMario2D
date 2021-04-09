@@ -124,14 +124,15 @@ void nettoyageJoueur(void)
  
 void tuerJoueur()
 {
-    //On met le timer à 1 pour tuer le joueur intantanément
-    joueur.timerMort = 1;
     
     //On affiche le héro à l'état mort
     joueur.etat = MORT;
     joueur.frameNumber = 0;
     joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
-    joueur.frameMax = 1;  
+    joueur.frameMax = 1; 
+
+    //On met le timer à 1 pour tuer le joueur intantanément
+    joueur.timerMort = 1;
 
 }
  
@@ -387,6 +388,8 @@ void majJoueur(Input *touche)
 
             if(volume == SDL_TRUE)
                 joueSon(MORT_HERO);
+
+            //On attend 2.8 secondes  
             SDL_Delay(2800);            
  
 

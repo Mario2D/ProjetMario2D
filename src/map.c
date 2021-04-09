@@ -465,7 +465,7 @@ void mapCollision(Personnage *entite)
             {
 
 
-                //Test des tiles Power-up : Etoile et vie
+                //Test des tiles Power-up : pièces
                 if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
                 {
@@ -610,17 +610,17 @@ void mapCollision(Personnage *entite)
                 if ((map.tile[y2][x1] == TILE_PIKES) || (map.tile[y2][x2] == TILE_PIKES))
                 {
                 
-                    //On met le timer à 1 pour tuer le joueur intantanément
-                    entite->timerMort = 1;   
+                    //On tue le joueur intantanément
+                    tuerJoueur();
                     
                 }
 
                 /* Gestion de la lave */
                 if ((map.tile[y2][x1] == TILE_LAVE) || (map.tile[y2][x2] == TILE_LAVE))
                 {
-                
-                    //On met le timer à 1 pour tuer le joueur intantanément
-                    entite->timerMort = 1;   
+                    
+                    //On tue le joueur intantanément
+                    tuerJoueur();
                     
                 }
 
