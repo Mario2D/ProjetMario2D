@@ -77,6 +77,11 @@ void init(char *title)
             HAUTEUR_FENETRE, SDL_GetError());
         exit(1);
     }
+
+    // tu peux créer la surface ici directement
+    SDL_Surface* iconSurface = IMG_Load("../images/icone.png");
+    // window est déjà un pointeur, pas besoin de passer l'adresse
+    SDL_SetWindowIcon(screen, iconSurface);
  
     //Initialisation du chargement des images png avec SDL_Image 2
     int imgFlags = IMG_INIT_PNG;
