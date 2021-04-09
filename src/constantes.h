@@ -26,7 +26,7 @@
 
 
 // Taille de la fenêtre : 800x480 pixels 
-#define LARGEUR_FENETRE 800
+#define LARGEUR_FENETRE 400
 #define HAUTEUR_FENETRE 480
 
 
