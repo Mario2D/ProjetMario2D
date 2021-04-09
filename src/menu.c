@@ -14,6 +14,7 @@
 int onMenu, menuType, choix, hero = 1;
 extern int timer, record, record_battu;
 
+
 SDL_Texture *fond_menu_principal;
 SDL_Texture *fond_menu_fin;
 SDL_Texture *img_gameover;
@@ -143,7 +144,7 @@ void majMenuPrincipal(Input *touche)
             volume = SDL_TRUE; //On passe le volume sur on
             Mix_ResumeMusic(); //On relance la musique
         }
-        touche->volume == 0;
+        touche->volume = 0;
     }
 
     //Si on appuie sur HAUT
@@ -204,7 +205,7 @@ void majMenuPrincipal(Input *touche)
             resetCheckpoint();
             initSpriteJoueur(hero);
             initJoueur(1);
-            changeNiveau(3);
+            changeNiveau(1);
             chargeNiveau(recupNiveau());
             
             /* On réinitialise les variables du jeu */

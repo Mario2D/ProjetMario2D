@@ -78,6 +78,7 @@ void recupTouche(Input *touche)
                     case SDLK_ESCAPE:
                         touche->pause = 0;
                     break;
+                    
                     case SDLK_m:
                         touche->volume = 0;
                     break;
