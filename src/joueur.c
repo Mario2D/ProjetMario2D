@@ -103,6 +103,10 @@ void initSpriteJoueur(int hero)
         joueurSpriteSheet = chargeImage("../images/yoshi.png");
     else if(hero == 4)
         joueurSpriteSheet = chargeImage("../images/dk.png");
+    else if(hero == 5)
+        joueurSpriteSheet = chargeImage("../images/wario.png");
+    else if(hero == 6)
+        joueurSpriteSheet = chargeImage("../images/waluigi.png");
 }
 
 void resetCheckpoint(void)

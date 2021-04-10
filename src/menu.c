@@ -25,6 +25,8 @@ SDL_Texture *mario;
 SDL_Texture *luigi;
 SDL_Texture *yoshi;
 SDL_Texture *dk;
+SDL_Texture *wario;
+SDL_Texture *waluigi;
 
 SDL_bool volume = SDL_TRUE;
 
@@ -57,6 +59,8 @@ void initMenus(void)
     luigi = chargeImage("../images/choix_luigi.png");
     yoshi = chargeImage("../images/choix_yoshi.png");
     dk = chargeImage("../images/choix_dk.png");
+    wario = chargeImage("../images/choix_wario.png");
+    waluigi = chargeImage("../images/choix_waluigi.png");
 }
  
 void libereMenus(void)
@@ -126,6 +130,18 @@ void libereMenus(void)
         SDL_DestroyTexture(dk);
         dk = NULL;
     }
+
+    if (wario != NULL)
+    {
+        SDL_DestroyTexture(wario);
+        wario = NULL;
+    }
+
+    if (waluigi != NULL)
+    {
+        SDL_DestroyTexture(waluigi);
+        waluigi = NULL;
+    }
 }
  
  
@@ -177,7 +193,7 @@ void majMenuPrincipal(Input *touche)
     if (touche->droite == 1 && choix == 2)
     {
 
-        if (hero >= 4)
+        if (hero >= 6)
             hero = 1;
         else
             hero++;
@@ -189,7 +205,7 @@ void majMenuPrincipal(Input *touche)
     {
 
         if (hero <= 1)
-            hero = 4;
+            hero = 6;
         else
             hero--;
         
@@ -331,6 +347,10 @@ void dessineMenuPrincipal(void)
             dessineImage(yoshi, 340, 322);
         else if(hero == 4)
             dessineImage(dk, 340, 322);
+        else if(hero == 5)
+            dessineImage(wario, 340, 322);
+        else if(hero == 6)
+            dessineImage(waluigi, 340, 322);
     }
     
     //Si l'option est en surbrillance, on change la couleur
@@ -360,6 +380,10 @@ void dessineMenuPrincipal(void)
             dessineImage(yoshi, 340, 322);
         else if(hero == 4)
             dessineImage(dk, 340, 322);
+        else if(hero == 5)
+            dessineImage(wario, 340, 322);
+        else if(hero == 6)
+            dessineImage(waluigi, 340, 322);
 
         dessineImage(fleches, 315, 360);
     }
