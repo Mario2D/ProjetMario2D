@@ -36,7 +36,7 @@ void recupTouche(Input *touche)
                 {
                     case SDLK_ESCAPE:
                         touche->pause = 1;
-                    break;
+                        break;
  
                     case SDLK_m:
                         touche->volume = 1;

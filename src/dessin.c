@@ -98,7 +98,6 @@ void dessineImage(SDL_Texture *image, int x, int y)
  
 
 
-
 void delay(unsigned int frameLimit)
 {
     // Gestion des 60 fps (images/seconde)
