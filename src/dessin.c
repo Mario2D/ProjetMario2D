@@ -9,7 +9,7 @@
 #include "prototypes.h"
 
 
-//HUD
+//Variables pour le HUD
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_record; 
 
 extern int record;
@@ -21,10 +21,10 @@ void chargeJeu(int pauseMenu)
     // Affiche le fond (background) aux coordonnées (0,0)
     dessineImage(getBackground(), 0, 0);
     
-    /* Affiche la map de tiles : layer 2 (couche du fond) */
+    /* Affiche la map de tiles : couche 2 (couche du fond) */
     dessineMap(2);
     
-    /* Affiche la map de tiles : layer 1 (couche active : sol, etc.)*/
+    /* Affiche la map de tiles : couche 1 (couche active : sol, etc.)*/
     dessineMap(1);
     
     /* Affiche le joueur */
@@ -43,10 +43,10 @@ void chargeJeu(int pauseMenu)
     if (pauseMenu)
         dessineMenuPause();
     
-    // Affiche l'écran
+    //Affiche l'écran
     SDL_RenderPresent(recupRendu());
     
-    // Délai pour laisser respirer le proc
+    //Délai pour laisser respirer le processeur
     SDL_Delay(1);
     
 }
@@ -66,10 +66,10 @@ SDL_Texture *chargeImage(char *nom)
     
     if (loadedImage != NULL)
     {
-    // Conversion de l'image en texture
+    //Conversion de l'image en texture
     texture = SDL_CreateTextureFromSurface(recupRendu(), loadedImage);
     
-    // On se débarrasse du pointeur vers une surface
+    //On se débarrasse du pointeur vers une surface
     SDL_FreeSurface(loadedImage);
     loadedImage = NULL;
     }
@@ -179,7 +179,7 @@ void nettoyageHUD(void)
     }
 }
 
-/* Fonction de callback (sera appelée toutes les 30 ms) */
+/* Fonction de rappel/callback (sera appelée toutes les 30 ms) */
 Uint32 incrementeTimer(Uint32 intervalle, void *parametre)
 {
     parametre++;
@@ -217,6 +217,7 @@ void dessineHUD(void)
     dessineImage(HUD_pieces, 20, 15);
     
     sprintf_s(text, sizeof(text), "%d", recupNombreDePieces());
+
     afficheTexte(text, 60, 20, 0, 0, 0, 255);
     afficheTexte(text, 60, 18, 255, 255, 255, 255);
 
@@ -224,7 +225,8 @@ void dessineHUD(void)
     /* Affiche le temps en haut au centre */
     dessineImage(HUD_temps, 280, 20);
 
-    sprintf_s(text, sizeof(text), "%d", timer); 
+    sprintf_s(text, sizeof(text), "%d", timer);
+    
     afficheTexte(text, 322, 25, 0, 0, 0, 255);
     afficheTexte(text, 320, 23, 255, 255, 255, 255);
 
