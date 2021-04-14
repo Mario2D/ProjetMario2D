@@ -148,20 +148,20 @@ void initJoueur(int nouveauNiveau)
     joueur.vie = 3;
 
     
-    //Indique l'état et la direction de notre héros
+    //Indique l'état et la direction de notre personnage
     joueur.direction = RIGHT;
     joueur.etat = IMMOBILE;
 
     //Indique le numéro de la frame où commencer
     joueur.frameNumber = 0;
     
-    //...la valeur de son chrono ou timer
+    //Indique la valeur de son chrono ou timer
     joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
     
-    //... et son nombre de frames max (8 pour l'anim' IMMOBILE
+    //Indique son nombre de frames max
     joueur.frameMax = 1;
 
-    /* Coordonnées de démarrage/respawn de notre héros */
+    /* Coordonnées de démarrage/respawn de notre personnage */
     if (joueur.checkpointActif == 1)
     {
         joueur.x = joueur.respawnX;
@@ -182,7 +182,7 @@ void initJoueur(int nouveauNiveau)
     initDepartMapY(recupDebutMapY());
     }
     
-    /* Hauteur et largeur de notre héros */
+    /* Hauteur et largeur de notre personnage */
     joueur.w = LARGEUR_JOUEUR;
     joueur.h = HAUTEUR_JOUEUR;
     
@@ -202,7 +202,7 @@ void initJoueur(int nouveauNiveau)
 void dessineJoueur(void)
 {
     /* Gestion du timer */
-    // Si notre timer (un compte à rebours en fait) arrive à zéro
+    //Si notre timer (un compte à rebours) arrive à zéro
     if (joueur.frameTimer <= 0)
     {
         //On le réinitialise
@@ -224,7 +224,7 @@ void dessineJoueur(void)
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
     
-    // On soustrait des coordonnées de notre héros, ceux du début de la map, pour qu'il colle au scrolling
+    //On soustrait des coordonnées de notre héros, ceux du début de la map, pour qu'il colle au scrolling
     dest.x = joueur.x - recupPersoStartX();
     dest.y = joueur.y - recupPersoStartY();
     dest.w = joueur.w;
@@ -241,7 +241,7 @@ void dessineJoueur(void)
     src.y = (joueur.etat * joueur.h) ;
     
     
-    //Gestion du flip (retournement de l'image selon que le sprite regarde à droite ou à gauche
+    //Gestion du flip (retournement de l'image en fonction du sprite s'il regarde à droite ou à gauche)
     if (joueur.direction == LEFT)
         SDL_RenderCopyEx(recupRendu(), joueurSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else

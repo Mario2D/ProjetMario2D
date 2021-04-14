@@ -29,10 +29,10 @@ void chargementJeu()
     //On initialise les menus
     initMenus();    
     
-    //On charge la feuille de sprited de mario
+    //On charge le sprite du personnage choisi
     initSpriteJoueur(hero);
 
-    //On charge la feuille de sprites du monstre
+    //On charge le sprite du monstre
     chargeSpriteMonstre();
 
     //On commence au premier niveau
@@ -45,7 +45,7 @@ void chargementJeu()
     /* On charge le HUD */
     initHUD();
  
-    /* On charge les sounds Fx */
+    /* On charge les sons */
     chargeSon();
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
 
@@ -67,7 +67,7 @@ void init(char *title)
     LARGEUR_FENETRE, HAUTEUR_FENETRE,
     SDL_WINDOW_SHOWN);
  
-    //On crée un renderer pour la SDL et on active la synchro verticale : VSYNC
+    //On crée un rendu pour la SDL
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_PRESENTVSYNC);
  
     // Si on n'y arrive pas, on quitte en enregistrant l'erreur dans stdout.txt
@@ -78,9 +78,9 @@ void init(char *title)
         exit(1);
     }
 
-    // tu peux créer la surface ici directement
+    //Création de la surface pour l'icone de la fenêtre
     SDL_Surface* iconSurface = IMG_Load("../images/icone.png");
-    // window est déjà un pointeur, pas besoin de passer l'adresse
+
     SDL_SetWindowIcon(screen, iconSurface);
  
     //Initialisation du chargement des images png avec SDL_Image 2
@@ -106,7 +106,7 @@ void init(char *title)
     chargePolice("../font/mario.ttf", 25);
     
     
-    //On initialise SDL_Mixer , qui gérera la musique et les effets sonores
+    //On initialise SDL_Mixer qui gérera la musique et les effets sonores
     int flags = MIX_INIT_MP3;
     int initted = Mix_Init(flags);
     if ((initted & flags) != flags)
@@ -122,7 +122,7 @@ void init(char *title)
         exit(1);
     }
  
-    // Définit le nombre de pistes audio (channels) à mixer
+    //Définit le nombre de pistes audio (channels) à mixer
     Mix_AllocateChannels(32);
  
 }
