@@ -98,6 +98,8 @@ void chargeSon(void)
 
     }
 
+    // On baisse le volume car il est très fort sinon...
+
     Mix_VolumeChunk(pause_sound, MIX_MAX_VOLUME/4);
     Mix_VolumeChunk(jump_sound, MIX_MAX_VOLUME/4);
     Mix_VolumeChunk(coin_sound, MIX_MAX_VOLUME/4);
@@ -111,6 +113,7 @@ void chargeSon(void)
  
 void libereSon(void)
 {
+    // On libère la mémoire liée à chaque musique
  
     Mix_FreeChunk(pause_sound);
     Mix_FreeChunk(jump_sound);
@@ -124,6 +127,8 @@ void libereSon(void)
  
 void joueSon(int type)
 {
+
+    // Gestion des états de la partie et/ou du joueur
  
     switch (type)
     {
