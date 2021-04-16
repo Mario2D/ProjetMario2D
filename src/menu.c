@@ -272,6 +272,7 @@ void majMenuFin(Input *touche)
             chargeMusique("../sounds/overworld.wav");
         record_battu = 0;
         totalPieces = 0;
+        totalMorts = 0;
     }
 }
 
