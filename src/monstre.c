@@ -52,24 +52,23 @@ void libereMonstre(void)
  
 void initNouveauMonstre(int x, int y)
 {
-    //Si on n'est pas rendu au max, on rajoute un monstre dont le numéro est égal
-    //à nombreMonstres : monstre[0] si c'est le 1er, monstre[1], si c'est le 2eme, etc...
+    //Si on n'est pas rendu au max, on rajoute incrémente nombreMonstres : monstre[0] si c'est le 1er, monstre[1], si c'est le 2eme, etc...
     
     if (nombreMonstres < MONSTRES_MAX)
     {
     
-        //On indique sa direction (il viendra à l'inverse du joueur, logique)
+        // On indique sa direction 
         monstre[nombreMonstres].direction = LEFT;
         
-        /* Ses coordonnées de démarrage seront envoyées par la fonction dessineMap() en arguments */
+        // Ses coordonnées de démarrage seront envoyées par la fonction dessineMap() en arguments
         monstre[nombreMonstres].x = x;
         monstre[nombreMonstres].y = y;
         
-        /* Hauteur et largeur de notre monstre (rajouté dans les defs ;) ) */
+        // Hauteur et largeur de notre monstre (rajouté dans les defs ;) )
         monstre[nombreMonstres].w = LARGEUR_MONSTRE;
         monstre[nombreMonstres].h = HAUTEUR_MONSTRE;
         
-        //Variables nécessaires au fonctionnement de la gestion des collisions comme pour le héros
+        // Variables nécessaires au fonctionnement de la gestion des collisions comme pour le héros
         monstre[nombreMonstres].timerMort = 0;
         monstre[nombreMonstres].surSol = 0;
         
@@ -98,7 +97,7 @@ void majMonstre()
             if (monstre[i].dirY >= VITESSE_CHUTE)
                 monstre[i].dirY = VITESSE_CHUTE;
             
-            //Test de collision dans un mur : si la variable x reste la même, deux tours de boucle
+            //Test de collision dans un mur : si la variable x reste la même, deux tours de boucle 
             //durant, le monstre est bloqué et on lui fait faire demi-tour.
             if (monstre[i].x == monstre[i].saveX || verifSol(monstre[i]) == 1)
             {
@@ -115,6 +114,7 @@ void majMonstre()
         //Déplacement du monstre selon la direction
         if (monstre[i].direction == LEFT)
             monstre[i].dirX -= 1;
+
         else if(monstre[i].direction == RIGHT)
             monstre[i].dirX += 1;
         
@@ -124,7 +124,7 @@ void majMonstre()
         monstre[i].saveX = monstre[i].x;
         
         //On détecte les collisions avec la map comme pour le joueur
-        monsterCollisionToMap(&monstre[i]);
+        collision_map_monstre(&monstre[i]);
         
         //On détecte les collisions avec le joueur
         //Si c'est égal à 1, on tue le joueur
@@ -135,8 +135,9 @@ void majMonstre()
         
         else if (collisionMonstreJoueur(recupJoueur(), &monstre[i]) == 2)
         {
-            //On met le timer à 1 pour tuer le monstre intantanément
+            //On met le timer à 1 pour tuer le monstre instantanément
             monstre[i].timerMort = 1;
+
             if(volume == SDL_TRUE)
                 joueSon(MORT_MOB);
         }
@@ -167,15 +168,15 @@ void majMonstre()
 int collisionMonstreJoueur(Personnage *joueur, Personnage *monstre)
 {
     //On teste pour voir s'il n'y a pas collision, si c'est le cas, on renvoie 0
-    if ((joueur->x >= monstre->x + monstre->w)
-    || (joueur->x + joueur->w <= monstre->x)
-    || (joueur->y >= monstre->y + monstre->h)
-    || (joueur->y + joueur->h <= monstre->y)
+    if (
+        (joueur->x >= monstre->x + monstre->w)
+        || (joueur->x + joueur->w <= monstre->x)
+        || (joueur->y >= monstre->y + monstre->h)
+        || (joueur->y + joueur->h <= monstre->y)
     )
         return 0;
     
-    //Sinon, il y a collision. Si le joueur est au-dessus du monstre (avec une marge
-    //de 10 pixels pour éviter les frustrations dues au pixel perfect), on renvoie 2.
+    //Sinon, il y a collision. Si le joueur est au-dessus du monstre, on renvoie 2.
     //On devra alors tuer le monstre et on fera rebondir le joueur.
     else if (joueur->y + joueur->h <= monstre->y + 20)
     {
@@ -183,7 +184,7 @@ int collisionMonstreJoueur(Personnage *joueur, Personnage *monstre)
         return 2;
     }
     
-    //Sinon, on renvoie 1 et c'est le joueur qui meurt...
+    //Sinon, on renvoie 1 et c'est le joueur qui meurt
     else
         return 1;
 }
@@ -197,12 +198,11 @@ int verifSol(Personnage monstre)
     //Fonction qui teste s'il y a du sol sous un monstre
     //Retourne 1 s'il doit tomber, 0 sinon
     
-    //On teste la direction, pour savoir si on doit prendre en compte x ou x + w (cf. schéma)
+    //On teste la direction, pour savoir si on doit prendre en compte 
     if (monstre.direction == LEFT)
     {
         //On va à gauche : on calcule là où devrait se trouver le monstre après déplacement.
         //S'il sort de la map, on met à jour x et y pour éviter de sortir de notre tableau
-        //(source d'erreur possible qui peut planter notre jeu...).
         x = (int)(monstre.x + monstre.dirX) / TAILLE_TILE;
         y = (int)(monstre.y + monstre.h - 1) / TAILLE_TILE;
         
@@ -218,10 +218,11 @@ int verifSol(Personnage monstre)
         if (x > MAX_MAP_X)
             x = MAX_MAP_X;
         
-        //On teste si la tile sous le monstre est traversable (du vide quoi...).
+        //On teste si la tile sous le monstre est traversable 
         //Si c'est le cas, on renvoie 1, sinon 0.
         if (recupValeurTile(y + 1, x) < SEUIL_TILES_TRAVERSABLES_HAUT - 20)
             return 1;
+
         else
             return 0;
     }
@@ -268,7 +269,7 @@ void dessineMonstre(Personnage *monstre)
     SDL_Rect src;
     
     
-    //Gestion du flip (retournement de l'image selon que le monstre regarde à droite ou à gauche
+    //Gestion du flip (retournement de l'image selon que le monstre regarde à droite ou à gauche)
     if (monstre->direction == LEFT)
         SDL_RenderCopyEx(recupRendu(), MonstreSprite, NULL, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else

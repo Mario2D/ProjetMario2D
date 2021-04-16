@@ -16,7 +16,7 @@
  
 /* Structures qui seront utilisées pour gérer le jeu */
  
-// Structure pour gérer l'input (clavier)
+// Structure pour gérer les entrées clavier
 typedef struct Input
 {
  
@@ -25,7 +25,7 @@ typedef struct Input
 } Input;
 
 
-// Structure pour gérer la map à afficher (à compléter plus tard)
+// Structure pour gérer la map à afficher
 typedef struct Map
 {
  
@@ -66,9 +66,10 @@ typedef struct Personnage
     // Largeur, hauteur du sprite
     int h, w;
     
-    // Checkpoint pour le héros (actif ou non)
+    // Checkpoint pour le héros 
     int checkpointActif;
-    // + coordonnées de respawn (réapparition)
+
+    // + coordonnées de réapparition
     int respawnX, respawnY;
     
     // Variables utiles pour l'animation :
@@ -83,9 +84,11 @@ typedef struct Personnage
     // Variables utiles pour la gestion des collisions :
     //Est-il sur le sol, chrono une fois mort
     int surSol, timerMort;
+
     //Vecteurs de déplacement temporaires avant détection
     //des collisions avec la map
     float dirX, dirY;
+    
     //Sauvegarde des coordonnées de départ
     int saveX, saveY;
     

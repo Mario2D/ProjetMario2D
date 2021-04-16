@@ -367,13 +367,11 @@ void mapCollision(Personnage *entite)
  
     int i, x1, x2, y1, y2;
     
-    //Le joueur commence en l'air et tombe sur le sol
+    //Le héros apparait dans les aires et tombe automatiquement 
     entite->surSol = 0;
     
-    /* Ensuite, on va tester les mouvements horizontaux en premier
-    (axe des X). On va se servir de i comme compteur pour notre boucle.
-    En fait, on va découper notre sprite en blocs de tiles pour voir
-    quelles tiles il est susceptible de recouvrir. */
+
+    // Ici, le but est de tester chaque mouvement horizontal du héros
 
     if (entite->h > TAILLE_TILE)
         i = TAILLE_TILE;
@@ -381,11 +379,10 @@ void mapCollision(Personnage *entite)
         i = entite->h;
     
     
-    //On lance alors une boucle for infinie car on l'interrompra selon
-    //les résultats de nos calculs
+    //On lance alors une boucle for infinie car on l'interrompra en fonction des résultats de nos calculs
     for (;;)
     {
-        //On va calculer ici les coins de notre sprite à gauche et à droite pour voi si ça touche
+        //On va calculer ici les coins de notre sprite à gauche et à droite pour gérer le contact avec une autre texture
         x1 = (entite->x + entite->dirX) / TAILLE_TILE;
         x2 = (entite->x + entite->dirX + entite->w - 1) / TAILLE_TILE;
         
@@ -393,7 +390,7 @@ void mapCollision(Personnage *entite)
         y1 = (entite->y) / TAILLE_TILE;
         y2 = (entite->y + i - 1) / TAILLE_TILE;
         
-        //On va tester les mouvements initiés dans majJoueur
+        //On va tester les mouvements initiés dans majJoueur()
         if (x1 >= 0 && x2 < MAX_MAP_X && y1 >= 0 && y2 < MAX_MAP_Y)
         {
             //Si on a un mouvement à droite
@@ -520,13 +517,13 @@ void mapCollision(Personnage *entite)
             }
         }
         
-        //On sort de la boucle si on a testé toutes les tiles le long de la hauteur du sprite.
+        //On sort de la boucle si on a testé toutes les tiles le long de la hauteur du sprite
         if (i == entite->h)
         {
             break;
         }
         
-        //Sinon, on teste les tiles supérieures en se limitant à la heuteur du sprite.
+        //Sinon, on teste les tiles supérieures en se limitant à la heuteur du sprite
         i += TAILLE_TILE;
         
         if (i > entite->h)
@@ -536,7 +533,8 @@ void mapCollision(Personnage *entite)
     }
     
     
-    //On recommence la même chose avec le mouvement vertical (axe des Y)
+    //Même chose avec le mouvement vertical du héros
+
     if (entite->w > TAILLE_TILE)
         i = TAILLE_TILE;
     else
@@ -558,11 +556,10 @@ void mapCollision(Personnage *entite)
                 /* Déplacement en bas */
 
 
-                //Test des tiles Power-up)
+                //Test des tiles Power-up
                 if (map.tile[y2][x1] >= TILE_POWER_UP_DEBUT
                 && map.tile[y2][x1] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction recupItem()
                     recupItem(map.tile[y2][x1] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
@@ -571,7 +568,6 @@ void mapCollision(Personnage *entite)
                 else if (map.tile[y2][x2] >= TILE_POWER_UP_DEBUT
                 && map.tile[y2][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction recupItem()
                     recupItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
@@ -585,7 +581,7 @@ void mapCollision(Personnage *entite)
                     entite->checkpointActif = 1;
                     
                     //On enregistre les coordonnées
-                    entite->respawnX = x1 * TAILLE_TILE;
+                    entite->respawnX = (x1 * TAILLE_TILE);
                     entite->respawnY = (y2 * TAILLE_TILE) - entite->h;
                     
                     //On change la tile
@@ -630,8 +626,7 @@ void mapCollision(Personnage *entite)
                 //Gestion des plateformes traversables 
                 if (map.tile[y2][x1] > SEUIL_TILES_TRAVERSABLES || map.tile[y2][x2] > SEUIL_TILES_TRAVERSABLES)
                 {
-                    //Si la tile est une plateforme ou une tile solide, on y colle le joueur et
-                    //on le déclare sur le sol (surSol).
+                    //Si la tile est une plateforme ou une tile solide, on y colle le joueur et on le déclare sur le sol 
                     entite->y = y2 * TAILLE_TILE;
                     entite->y -= entite->h;
                     entite->dirY = 0;
@@ -646,19 +641,15 @@ void mapCollision(Personnage *entite)
                 /* Déplacement vers le haut */
 
                 //Test des tiles Power-up
-                if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT
-                && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
+                if (map.tile[y1][x1] >= TILE_POWER_UP_DEBUT && map.tile[y1][x1] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction recupItem()
                     recupItem(map.tile[y1][x1] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
                     map.tile[y1][x1] = 0;
                 }
-                if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT
-                && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
+                if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction recupItem()
                     recupItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
@@ -728,14 +719,18 @@ void mapCollision(Personnage *entite)
 
     else if (entite->x + entite->w >= map.maxX)
     {
-        //Si on touche le bord droit de l'écran, on passe au niveau sup
+        //Si on touche le bord droit de l'écran, on passe au suivant
         changeNiveau(recupNiveau() + 1);
+
         //Si on dépasse le niveau max, on annule et on limite le déplacement du joueur
         if (recupNiveau() > NIVEAU_MAX)
         {
             changeNiveau(1);
             entite->x = map.maxX - entite->w - 1;
-            if(timer < record){
+
+            // Gestion du record
+            if(timer < record)
+            {
                 record = timer;
                 record_battu = 1;
 
@@ -743,18 +738,22 @@ void mapCollision(Personnage *entite)
             
                 if (fich != NULL)
                 {
-                    // On l'écrit dans le fichier
+                    // On l'écrit dans un fichier afin de le garder et de pouvoir le mettre à jour
                     fprintf(fich, "%d", record);
                     fclose(fich);
                 }
 
             }
+
             Mix_PauseMusic();
+
             //Dans ce cas on affiche le menu de fin 
             initTypeMenu(1, FIN);
+
             if(volume == SDL_TRUE)
                 chargeMusique("../sounds/castleend.wav");
         }
+
         //Sinon, on passe au niveau sup, on charge la nouvelle map et on réinitialise le joueur
         else
         {
@@ -766,14 +765,14 @@ void mapCollision(Personnage *entite)
         }
     }
     
-    //S'il sort de l'écran par le bas (chute dans un trou), on lance le timer qui va gérer sa mort et son respawn
+    //S'il sort de l'écran par le bas (chute dans un trou), on lance le timer qui va gérer sa mort et sa réapparition
     if (entite->y > map.maxY)
     {
         entite->timerMort = 60;
     }
 }
 
-void monsterCollisionToMap(Personnage *entite)
+void collision_map_monstre(Personnage *entite)
 {
  
     int i, x1, x2, y1, y2;
@@ -782,6 +781,7 @@ void monsterCollisionToMap(Personnage *entite)
     
     if (entite->h > TAILLE_TILE)
         i = TAILLE_TILE;
+
     else
         i = entite->h;
     
@@ -913,8 +913,7 @@ void monsterCollisionToMap(Personnage *entite)
         entite->x = map.maxX - entite->w - 1;
     }
     
-    //Maintenant, s'il sort de l'écran par le bas (chute dans un trou sans fond), on lance le timer
-    //qui gère sa mort et sa réinitialisation (plus tard on gèrera aussi les vies).
+    //Maintenant, s'il sort de l'écran par le bas, on lance le timer qui gère sa mort et sa réapparition 
     if (entite->y > map.maxY)
     {
         entite->timerMort = 60;

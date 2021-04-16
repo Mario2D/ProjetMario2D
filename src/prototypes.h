@@ -526,7 +526,7 @@ extern int recupValeurTile(int y, int x);
  * 
  *  \return void
  */
-extern void monsterCollisionToMap(Personnage *monstre);
+extern void collision_map_monstre(Personnage *monstre);
 
 /*! \brief  Fonction qui va gérer la mort du héro
  *   

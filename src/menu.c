@@ -9,11 +9,11 @@
 #include "prototypes.h"
 
  
- 
-//Gestion des menus
 int onMenu, menuType, choix, hero = 1;
 extern int timer, record, record_battu;
 
+
+// Délcarations des différentes textures
 
 SDL_Texture *fond_menu_principal;
 SDL_Texture *fond_menu_fin;
@@ -100,6 +100,7 @@ void libereMenus(void)
         volume_on = NULL;
     }
 
+    //Libère la gestion du volume
     if (volume_off != NULL)
     {
         SDL_DestroyTexture(volume_off);
@@ -147,15 +148,15 @@ void libereMenus(void)
  
 void majMenuPrincipal(Input *touche)
 {
-    //Si on appuie sur m
+    //Si on appuie sur M
     if(touche->volume == 1)
     {
-        //Si volume sur on
+        //Si volume sur ON
         if(volume == SDL_TRUE){
             volume = SDL_FALSE; //On passe le volume sur off
             Mix_PauseMusic(); //On coupe le son
         }
-        //Si volume sur off
+        //Si volume sur OFF
         else if(volume == SDL_FALSE){
             volume = SDL_TRUE; //On passe le volume sur on
             Mix_ResumeMusic(); //On relance la musique
@@ -169,6 +170,7 @@ void majMenuPrincipal(Input *touche)
         //Si choix = O (il est sur start), on le met à 1 (quit)
         if (choix == 0)
             choix++;
+
         //Si choix = 2 (il est sur heros), on le met à 0 (start)    
         else if(choix == 2)
             choix-=2;
@@ -195,6 +197,7 @@ void majMenuPrincipal(Input *touche)
 
         if (hero >= 6)
             hero = 1;
+
         else
             hero++;
         
@@ -206,6 +209,7 @@ void majMenuPrincipal(Input *touche)
 
         if (hero <= 1)
             hero = 6;
+
         else
             hero--;
         
@@ -213,7 +217,7 @@ void majMenuPrincipal(Input *touche)
     }
  
 
-    //Si on appuie sur Enter et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
+    //Si on appuie sur Enter et qu'on est sur Start, on charge le premier niveau et on quitte l'état menu
     if (touche->entrer)
     {
         if (choix == 0)
@@ -242,7 +246,8 @@ void majMenuPrincipal(Input *touche)
  
 }
 
-void majMenuFin(Input *touche){
+void majMenuFin(Input *touche)
+{
     //Si on appuie sur ECHAP
     if(touche->pause == 1){
         initTypeMenu(1, START);
@@ -252,7 +257,8 @@ void majMenuFin(Input *touche){
     }
 }
 
-void majMenuGameover(Input *touche){
+void majMenuGameover(Input *touche)
+{
     //On attend 3,7 secondes
     Mix_PauseMusic();
     SDL_Delay(3700);
@@ -364,6 +370,7 @@ void dessineMenuPrincipal(void)
     else if (choix == 1)
     {
         sprintf_s(text, sizeof(text), "QUIT");
+
         //Ombrage en noir
         afficheTexte(text, 105, 60, 0, 0, 0, 255);
         afficheTexte(text, 102, 62, 255, 255, 0, 255);
@@ -374,23 +381,29 @@ void dessineMenuPrincipal(void)
     {
         if(hero == 1)
             dessineImage(mario, 340, 322);
+
         else if(hero == 2)
             dessineImage(luigi, 340, 322);
         else if(hero == 3) 
             dessineImage(yoshi, 340, 322);
+
         else if(hero == 4)
             dessineImage(dk, 340, 322);
+
         else if(hero == 5)
             dessineImage(wario, 340, 322);
+
         else if(hero == 6)
             dessineImage(waluigi, 340, 322);
+
 
         dessineImage(fleches, 315, 360);
     }
 
-    //On dessine les bouttons de volume
+    //On dessine les boutons de volume
     if(volume == SDL_FALSE)
         dessineImage(volume_off, 750, 20);
+
     else    
         dessineImage(volume_on, 750, 20);
  
@@ -399,7 +412,7 @@ void dessineMenuPrincipal(void)
 void dessineMenuFin(void)
 {
  
-    //On crée une variable qui contiendra notre texte
+    //On créé une variable qui contiendra notre texte
     char text[200];
     
     //On affiche le fond d'écran
@@ -418,6 +431,7 @@ void dessineMenuFin(void)
     //On écrit le temps record
     if(record_battu == 0)
         sprintf_s(text, sizeof(text), "Le record          %d", record);
+
     else
         sprintf_s(text, sizeof(text), "Nouveau record  %d", record);
 
@@ -463,6 +477,7 @@ void dessineMenuPause(void)
     if (choix != 0)
     {
         sprintf_s(text, sizeof(text), "Continue");
+
         //Ombrage en noir
         afficheTexte(text, 306, 252, 0, 0, 0, 255);
         afficheTexte(text, 304, 250, 255, 255, 255, 255);
@@ -470,6 +485,7 @@ void dessineMenuPause(void)
     if (choix != 1)
     {
         sprintf_s(text, sizeof(text), "Exit");
+
         //Ombrage en noir
         afficheTexte(text, 346, 292, 0, 0, 0, 255);
         afficheTexte(text, 344, 290, 255, 255, 255, 255);
@@ -480,13 +496,16 @@ void dessineMenuPause(void)
     if (choix == 0)
     {
         sprintf_s(text, sizeof(text), "Continue");
+
         //Ombrage en noir
         afficheTexte(text, 306, 252, 0, 0, 0, 255);
         afficheTexte(text, 304, 250, 255, 255, 0, 255);
     }
+
     else if (choix == 1)
     {
         sprintf_s(text, sizeof(text), "Exit");
+        
         //Ombrage en noir
         afficheTexte(text, 346, 292, 0, 0, 0, 255);
         afficheTexte(text, 344, 290, 255, 255, 0, 255);
