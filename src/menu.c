@@ -11,6 +11,7 @@
  
 int onMenu, menuType, choix, hero = 1;
 extern int timer, record, record_battu;
+extern int totalPieces, totalMorts;
 
 
 // Délcarations des différentes textures
@@ -27,6 +28,8 @@ SDL_Texture *yoshi;
 SDL_Texture *dk;
 SDL_Texture *wario;
 SDL_Texture *waluigi;
+SDL_Texture *totalPiece;
+SDL_Texture *totalMort;
 
 SDL_bool volume = SDL_TRUE;
 
@@ -61,6 +64,8 @@ void initMenus(void)
     dk = chargeImage("../images/choix_dk.png");
     wario = chargeImage("../images/choix_wario.png");
     waluigi = chargeImage("../images/choix_waluigi.png");
+    totalPiece = chargeImage("../images/piece.png");
+    totalMort = chargeImage("../images/mort.png");
 }
  
 void libereMenus(void)
@@ -142,6 +147,18 @@ void libereMenus(void)
     {
         SDL_DestroyTexture(waluigi);
         waluigi = NULL;
+    }
+
+    if (totalPiece != NULL)
+    {
+        SDL_DestroyTexture(totalPiece);
+        totalPiece = NULL;
+    }
+
+    if (totalMort != NULL)
+    {
+        SDL_DestroyTexture(totalMort);
+        totalMort = NULL;
     }
 }
  
@@ -254,6 +271,7 @@ void majMenuFin(Input *touche)
         if(volume == SDL_TRUE)
             chargeMusique("../sounds/overworld.wav");
         record_battu = 0;
+        totalPieces = 0;
     }
 }
 
@@ -417,16 +435,22 @@ void dessineMenuFin(void)
     
     //On affiche le fond d'écran
     dessineImage(fond_menu_fin, 0, 0);
-    
+
+    //On affiche l'image pour le total de pièces
+    dessineImage(totalPiece, 300, 210);
+
+    //On affiche l'image pour le total de morts
+    dessineImage(totalMort, 430, 210);
+
     //On écrit le message de fin
     sprintf_s(text, sizeof(text), "** FIN ! **");
-    afficheTexte(text, 332, 80, 0, 0, 0, 255);
     afficheTexte(text, 330, 78, 255, 255, 255, 255);
 
     //On écrit le temps du joueur
-    sprintf_s(text, sizeof(text), "Ton temps         %d", timer);
-    afficheTexte(text, 282, 220, 0, 0, 0, 255);
-    afficheTexte(text, 280, 218, 255, 255, 255, 255);
+    if(record_battu == 0){
+        sprintf_s(text, sizeof(text), "Ton temps         %d", timer);
+        afficheTexte(text, 250, 128, 255, 255, 255, 255);
+    }
 
     //On écrit le temps record
     if(record_battu == 0)
@@ -435,13 +459,19 @@ void dessineMenuFin(void)
     else
         sprintf_s(text, sizeof(text), "Nouveau record  %d", record);
 
-    afficheTexte(text, 282, 260, 0, 0, 0, 255);
-    afficheTexte(text, 280, 258, 255, 255, 255, 255);
+    afficheTexte(text, 250, 168, 255, 255, 255, 255);
 
     //On écrit échap en haut à gauche
     sprintf_s(text, sizeof(text), "echap");
-    afficheTexte(text, 20, 20, 0, 0, 0, 255);
     afficheTexte(text, 18, 18, 255, 255, 255, 255);
+
+    //On écrit le nombre total de pièces récupérées
+    sprintf_s(text, sizeof(text), "%d", totalPieces);
+    afficheTexte(text, 350, 215, 255, 255, 255, 255);
+
+    //On écrit le nombre total de morts
+    sprintf_s(text, sizeof(text), "%d", totalMorts);
+    afficheTexte(text, 480, 215, 255, 255, 255, 255);
 
 }
 

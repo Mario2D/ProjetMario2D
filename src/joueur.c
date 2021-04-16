@@ -12,6 +12,8 @@
  
 int niveau;
 int vies, pieces;
+int totalPieces = 0;
+int totalMorts = 0;
 extern int timer_pause;
 extern SDL_bool volume;
 Personnage joueur;
@@ -134,6 +136,9 @@ void tuerJoueur()
     joueur.frameNumber = 0;
     joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
     joueur.frameMax = 1; 
+
+    //On augmente le compteur de morts pour l'écran de fin
+    totalMorts += 1;
 
     //On met le timer à 1 pour tuer le joueur intantanément
     joueur.timerMort = 1;
@@ -512,6 +517,10 @@ void recupItem(int itemNumber)
         case 1:
         //On incrémente le compteur Etoile
         initNombreDePieces(recupNombreDePieces() + 1);
+
+        //On incrémente le compteur de pièces total pour l'écran de fin
+        totalPieces += 1;
+        
         if(volume == SDL_TRUE)
             joueSon(COIN);
         
