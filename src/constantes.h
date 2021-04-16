@@ -77,7 +77,7 @@
 #define SEUIL_TILES_TRAVERSABLES_HAUT 48
  
 //Plateformes solides en haut et traversables sur les autres côtés (de SEUIL_TILES_TRAVERSABLES à SEUIL_TILES_TRAVERSABLES_HAUT)
-#define SEUIL_TILES_TRAVERSABLES 31
+#define SEUIL_TILES_TRAVERSABLES 30
 
 //Tiles Power-ups (pièce)
 #define TILE_POWER_UP_DEBUT 9

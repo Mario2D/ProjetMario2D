@@ -394,7 +394,7 @@ extern void initDepartMapY(int valeur);
  */
 extern void changeNiveau(int valeur);
 
-/*! \brief  Fonction qui met à jour les coordonnées du personnage en fonction du scrolling de la map et de la touche entrée par l'utilisateur
+/*! \brief  Fonction qui met à jour les coordonnées du personnage en fonction de la touche entrée par l'utilisateur
  *  
  *  param[in]   Input *touche Touche entrée par l'utilisateur
  * 
