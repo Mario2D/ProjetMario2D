@@ -1,216 +1,514 @@
+/*!
+/*  \file       menu.c
+/*  \brief      S'occupe des fonctions relatives à l'affichage des menu
+/*  \version    1.7
+/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+/*  \date 
+ */
+
 #include "prototypes.h"
 
-void afficher_menu (SDL_Window * window, SDL_Renderer * renderer  )
+ 
+int onMenu, menuType, choix, hero = 1;
+extern int timer, record, record_battu;
+
+
+// Délcarations des différentes textures
+
+SDL_Texture *fond_menu_principal;
+SDL_Texture *fond_menu_fin;
+SDL_Texture *img_gameover;
+SDL_Texture *fleches;
+SDL_Texture *volume_on;
+SDL_Texture *volume_off;
+SDL_Texture *mario;
+SDL_Texture *luigi;
+SDL_Texture *yoshi;
+SDL_Texture *dk;
+SDL_Texture *wario;
+SDL_Texture *waluigi;
+
+SDL_bool volume = SDL_TRUE;
+
+ 
+int recupStatutMenu(void)
 {
-
-        // --------------------------------- //
-        // --------- DECLARATIONS ---------- //
-        // --------------------------------- //
-    
-
-        SDL_Event event;
-        SDL_bool curseur;
-        SDL_Rect surface_rect;
-
-
-        // --------------------------------- //
-        // --------- AFFICHAGE MENU -------- //
-        // --------------------------------- //
-
-
-        // Création de l'arrière plan du menu
-        objet_img background = {"img/menu.bmp", window, renderer, NULL, { 0, 0, W_WINDOW, H_WINDOW }, NULL};
-        creer_image ( background );
-
-
-        // Création de l'icone de son
-        objet_img icon_son = {"img/volume_on.bmp", window, renderer, NULL, { W_WINDOW - 85, 15, 32, 32 }, NULL};
-        creer_image ( icon_son );
-
-
-
-
-
-
-        // --------------------------------- //
-        // -------- AFFICHAGE RENDU -------- //
-        // --------------------------------- //
-
-
-        SDL_RenderPresent(renderer); 
-
-
-
-        // --------------------------------- //
-        // ------- BOUCLE DE GESTION ------- //
-        // -------- DES EVENEMENTS --------- //
-        // --------------------------------- //
-
-
-
-
-        SDL_bool program_launched = SDL_TRUE;
-
-        while(program_launched) // boucle infinie qui va attendre les évènements 
-        {
-
-                while(SDL_PollEvent(&event))
-                {
-
-                        curseur = SDL_FALSE; // remis à FALSE à chaque fois pour effectuer le traitement sur les boutons
-
-                        switch(event.type)
-                        {
-
-
-                                case SDL_MOUSEBUTTONDOWN:
-                                        
-                                        // on cherche à savoir si les coordonnées du clic se trouvent dans les coordonnées de la texture
-                                        if ( (((event.button.x >= (W_WINDOW - 80)) && ((event.button.x) <= (W_WINDOW - 80) + 32)) && (((event.button.y) >= 15) && ((event.button.y) <= 15 + 32))) )
-                                        {
-
-                                                
-
-                                                if ( Mix_PausedMusic() == 1 ) //Si la musique est en pause
-                                                {
-
-                                                                Mix_ResumeMusic(); //Reprendre la musique
-
-                                                                icon_son.chaine = "img/volume_on.bmp"; // charge l'image du volume "ON"
-
-                                                                SDL_RenderClear(renderer); 
-
-                                                                creer_image(background);
-                                                                creer_image(icon_son);
-
-                                                                SDL_RenderPresent(renderer);
-                                                
-                                                }
-
-                                                else
-                                                {
-
-                                                                Mix_PauseMusic(); //Mettre en pause la musique
-
-                                                                icon_son.chaine = "img/volume_off.bmp"; // charge l'image du volume "OFF"
-
-                                                                SDL_RenderClear(renderer);
-
-                                                                creer_image(background);
-                                                                creer_image(icon_son);
-
-                                                                SDL_RenderPresent(renderer);
-                                                
-                                                }
-
-                                        }
-
-                                        if ( (((event.button.x >= (774 - (189/2))) && ((event.button.x) <= (774 + (189/2)))) && (((event.button.y) >= 487 - (59/2)) && ((event.button.y) <= 487 + (59/2)))) )
-                                        {
-
-                                                jeu(window, renderer);
-                                                clean_and_quit("Changement de fenêtre", window, renderer, background.t);
-                                
-
-                                        }
-
-                                        else if ( (((event.button.x >= (813 - (347/2))) && ((event.button.x) <= (813 + (347/2)))) && (((event.button.y) >= 599 - (73/2)) && ((event.button.y) <= 599 + (73/2)))) )
-                                        {
-
-                                                settings(window, renderer);
-
-                                                clean_and_quit("Changement de fenêtre", window, renderer, background.t);
-
-                                        }
-
-                                        break;
-
-
-
-
-
-                                case SDL_MOUSEMOTION:
-
-
-                                        if ( (((event.motion.x >= (774 - (189/2))) && ((event.motion.x) <= (774 + (189/2)))) && (((event.motion.y) >= 487 - (59/2)) && ((event.motion.y) <= 487 + (59/2)))) )
-                                        {
-
-                                                //Curseur sur l'onglet "play"
-                                                curseur = SDL_TRUE;
-
-
-                                                //Coordonnées du rectangle "play"
-                                                surface_rect.x = 774 - (189/2);
-                                                surface_rect.y = 487 - (59/2);
-                                                surface_rect.w = 220;
-                                                surface_rect.h = 60;
-                                
-
-                                        }
-
-                                        else if ( (((event.motion.x >= (813 - (347/2))) && ((event.motion.x) <= (813 + (347/2)))) && (((event.motion.y) >= 599 - (73/2)) && ((event.motion.y) <= 599 + (73/2)))) )
-                                        {
-                                                //Curseur sur l'onglet "settings"
-                                                curseur = SDL_TRUE; 
-
-
-                                                //Coordonnées du rectangle "settings"
-                                                surface_rect.x = 813 - (360/2);
-                                                surface_rect.y = 599 - (73/2);
-                                                surface_rect.w = 320;
-                                                surface_rect.h = 70;
-                                        }
-                                        else
-                                        {
-
-                                                //Aucune selection
-                                                curseur = SDL_FALSE; 
-
-                                        }
-
-                                        break;
-
-
-
-                                
-                                case SDL_QUIT:
-
-                                        program_launched = SDL_FALSE;
-
-                                        break;
-                                
-                                default:
-                                        break;
-                                
-                        }
-
-                        if(curseur == SDL_TRUE)  //Affiche un encadrement blanc autour de la selection
-                        { 
-
-                                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); //
-                                SDL_RenderDrawRect(renderer, &surface_rect);
-                                SDL_RenderPresent(renderer);  
-
-                        }
-
-
-                        else   //Si aucun élément selectionné, le rectangle devient invisible
-                        {
-
-                                SDL_SetRenderDrawColor(renderer, 162, 173, 255, 255);
-                                SDL_RenderDrawRect(renderer, &surface_rect);
-                                SDL_RenderPresent(renderer);
-
-                        }
-
-                }
-                
+    return onMenu;
+}
+ 
+int recupTypeMenu(void)
+{
+    return menuType;
+}
+ 
+void initTypeMenu(int valeur, int type)
+{
+    onMenu = valeur;
+    menuType = type;
+}
+ 
+void initMenus(void)
+{
+    fond_menu_principal = chargeImage("../images/title.png");
+    fond_menu_fin = chargeImage("../images/fin.png");
+    img_gameover = chargeImage("../images/img_gameover.png");
+    fleches = chargeImage("../images/fleches.png");
+    volume_on = chargeImage("../images/volume.png");
+    volume_off = chargeImage("../images/mute.png");
+    mario = chargeImage("../images/choix_mario.png");
+    luigi = chargeImage("../images/choix_luigi.png");
+    yoshi = chargeImage("../images/choix_yoshi.png");
+    dk = chargeImage("../images/choix_dk.png");
+    wario = chargeImage("../images/choix_wario.png");
+    waluigi = chargeImage("../images/choix_waluigi.png");
+}
+ 
+void libereMenus(void)
+{
+    // Libère la texture du menu principal
+    if (fond_menu_principal != NULL)
+    {
+        SDL_DestroyTexture(fond_menu_principal);
+        fond_menu_principal = NULL;
+    }
+
+    // Libère la texture du menu de fin
+    if (fond_menu_fin != NULL)
+    {
+        SDL_DestroyTexture(fond_menu_fin);
+        fond_menu_fin = NULL;
+    }
+
+    // Libère la texture de l'image de fin
+    if (img_gameover != NULL)
+    {
+        SDL_DestroyTexture(img_gameover);
+        img_gameover = NULL;
+    }
+
+    // Libère la texture des fleches de selection  
+    if (fleches != NULL)
+    {
+        SDL_DestroyTexture(fleches);
+        fleches = NULL;
+    }
+
+    //Libère la texture des bouttons de volume
+    if (volume_on != NULL)
+    {
+        SDL_DestroyTexture(volume_on);
+        volume_on = NULL;
+    }
+
+    //Libère la gestion du volume
+    if (volume_off != NULL)
+    {
+        SDL_DestroyTexture(volume_off);
+        volume_off = NULL;
+    }
+
+    // Libère la texture des héros
+    if (mario != NULL)
+    {
+        SDL_DestroyTexture(mario);
+        mario = NULL;
+    }
+
+    if (luigi != NULL)
+    {
+        SDL_DestroyTexture(luigi);
+        luigi = NULL;
+    }
+
+    if (yoshi != NULL)
+    {
+        SDL_DestroyTexture(yoshi);
+        yoshi = NULL;
+    }
+
+    if (dk != NULL)
+    {
+        SDL_DestroyTexture(dk);
+        dk = NULL;
+    }
+
+    if (wario != NULL)
+    {
+        SDL_DestroyTexture(wario);
+        wario = NULL;
+    }
+
+    if (waluigi != NULL)
+    {
+        SDL_DestroyTexture(waluigi);
+        waluigi = NULL;
+    }
+}
+ 
+ 
+void majMenuPrincipal(Input *touche)
+{
+    //Si on appuie sur M
+    if(touche->volume == 1)
+    {
+        //Si volume sur ON
+        if(volume == SDL_TRUE){
+            volume = SDL_FALSE; //On passe le volume sur off
+            Mix_PauseMusic(); //On coupe le son
         }
+        //Si volume sur OFF
+        else if(volume == SDL_FALSE){
+            volume = SDL_TRUE; //On passe le volume sur on
+            Mix_ResumeMusic(); //On relance la musique
+        }
+        touche->volume = 0;
+    }
 
+    //Si on appuie sur HAUT
+    if (touche->haut == 1)
+    {
+        //Si choix = O (il est sur start), on le met à 1 (quit)
+        if (choix == 0)
+            choix++;
 
+        //Si choix = 2 (il est sur heros), on le met à 0 (start)    
+        else if(choix == 2)
+            choix-=2;
+        
+        touche->haut = 0;
+    }
+ 
+    //Si on appuie sur BAS
+    if (touche->bas == 1)
+    {
+        //Si choix = 1 (il est sur quit), on le met à 0 (start)
+        if (choix == 1)
+            choix--;
+        //Si choix = 0 (il est sur start), on le met à 2 (heros)
+        else if (choix == 0)
+            choix+=2;
+        
+        touche->bas = 0;
+    }
 
-        // on libère les surfaces
-        SDL_FreeSurface ( background.img );
-        SDL_FreeSurface ( icon_son.img );
+    //Choix du héro
+    if (touche->droite == 1 && choix == 2)
+    {
+
+        if (hero >= 6)
+            hero = 1;
+
+        else
+            hero++;
+        
+        touche->droite = 0;
+    }
+ 
+    if (touche->gauche == 1 && choix == 2)
+    {
+
+        if (hero <= 1)
+            hero = 6;
+
+        else
+            hero--;
+        
+        touche->gauche = 0;
+    }
+ 
+
+    //Si on appuie sur Enter et qu'on est sur Start, on charge le premier niveau et on quitte l'état menu
+    if (touche->entrer)
+    {
+        if (choix == 0)
+        {
+            resetCheckpoint();
+            initSpriteJoueur(hero);
+            initJoueur(1);
+            changeNiveau(1);
+            chargeNiveau(recupNiveau());
+            
+            /* On réinitialise les variables du jeu */
+            initNombreDeVies(3);
+            initNombreDePieces(0);
+            onMenu = 0;
+        }
+        
+        //Sinon, on quitte le jeu
+        else if (choix == 1)
+        {
+            exit(0);
+        }
+        
+        touche->entrer = 0;
+        touche->saut = 0;
+    }
+ 
 }
 
+void majMenuFin(Input *touche)
+{
+    //Si on appuie sur ECHAP
+    if(touche->pause == 1){
+        initTypeMenu(1, START);
+        if(volume == SDL_TRUE)
+            chargeMusique("../sounds/overworld.wav");
+        record_battu = 0;
+    }
+}
+
+void majMenuGameover(Input *touche)
+{
+    //On attend 3,7 secondes
+    Mix_PauseMusic();
+    SDL_Delay(3700);
+    initTypeMenu(1, START);
+    if(volume == SDL_TRUE)
+        chargeMusique("../sounds/overworld.wav");
+}
+ 
+ 
+void majMenuPause(Input *touche)
+{
+
+    //Si on appuie sur BAS
+    if (touche->bas == 1)
+    {
+        //Si choix = O (il est sur start), on le met à 1 (quit)
+        if (choix == 0)
+            choix++;
+            
+            touche->bas = 0;
+    }
+    
+    //Si on appuie sur HAUT
+    if (touche->haut == 1)
+    {
+        //Si choix = 1 (il est sur Quit), on le met à 0 (Start)
+        if (choix == 1)
+            choix--;
+        
+        touche->haut = 0;
+    }
+ 
+    //Si on appuie sur Enter et qu'on est sur Start, on recharge le jeu et on quitte l'état menu
+    if (touche->entrer)
+    {
+        if (choix == 0)
+        {
+            //Si on appuie sur Enter on quitte l'état menu
+            onMenu = 0;
+            if(volume == SDL_TRUE)
+                Mix_ResumeMusic();
+        }
+        
+        //Sinon, on quitte la partie
+        else if (choix == 1)
+        {
+            choix = 0;
+            if(volume == SDL_TRUE)
+                chargeMusique("../sounds/overworld.wav");
+            menuType = START;
+        }
+        
+        touche->entrer = 0;
+        touche->saut = 0;
+    }
+ 
+}
+
+void dessineMenuPrincipal(void)
+{
+ 
+    //On crée une variable qui contiendra notre texte
+    char text[200];
+    
+    //On affiche l'écran-titre
+    dessineImage(fond_menu_principal, 0, 0);
+    
+    //Si l'option n'est pas en surbrillance, on l'affiche normalement
+    if (choix != 0)
+    {
+        sprintf_s(text, sizeof(text), "START GAME");
+        //Ombrage en noir
+        afficheTexte(text, 290, 252, 0, 0, 0, 255);
+        afficheTexte(text, 288, 250, 255, 255, 255, 255);
+    }
+    if (choix != 1)
+    {
+        sprintf_s(text, sizeof(text), "QUIT");
+        //Ombrage en noir
+        afficheTexte(text, 105, 60, 0, 0, 0, 255);
+        afficheTexte(text, 102, 62, 255, 255, 255, 255);
+    }
+
+    //On dessine les icones des héros
+    if (choix != 2)
+    {
+        if(hero == 1)
+            dessineImage(mario, 340, 322);
+        else if(hero == 2)
+            dessineImage(luigi, 340, 322);
+        else if(hero == 3) 
+            dessineImage(yoshi, 340, 322);
+        else if(hero == 4)
+            dessineImage(dk, 340, 322);
+        else if(hero == 5)
+            dessineImage(wario, 340, 322);
+        else if(hero == 6)
+            dessineImage(waluigi, 340, 322);
+    }
+    
+    //Si l'option est en surbrillance, on change la couleur
+    if (choix == 0)
+    {
+        sprintf_s(text, sizeof(text), "START GAME");
+        //Ombrage en noir
+        afficheTexte(text, 290, 252, 0, 0, 0, 255);
+        afficheTexte(text, 288, 250, 255, 255, 0, 255);
+    }
+    else if (choix == 1)
+    {
+        sprintf_s(text, sizeof(text), "QUIT");
+
+        //Ombrage en noir
+        afficheTexte(text, 105, 60, 0, 0, 0, 255);
+        afficheTexte(text, 102, 62, 255, 255, 0, 255);
+    }
+
+    //On dessine les icones des héros et les flèches de selection
+    else if (choix == 2)
+    {
+        if(hero == 1)
+            dessineImage(mario, 340, 322);
+
+        else if(hero == 2)
+            dessineImage(luigi, 340, 322);
+        else if(hero == 3) 
+            dessineImage(yoshi, 340, 322);
+
+        else if(hero == 4)
+            dessineImage(dk, 340, 322);
+
+        else if(hero == 5)
+            dessineImage(wario, 340, 322);
+
+        else if(hero == 6)
+            dessineImage(waluigi, 340, 322);
+
+
+        dessineImage(fleches, 315, 360);
+    }
+
+    //On dessine les boutons de volume
+    if(volume == SDL_FALSE)
+        dessineImage(volume_off, 750, 20);
+
+    else    
+        dessineImage(volume_on, 750, 20);
+ 
+}
+
+void dessineMenuFin(void)
+{
+ 
+    //On créé une variable qui contiendra notre texte
+    char text[200];
+    
+    //On affiche le fond d'écran
+    dessineImage(fond_menu_fin, 0, 0);
+    
+    //On écrit le message de fin
+    sprintf_s(text, sizeof(text), "** FIN ! **");
+    afficheTexte(text, 332, 80, 0, 0, 0, 255);
+    afficheTexte(text, 330, 78, 255, 255, 255, 255);
+
+    //On écrit le temps du joueur
+    sprintf_s(text, sizeof(text), "Ton temps         %d", timer);
+    afficheTexte(text, 282, 220, 0, 0, 0, 255);
+    afficheTexte(text, 280, 218, 255, 255, 255, 255);
+
+    //On écrit le temps record
+    if(record_battu == 0)
+        sprintf_s(text, sizeof(text), "Le record          %d", record);
+
+    else
+        sprintf_s(text, sizeof(text), "Nouveau record  %d", record);
+
+    afficheTexte(text, 282, 260, 0, 0, 0, 255);
+    afficheTexte(text, 280, 258, 255, 255, 255, 255);
+
+    //On écrit échap en haut à gauche
+    sprintf_s(text, sizeof(text), "echap");
+    afficheTexte(text, 20, 20, 0, 0, 0, 255);
+    afficheTexte(text, 18, 18, 255, 255, 255, 255);
+
+}
+
+void dessineMenuGameover(void)
+{
+ 
+    //On crée une variable qui contiendra notre texte
+    char text[200];
+    
+    //On affiche l'écran-titre
+    dessineImage(img_gameover, 0, 0);
+    
+    //On écrit le message de gameover
+    sprintf_s(text, sizeof(text), "** GAMEOVER **");
+    afficheTexte(text, 267, 230, 0, 0, 0, 255);
+    afficheTexte(text, 265, 228, 255, 255, 255, 255);
+
+}
+ 
+ 
+ 
+void dessineMenuPause(void)
+{
+    char text[200];
+    
+    //On écrit PAUSE
+    sprintf_s(text, sizeof(text), "** PAUSE **");
+    afficheTexte(text, 282, 200, 0, 0, 0, 255);
+    afficheTexte(text, 280, 198, 255, 255, 255, 255);
+    
+    
+    //Si l'option n'est pas en surbrillance, on l'affiche normalement
+    if (choix != 0)
+    {
+        sprintf_s(text, sizeof(text), "Continue");
+
+        //Ombrage en noir
+        afficheTexte(text, 306, 252, 0, 0, 0, 255);
+        afficheTexte(text, 304, 250, 255, 255, 255, 255);
+    }
+    if (choix != 1)
+    {
+        sprintf_s(text, sizeof(text), "Exit");
+
+        //Ombrage en noir
+        afficheTexte(text, 346, 292, 0, 0, 0, 255);
+        afficheTexte(text, 344, 290, 255, 255, 255, 255);
+    }
+    
+    
+    //Si l'option est en surbrillance, on change la couleur
+    if (choix == 0)
+    {
+        sprintf_s(text, sizeof(text), "Continue");
+
+        //Ombrage en noir
+        afficheTexte(text, 306, 252, 0, 0, 0, 255);
+        afficheTexte(text, 304, 250, 255, 255, 0, 255);
+    }
+
+    else if (choix == 1)
+    {
+        sprintf_s(text, sizeof(text), "Exit");
+        
+        //Ombrage en noir
+        afficheTexte(text, 346, 292, 0, 0, 0, 255);
+        afficheTexte(text, 344, 290, 255, 255, 0, 255);
+    }
+ 
+}

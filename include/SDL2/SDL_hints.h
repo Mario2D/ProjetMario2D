@@ -391,7 +391,7 @@ extern "C" {
  *    "0"       - Enable idle timer
  *    "1"       - Disable idle timer
  */
-#define SDL_HINT_IDLE_TIMER_DISABLED "SDL_IOS_IDLE_TIMER_DISABLED"
+#define SDL_HINT_IMMOBILE_TIMER_DISABLED "SDL_IOS_IMMOBILE_TIMER_DISABLED"
 
 /**
  *  \brief  A variable controlling which orientations are allowed on iOS/Android.
@@ -726,7 +726,7 @@ extern "C" {
   *    "0"       - Return unfiltered joystick axis values (the default)
   *    "1"       - Return axis values with deadzones taken into account
   */
-#define SDL_HINT_LINUX_JOYSTICK_DEADZONES "SDL_LINUX_JOYSTICK_DEADZONES"
+#define SDL_HINT_LINUX_JOYSTICK_MORTZONES "SDL_LINUX_JOYSTICK_MORTZONES"
 
 /**
  *  \brief If set to "0" then never set the top most bit on a SDL Window, even if the video mode expects it.
