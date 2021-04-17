@@ -6,9 +6,6 @@
  *  \date 
  */
 
-
-
-
 #ifndef DEF_STRUCTS
 #define DEF_STRUCTS
  
@@ -113,10 +110,10 @@ enum
 //Une enum pour la gestion du menu.
 enum
 {
-START,
-PAUSE,
-GAMEOVER,
-FIN
+    START,
+    PAUSE,
+    GAMEOVER,
+    FIN
 };
 
 #endif
