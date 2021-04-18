@@ -3,5 +3,8 @@
         "activityBar.background": "#2F2F0D",
         "titleBar.activeBackground": "#424212",
         "titleBar.activeForeground": "#FBFBEF"
+    },
+    "files.associations": {
+        "prototypes.h": "c"
     }
 }
