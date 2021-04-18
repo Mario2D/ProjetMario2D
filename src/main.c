@@ -10,7 +10,7 @@
  *  \mainpage Projet MARIO2D : Projet pour les étudiants de L2 informatique visant à coder un jeu avec des algorithmes pertinents, et éventuellement une interface graphique. \n
  *  Le groupe "MARIO2D" a décidé de faire une sorte de remake de Super Mario Bros, mais de transformer le jeu en Mario Parkour. \n
  *  Le but est d'implémenter un jeu avec interface graphique, ou l'on fait évoluer un personnage dans un univers rempli de défis à relever. \n
- *  L'utilisateur devra parcourir chaque niveau en un temps record tout en mourrant le moins possible mais aussi en récupérant un maximum de pièces.
+ *  L'utilisateur devra parcourir les trois niveau en un temps record tout en mourrant le moins possible et en récupérant un maximum de pièces.
  */
 
 #include "prototypes.h"
