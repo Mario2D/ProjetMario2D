@@ -10,7 +10,7 @@
 
  
 int onMenu, menuType, choix, hero = 1;
-extern int timer, record, record_battu;
+extern int timer, record, record_battu, timer_reset;
 extern int totalPieces, totalMorts;
 
 
@@ -317,6 +317,7 @@ void majMenuPause(Input *touche)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
+            //On reprend la musique
             if(volume == SDL_TRUE)
                 Mix_ResumeMusic();
         }

@@ -10,7 +10,7 @@
  
  
  
-//Sounds Fx
+//Sons Fx
 Mix_Chunk *pause_sound, *jump_sound, *coin_sound, *mob_sound, *mort_sound, *gameover_sound;
  
 //Musique

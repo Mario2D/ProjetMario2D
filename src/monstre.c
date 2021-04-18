@@ -97,8 +97,7 @@ void majMonstre()
             if (monstre[i].dirY >= VITESSE_CHUTE)
                 monstre[i].dirY = VITESSE_CHUTE;
             
-            //Test de collision dans un mur : si la variable x reste la même, deux tours de boucle 
-            //durant, le monstre est bloqué et on lui fait faire demi-tour.
+            //Test de collision dans un mur : si la variable x reste la même, deux tours de boucle durant, le monstre est bloqué et on lui fait faire demi-tour.
             if (monstre[i].x == monstre[i].saveX || verifSol(monstre[i]) == 1)
             {
                 if (monstre[i].direction == LEFT)
@@ -119,14 +118,14 @@ void majMonstre()
             monstre[i].dirX += 1;
         
         
-        //On sauvegarde les coordonnées du monstre pour gérer le demi-tour
-        //avant que mapCollision() ne les modifie.
+        //On sauvegarde les coordonnées du monstre pour gérer le demi-tour avant que mapCollision() ne les modifie.
         monstre[i].saveX = monstre[i].x;
         
         //On détecte les collisions avec la map comme pour le joueur
         collision_map_monstre(&monstre[i]);
         
         //On détecte les collisions avec le joueur
+
         //Si c'est égal à 1, on tue le joueur
         if (collisionMonstreJoueur(recupJoueur(), &monstre[i]) == 1)
         {
@@ -258,8 +257,7 @@ void dessineMonstre(Personnage *monstre)
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
     
-    // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle
-    //au scrolling :
+    // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle au scrolling 
     dest.x = monstre->x - recupPersoStartX();
     dest.y = monstre->y - recupPersoStartY();
     dest.w = monstre->w;

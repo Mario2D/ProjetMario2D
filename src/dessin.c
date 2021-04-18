@@ -13,7 +13,7 @@
 SDL_Texture *HUD_vie, *HUD_pieces, *HUD_temps, *HUD_record; 
 
 extern int record;
-int timer, timer_reset = 0, timer_pause = 0;
+int timer, timer_reset = 0;
 
 
 void chargeJeu(int pauseMenu)
@@ -179,15 +179,6 @@ void nettoyageHUD(void)
     }
 }
 
-/* Fonction de rappel/callback (sera appelée toutes les 30 ms) */
-Uint32 incrementeTimer(Uint32 intervalle, void *parametre)
-{
-    parametre++;
-
-    return intervalle;
-}
-
-
 
 void dessineHUD(void)
 {
@@ -197,7 +188,7 @@ void dessineHUD(void)
     int i;
 
     timer = SDL_GetTicks() / 1000;
-    timer -= (timer_reset + timer_pause);
+    timer -= timer_reset;
     
 
     /* Affiche le nombre de vies en haut à droite */

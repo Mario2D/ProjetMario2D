@@ -14,7 +14,6 @@ int niveau;
 int vies, pieces;
 int totalPieces = 0;
 int totalMorts = 0;
-extern int timer_pause;
 extern SDL_bool volume;
 Personnage joueur;
 SDL_Texture *joueurSpriteSheet;
@@ -313,7 +312,7 @@ void majJoueur(Input *touche)
         }
     }
     
-    //Si on n'appuie sur rien et qu'on est sur le sol, on charge l'animation marquant l'inactivité (Idle)
+    //Si on n'appuie sur rien et qu'on est sur le sol, on charge l'animation marquant l'inactivité (Immobile)
     else if (touche->droite == 0 && touche->gauche == 0 && joueur.surSol == 1)
     {
         //On teste si le joueur n'était pas déjà inactif, pour ne pas recharger l'animation
@@ -348,9 +347,11 @@ void majJoueur(Input *touche)
     {
         //On met le jeu en pause
         initTypeMenu(1, PAUSE);
+        //On joue le son de pause
         if(volume == SDL_TRUE)
             joueSon(PAUSE_GAME);
         Mix_PauseMusic();
+
         touche->pause = 0;
     }
        
@@ -423,9 +424,7 @@ void majJoueur(Input *touche)
 
 void scrollSurJoueur(void)
 {
-    // on crée une "boîte" imaginaire autour du joueur.
-    //Quand on dépasse un de ses bords (en haut, en bas,
-    //à gauche ou à droite), on scroll.
+    // on crée une "boîte" imaginaire autour du joueuret quand on dépasse un de ses bords (en haut, en bas, à gauche ou à droite), on scroll.
 
     int cxperso = joueur.x + joueur.w / 2;
     int cyperso = joueur.y + joueur.h / 2;
@@ -434,7 +433,7 @@ void scrollSurJoueur(void)
     int ylimmin = recupPersoStartY() + LIMITE_Y;
     int ylimmax = ylimmin + LIMITE_H;
     
-    //Effet de retour en arrière quand on est mort :
+    //Effet de retour en arrière quand on est mort 
 
     if (cxperso < recupPersoStartX())
     {
@@ -466,8 +465,7 @@ void scrollSurJoueur(void)
         initDepartMapX(0);
     }
     
-    //Si on arrive au bout de la map à droite, on stoppe le scrolling à la
-    //valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
+    //Si on arrive au bout de la map à droite, on stoppe le scrolling à la valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
     else if (recupPersoStartX() + LARGEUR_FENETRE >= recupFinMapX())
     {
         initDepartMapX(recupFinMapX() - LARGEUR_FENETRE);
@@ -482,7 +480,7 @@ void scrollSurJoueur(void)
     //Si on dépasse par le bas, on descend la caméra
     if (cyperso > ylimmax)
     {
-        //Sauf si on tombe très vite, auquel cas, on accélère la caméra :
+        //Sauf si on tombe très vite, auquel cas, on accélère la caméra 
         if (joueur.dirY >= VITESSE_CHUTE - 2)
         {
             initDepartMapY(recupPersoStartY() + VITESSE_CHUTE + 1);
@@ -499,8 +497,7 @@ void scrollSurJoueur(void)
         initDepartMapY(0);
     }
     
-    //Si on arrive au bout de la map en bas, on stoppe le scrolling à la
-    //valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
+    //Si on arrive au bout de la map en bas, on stoppe le scrolling à la valeur Max de la map - la moitié d'un écran (pour ne pas afficher du noir).
     else if (recupPersoStartY() + HAUTEUR_FENETRE >= recupFinMapY())
     {
         initDepartMapY(recupFinMapY() - HAUTEUR_FENETRE);
@@ -513,18 +510,19 @@ void recupItem(int itemNumber)
 {
     switch (itemNumber)
     {
-        //Gestion des étoiles
+        //Gestion des pièces
         case 1:
-        //On incrémente le compteur Etoile
+        //On incrémente le compteur de pièces
         initNombreDePieces(recupNombreDePieces() + 1);
 
         //On incrémente le compteur de pièces total pour l'écran de fin
         totalPieces += 1;
         
+        //On joue le son de pièce
         if(volume == SDL_TRUE)
             joueSon(COIN);
         
-        //On teste s'il y a 100 étoiles : on remet le compteur à 0 et on rajoute une vie ;)
+        //On teste s'il y a 20 pièces et si oui, on remet le compteur à 0 et on rajoute une vie
         if (recupNombreDePieces() >= 20)
         {
             initNombreDePieces(0);
@@ -532,26 +530,6 @@ void recupItem(int itemNumber)
             if (recupNombreDeVies() < 99)
                 initNombreDeVies(recupNombreDeVies() + 1);
         }
-        break;
-        
-        //Gestion des coeurs
-        case 2:
-        //On incrémente le compteur Etoile
-        if (joueur.vie < 3)
-            joueur.vie++;
-
-        if(volume == SDL_TRUE)
-            joueSon(COIN);
-        break;
-        
-        //Gestion des vies
-        case 3:
-        //On incrémente le nombre de vies (max 99)
-        if (recupNombreDeVies() < 99)
-            initNombreDeVies(recupNombreDeVies() + 1);
-        
-        if(volume == SDL_TRUE)
-            joueSon(COIN);
         break;
         
         default:
