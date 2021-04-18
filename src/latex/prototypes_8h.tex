@@ -174,7 +174,9 @@ void \mbox{\hyperlink{prototypes_8h_a7435cf2ca6682bdbd3f37e656723b0f6}{dessine\+
 void \mbox{\hyperlink{prototypes_8h_a13795b191929e9b34e58e655447fd651}{dessine\+Menu\+Fin}} (void)
 \begin{DoxyCompactList}\small\item\em Fonction qui dessine le menu de fin de partie à l\textquotesingle{}écran. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{prototypes_8h_ac6b8260c5ba63b8330b55429b8f6ab82}{dessine\+Menu\+Gameover}} (void)
-\begin{DoxyCompactList}\small\item\em Fonction qui dessine le menu de gameover. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction qui dessine le menu de gameover. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{prototypes_8h_a60ed862b4d6ef7b710437ff3dbb63635}{test\+Verif\+Sol}} (\mbox{\hyperlink{struct_personnage}{Personnage}} monstre)
+\begin{DoxyCompactList}\small\item\em Test unitaire sur la fonction \mbox{\hyperlink{prototypes_8h_a4131b691243c80a4c8d5da6eb1d41d8a}{verif\+Sol()}} \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Description détaillée}
@@ -1371,6 +1373,21 @@ void
 Gestion du scrolling de la map, centré sur le héros, et adapté à la vitesse de ce dernier. 
 
 param\mbox{[}in\mbox{]} int valeur Valeur x
+
+\begin{DoxyReturn}{Renvoie}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{prototypes_8h_a60ed862b4d6ef7b710437ff3dbb63635}\label{prototypes_8h_a60ed862b4d6ef7b710437ff3dbb63635}} 
+\index{prototypes.h@{prototypes.h}!testVerifSol@{testVerifSol}}
+\index{testVerifSol@{testVerifSol}!prototypes.h@{prototypes.h}}
+\doxysubsubsection{\texorpdfstring{testVerifSol()}{testVerifSol()}}
+{\footnotesize\ttfamily int test\+Verif\+Sol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_personnage}{Personnage}}}]{monstre }\end{DoxyParamCaption})}
+
+
+
+Test unitaire sur la fonction \mbox{\hyperlink{prototypes_8h_a4131b691243c80a4c8d5da6eb1d41d8a}{verif\+Sol()}} 
+
+param\mbox{[}in\mbox{]} \mbox{\hyperlink{struct_personnage}{Personnage}} $\ast$monstre objet monstre
 
 \begin{DoxyReturn}{Renvoie}
 void 

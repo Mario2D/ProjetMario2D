@@ -637,4 +637,13 @@ extern void dessineMenuFin(void);
  *  \return void
  */
 extern void dessineMenuGameover(void);
+
+/*! \brief  Test unitaire sur la fonction verifSol()
+ *  
+ *  param[in]   Personnage *monstre objet monstre
+ * 
+ *  \return void
+ */
+extern int testVerifSol(Personnage monstre);
+
 #endif
