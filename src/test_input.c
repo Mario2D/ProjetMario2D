@@ -1,5 +1,7 @@
 #include "prototypes.h"
 
+Input *touche;
+
 void gestionTouches(Input *touche)
 {
     //On gère le clavier 
@@ -26,7 +28,7 @@ void recupTouche(Input *touche)
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
-                        touche->pause = 1;
+                        printf("Vous avez appuyer sur echap\n");
                         break;
  
                     case SDLK_m:
@@ -66,10 +68,6 @@ void recupTouche(Input *touche)
             case SDL_KEYUP:
                 switch (event.key.keysym.sym)
                 {
-                    case SDLK_ESCAPE:
-                        touche->pause = 0;
-                        printf("test");
-                    break;
                     
                     case SDLK_m:
                         touche->volume = 0;
@@ -109,18 +107,11 @@ void recupTouche(Input *touche)
     }
 }
 
-void test_input(Input *touche){
-    if (touche->pause = 1){
-        printf("pause\n");
-        touche->pause = 0;
-    }
-}
-
 int main(int argc, char *argv[]){
-    Input touche;
-    while(1){
-        recupTouche(&touche);
-        test_input(&touche);
+    while (1)
+    {
+        recupTouche(touche);  
     }
+
     return 0;
 }
