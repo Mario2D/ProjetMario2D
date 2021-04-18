@@ -1,9 +1,9 @@
 /*!
-/*  \file       dessin.c
-/*  \brief      S'occupe des fonctions graphiques du jeu
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       dessin.c
+*  \brief      S'occupe des fonctions graphiques du jeu
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"

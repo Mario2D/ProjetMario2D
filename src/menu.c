@@ -1,9 +1,9 @@
 /*!
-/*  \file       menu.c
-/*  \brief      S'occupe des fonctions relatives à l'affichage et à la mise à jour des menus
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       menu.c
+*  \brief      S'occupe des fonctions relatives à l'affichage et à la mise à jour des menus
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"

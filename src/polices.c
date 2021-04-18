@@ -1,9 +1,9 @@
 /*!
-/*  \file       polices.c
-/*  \brief      S'occupe des fonctions de chargement des polices
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       polices.c
+*  \brief      S'occupe des fonctions de chargement des polices
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"
