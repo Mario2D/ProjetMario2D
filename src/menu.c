@@ -251,7 +251,7 @@ void majMenuPrincipal(Input *touche)
             onMenu = 0;
         }
         
-        //Sinon, on quitte le jeu
+        //Sinon on quitte le jeu
         else if (choix == 1)
         {
             exit(0);
