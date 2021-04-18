@@ -30,7 +30,7 @@ void recupTouche(Input *touche)
             case SDL_QUIT:
                 exit(0);
             break;
- 
+            //à l'appuie sur la touche
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym)
                 {
@@ -71,7 +71,7 @@ void recupTouche(Input *touche)
                     break;
                 }
             break;
- 
+            //au relachement de la touche
             case SDL_KEYUP:
                 switch (event.key.keysym.sym)
                 {
