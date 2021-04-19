@@ -63,8 +63,6 @@ La petite subtilité par rapport au jeu d’origine va être le fait que notre j
 
 ### Contributeurs
 
-<img src="https://user-images.githubusercontent.com/78078418/115210740-30c12100-a0ff-11eb-9bb3-99622b221a81.png" width="200px" align="left"/>
-<img src="https://user-images.githubusercontent.com/78078418/115210747-31f24e00-a0ff-11eb-9f75-aef16f00904e.png" width="200px" align="left"/>
-<img src="https://user-images.githubusercontent.com/78078418/115232109-a7b5e400-a116-11eb-8b91-ce777270d2e7.png" width="200px" align="left"/>  
-
-> Lucas Bouillon            Lucas Beaufreton        Arthur Scherrer
+<img src="https://user-images.githubusercontent.com/78078418/115210740-30c12100-a0ff-11eb-9bb3-99622b221a81.png" title="Lucas Bouillon" width="200px" align="left"/>
+<img src="https://user-images.githubusercontent.com/78078418/115210747-31f24e00-a0ff-11eb-9f75-aef16f00904e.png" title="Lucas Beaufreton" width="200px" align="left"/>
+<img src="https://user-images.githubusercontent.com/78078418/115232109-a7b5e400-a116-11eb-8b91-ce777270d2e7.png" title="Arthur Scherrer" width="200px" align="left"/>  
