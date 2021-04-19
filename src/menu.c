@@ -169,12 +169,15 @@ void majMenuPrincipal(Input *touche)
     if(touche->volume == 1)
     {
         //Si volume sur ON
-        if(volume == SDL_TRUE){
+        if(volume == SDL_TRUE)
+        {
             volume = SDL_FALSE; //On passe le volume sur off
             Mix_PauseMusic(); //On coupe le son
         }
+
         //Si volume sur OFF
-        else if(volume == SDL_FALSE){
+        else if(volume == SDL_FALSE)
+        {
             volume = SDL_TRUE; //On passe le volume sur on
             Mix_ResumeMusic(); //On relance la musique
         }
@@ -184,11 +187,11 @@ void majMenuPrincipal(Input *touche)
     //Si on appuie sur HAUT
     if (touche->haut == 1)
     {
-        //Si choix = O (il est sur start), on le met à 1 (quit)
+        //Si choix = O (il est sur start), on le met à 1 
         if (choix == 0)
             choix++;
 
-        //Si choix = 2 (il est sur heros), on le met à 0 (start)    
+        //Si choix = 2 (il est sur heros), on le met à 0 
         else if(choix == 2)
             choix-=2;
         
@@ -201,6 +204,7 @@ void majMenuPrincipal(Input *touche)
         //Si choix = 1 (il est sur quit), on le met à 0 (start)
         if (choix == 1)
             choix--;
+
         //Si choix = 0 (il est sur start), on le met à 2 (heros)
         else if (choix == 0)
             choix+=2;
@@ -266,10 +270,13 @@ void majMenuPrincipal(Input *touche)
 void majMenuFin(Input *touche)
 {
     //Si on appuie sur ECHAP
-    if(touche->pause == 1){
+    if(touche->pause == 1)
+    {
         initTypeMenu(1, START);
+
         if(volume == SDL_TRUE)
             chargeMusique("../sounds/overworld.wav");
+
         record_battu = 0;
         totalPieces = 0;
         totalMorts = 0;
@@ -282,6 +289,7 @@ void majMenuGameover(Input *touche)
     Mix_PauseMusic();
     SDL_Delay(3700);
     initTypeMenu(1, START);
+
     if(volume == SDL_TRUE)
         chargeMusique("../sounds/overworld.wav");
 }
@@ -317,7 +325,11 @@ void majMenuPause(Input *touche)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
+<<<<<<< HEAD
+
+=======
             //On reprend la musique
+>>>>>>> 5efc817856283e8dbe615b7b105d0ab27c1f7b80
             if(volume == SDL_TRUE)
                 Mix_ResumeMusic();
         }
@@ -326,8 +338,10 @@ void majMenuPause(Input *touche)
         else if (choix == 1)
         {
             choix = 0;
+
             if(volume == SDL_TRUE)
                 chargeMusique("../sounds/overworld.wav");
+
             menuType = START;
         }
         
@@ -350,13 +364,16 @@ void dessineMenuPrincipal(void)
     if (choix != 0)
     {
         sprintf_s(text, sizeof(text), "START GAME");
+
         //Ombrage en noir
         afficheTexte(text, 290, 252, 0, 0, 0, 255);
         afficheTexte(text, 288, 250, 255, 255, 255, 255);
     }
+
     if (choix != 1)
     {
         sprintf_s(text, sizeof(text), "QUIT");
+
         //Ombrage en noir
         afficheTexte(text, 105, 60, 0, 0, 0, 255);
         afficheTexte(text, 102, 62, 255, 255, 255, 255);
@@ -367,14 +384,19 @@ void dessineMenuPrincipal(void)
     {
         if(hero == 1)
             dessineImage(mario, 340, 322);
+
         else if(hero == 2)
             dessineImage(luigi, 340, 322);
+
         else if(hero == 3) 
             dessineImage(yoshi, 340, 322);
+
         else if(hero == 4)
             dessineImage(dk, 340, 322);
+
         else if(hero == 5)
             dessineImage(wario, 340, 322);
+
         else if(hero == 6)
             dessineImage(waluigi, 340, 322);
     }
@@ -383,10 +405,12 @@ void dessineMenuPrincipal(void)
     if (choix == 0)
     {
         sprintf_s(text, sizeof(text), "START GAME");
+
         //Ombrage en noir
         afficheTexte(text, 290, 252, 0, 0, 0, 255);
         afficheTexte(text, 288, 250, 255, 255, 0, 255);
     }
+    
     else if (choix == 1)
     {
         sprintf_s(text, sizeof(text), "QUIT");

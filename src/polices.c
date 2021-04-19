@@ -10,13 +10,13 @@
  
  
  
-/* Déclaration de notre police de caractères (font) */
+// Déclaration de notre police de caractères
 TTF_Font *font;
  
  
 void chargePolice(char *name, int size)
 {
-    /* On utilise SDL_TTF pour charger la police (font) à la taille spécicifiée par size */
+    /* On utilise SDL_TTF pour charger la police à la taille spécicifiée par size */
     
     font = TTF_OpenFont(name, size);
     
@@ -31,7 +31,7 @@ void chargePolice(char *name, int size)
     
 void fermeturePolice()
 {
-    /* On ferme la police (font) */
+    /* On ferme la police */
     
     if (font != NULL)
     {
@@ -54,7 +54,7 @@ void afficheTexte(char *text, int x, int y, int r, int g, int b, int a)
     foregroundColor.a = a;
     
     
-    /* On utilise SDL_TTF pour générer une SDL_Surface à partir d'une chaîne de caractères (string) */
+    /* On utilise SDL_TTF pour générer une SDL_Surface à partir d'une chaîne de caractères */
     surface = TTF_RenderUTF8_Blended(font, text, foregroundColor);
     
     if (surface != NULL)
@@ -62,7 +62,7 @@ void afficheTexte(char *text, int x, int y, int r, int g, int b, int a)
         // Conversion de l'image en texture
         texture = SDL_CreateTextureFromSurface(recupRendu(), surface);
         
-        /* On libère la SDL_Surface temporaire (pour éviter les fuites de mémoire) */
+        /* On libère la SDL_Surface temporaire */
         SDL_FreeSurface(surface);
         surface = NULL;
         
