@@ -20,8 +20,8 @@
 
 ### Les règles du jeu
 
-Notre Mario2D comprend donc un menu avec au choix, 6 personnages différents, 3 niveaux de jeu avec une difficulté croissante, et un système de record de temps à battre. Il existe d’autres petites fonctionnalités que nous aborderons plus tard, mais celles-ci sont les principales. Le tout comportant une interface graphique pertinente, sur le thème du monde Mario.   
-La petite subtilité par rapport au jeu d’origine va être le fait que notre jeu ressemble plus à un jeu de parcours. Nous ne voulions pas reproduire le jeu de base de A à Z étant du vu et revu. C’est-à-dire que le joueur devra parcourir les trois niveaux le plus rapidement pour réaliser le meilleur temps. Pour ce faire, il disposera de 3 vies. Il aura la possibilité de ramasser des pièces sur sa course, lui permettant de gagner une vie supplémentaire toutes les 20 pièces. En plus du parcours qui sera de plus en plus dur, le joueur devra aussi faire face à quelques monstres qui feront offices d’IA. 
+Notre jeu comprend un menu avec au choix, six personnages différents, trois niveaux de jeu avec une difficulté croissante, et un système de record de temps à battre. Il existe d’autres petites fonctionnalités que nous aborderons plus tard, mais celles-ci sont les principales. Le tout comportant une interface graphique pertinente, sur le thème du monde Mario.   
+La petite subtilité par rapport au jeu d’origine va être le fait que notre jeu ressemble davantage à un jeu de parcours. Nous ne voulions pas reproduire le jeu de base de A à Z étant déjà assez connu. C’est-à-dire que le joueur devra parcourir les trois niveaux le plus rapidement pour réaliser le meilleur temps. Pour ce faire, il disposera de trois vies. Il aura la possibilité de ramasser des pièces sur sa course, lui permettant de gagner une vie supplémentaire toutes les 20 pièces. En plus du parcours qui sera de plus en plus dur, le joueur devra aussi faire face à quelques monstres qui feront offices d’IA. 
 
 
 ### Les différentes interfaces
