@@ -325,11 +325,6 @@ void majMenuPause(Input *touche)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
-<<<<<<< HEAD
-
-=======
-            //On reprend la musique
->>>>>>> 5efc817856283e8dbe615b7b105d0ab27c1f7b80
             if(volume == SDL_TRUE)
                 Mix_ResumeMusic();
         }
