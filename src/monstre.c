@@ -260,11 +260,7 @@ void dessineMonstre(Personnage *monstre)
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
     
-<<<<<<< HEAD
     // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle au scrolling :
-=======
-    // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle au scrolling 
->>>>>>> 5efc817856283e8dbe615b7b105d0ab27c1f7b80
     dest.x = monstre->x - recupPersoStartX();
     dest.y = monstre->y - recupPersoStartY();
     dest.w = monstre->w;
