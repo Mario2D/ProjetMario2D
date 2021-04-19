@@ -60,3 +60,13 @@ La petite subtilité par rapport au jeu d’origine va être le fait que notre j
 ![choix_waluigi](https://user-images.githubusercontent.com/78078418/115211474-e12f2500-a0ff-11eb-953a-71b441a6bd99.png)
 ![choix_wario](https://user-images.githubusercontent.com/78078418/115211476-e1c7bb80-a0ff-11eb-81fc-8efed07dffb1.png)
 ![choix_dk](https://user-images.githubusercontent.com/78078418/115211478-e1c7bb80-a0ff-11eb-9ccb-2248cf1529e3.png)
+
+### Contributeurs
+
+> Lucas Bouillon  
+![lucas_bouill](https://user-images.githubusercontent.com/78078418/115210740-30c12100-a0ff-11eb-9bb3-99622b221a81.png)
+
+> Lucas Beaufreton  
+![lucas_beauf](https://user-images.githubusercontent.com/78078418/115210747-31f24e00-a0ff-11eb-9f75-aef16f00904e.png)
+
+> Arthur Scherrer  
