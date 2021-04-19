@@ -1,9 +1,9 @@
 /*!
-/*  \file       input.c
-/*  \brief      S'occupe de gérer les évènements des touches du clavier
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       input.c
+*  \brief      S'occupe de gérer les évènements des touches du clavier
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"
@@ -30,7 +30,7 @@ void recupTouche(Input *touche)
             case SDL_QUIT:
                 exit(0);
             break;
- 
+            //à l'appuie sur la touche
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym)
                 {
@@ -71,7 +71,7 @@ void recupTouche(Input *touche)
                     break;
                 }
             break;
- 
+            //au relachement de la touche
             case SDL_KEYUP:
                 switch (event.key.keysym.sym)
                 {

@@ -12,8 +12,7 @@
 
 #include "structs.h"
  
-/* Catalogue des prototypes des fonctions utilisées.
-   On le complétera au fur et à mesure. */ 
+/* Catalogue des prototypes des fonctions utilisées. */ 
 
 /*! \brief  Gestion du scrolling de la map, centré sur le héros, et adapté à la vitesse de ce dernier.
  *  
@@ -23,7 +22,7 @@
  */
 extern void scrollSurJoueur(void);
 
-/*! \brief  Charge une nouvelle map en nettoyant la mémoire qui est occupé à ce moment précis
+/*! \brief  Charge une nouvelle map en nettoyant la mémoire qui est occupée à ce moment précis
  *      
  *  param[in]   int niveau  niveau choisi
  *
@@ -52,7 +51,7 @@ extern void nettoyageMaps(void);
  */
 extern void nettoyageJoueur(void);
 
-/*! \brief  La fonction quitte tous les outils proprement on libérant la mémoire 
+/*! \brief  La fonction quitte tous les outils proprement en libérant la mémoire 
  *  
  *  \return void
  */ 
@@ -98,7 +97,7 @@ extern void dessineHUD(void);
  */ 
 extern void dessineImage(SDL_Texture *, int, int);
 
-/*! \brief  Dessine la map sur un rendu en récupérant les coordonnées de la matrice pour une couche donnée.
+/*! \brief  Dessine la map sur un rendu en récupérant les coordonnées de la matrice pour une couche donnée
  *      
  *  param[in] int couche Nom de la couche à modéliser
  * 
@@ -113,15 +112,15 @@ extern void dessineMap(int couche);
  */
 extern void dessineJoueur(void);
 
-/*! \brief  Dessine le texte sur le rendu pour des coordonnées et une couleur donnée
+/*! \brief  Dessine le texte sur le rendu pour des coordonnées et une couleur données
  *  
  * 
  *  \param[in]  char *text              Texte à charger
  *  \param[in]  int x                   Coordonnées en abscisse
  *  \param[in]  int y                   Coordonnées en ordonnée 
- *  \param[in]  int r                   Une des valeurs pour la couleur 
- *  \param[in]  int g                   Une des valeurs pour la couleur 
- *  \param[in]  int b                   Une des valeurs pour la couleur 
+ *  \param[in]  int r                   Une des valeurs pour la couleur rouge
+ *  \param[in]  int g                   Une des valeurs pour la couleur verte
+ *  \param[in]  int b                   Une des valeurs pour la couleur bleu
  *  \param[in]  int a                   Opacité 
  * 
  * 
@@ -129,7 +128,7 @@ extern void dessineJoueur(void);
  */ 
 extern void afficheTexte(char *text, int x, int y, int r, int g, int b, int a);
 
-/*! \brief  charge une image dans un rectangle dans les coordonnées sont passées en paramètres
+/*! \brief  charge une image dans un rectangle dont les coordonnées sont passées en paramètres
  *  \param[in]  SDL_Texture *image      l'image à charger
  *  \param[in]  int destx               coordonnées x de la destination
  *  \param[in]  int desty               coordonnées y de la destination
@@ -638,4 +637,13 @@ extern void dessineMenuFin(void);
  *  \return void
  */
 extern void dessineMenuGameover(void);
+
+/*! \brief  Test unitaire sur la fonction verifSol()
+ *  
+ *  param[in]   Personnage *monstre objet monstre
+ * 
+ *  \return void
+ */
+extern int testVerifSol(Personnage monstre);
+
 #endif

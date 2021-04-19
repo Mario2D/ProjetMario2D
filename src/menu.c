@@ -1,16 +1,16 @@
 /*!
-/*  \file       menu.c
-/*  \brief      S'occupe des fonctions relatives à l'affichage et à la mise à jour des menus
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       menu.c
+*  \brief      S'occupe des fonctions relatives à l'affichage et à la mise à jour des menus
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"
 
  
 int onMenu, menuType, choix, hero = 1;
-extern int timer, record, record_battu;
+extern int timer, record, record_battu, timer_reset;
 extern int totalPieces, totalMorts;
 
 
@@ -255,7 +255,7 @@ void majMenuPrincipal(Input *touche)
             onMenu = 0;
         }
         
-        //Sinon, on quitte le jeu
+        //Sinon on quitte le jeu
         else if (choix == 1)
         {
             exit(0);
@@ -325,7 +325,11 @@ void majMenuPause(Input *touche)
         {
             //Si on appuie sur Enter on quitte l'état menu
             onMenu = 0;
+<<<<<<< HEAD
 
+=======
+            //On reprend la musique
+>>>>>>> 5efc817856283e8dbe615b7b105d0ab27c1f7b80
             if(volume == SDL_TRUE)
                 Mix_ResumeMusic();
         }

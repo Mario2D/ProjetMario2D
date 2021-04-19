@@ -41,13 +41,13 @@ int main(int argc, char *argv[])
     atexit(nettoyageAll);
 
     FILE* fichier = NULL;
-    char chaine[4] = ""; // Chaîne vide de taille TAILLE_MAX
+    char chaine[4] = ""; // Chaîne vide de taille 4
  
     fichier = fopen("../record.txt", "r");
  
     if (fichier != NULL)
     {
-        fgets(chaine, 4, fichier); // On lit maximum TAILLE_MAX caractères du fichier, on stocke le tout dans "chaine"
+        fgets(chaine, 4, fichier); // On lit maximum 4 caractères du fichier, on stocke le tout dans "chaine"
         fclose(fichier);
     }
 

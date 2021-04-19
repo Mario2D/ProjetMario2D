@@ -1,9 +1,9 @@
 /*!
-/*  \file       init.c
-/*  \brief      initialise tous les outils nécessaires aux fonctionnalités
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       init.c
+*  \brief      initialise tous les outils nécessaires aux fonctionnalités du jeu
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"

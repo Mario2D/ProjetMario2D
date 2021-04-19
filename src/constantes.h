@@ -1,9 +1,9 @@
 /*!
-/*  \file       constantes.h
-/*  \brief      Implémentation de toutes les constantes nécessaires
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       constantes.h
+*  \brief      Implémentation de toutes les constantes nécessaires au projet
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 

@@ -1,16 +1,16 @@
 /*!
-/*  \file       sons.c
-/*  \brief      S'occupe de charger les sons et musiques
-/*  \version    1.7
-/*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
-/*  \date 
+*  \file       sons.c
+*  \brief      S'occupe de charger les sons et musiques
+*  \version    1.7
+*  \author     Lucas BOUILLON, Arthur SCHERRER, Lucas BEAUFRETON
+*  \date 
  */
 
 #include "prototypes.h"
  
  
  
-//Sounds Fx
+//Sons Fx
 Mix_Chunk *pause_sound, *jump_sound, *coin_sound, *mob_sound, *mort_sound, *gameover_sound;
  
 //Musique
