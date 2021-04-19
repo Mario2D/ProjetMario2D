@@ -400,7 +400,6 @@ void mapCollision(Personnage *entite)
                 //Test des tiles Power-up
                 if (map.tile[y1][x2] >= TILE_POWER_UP_DEBUT && map.tile[y1][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction recupItem()
                     recupItem(map.tile[y1][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
@@ -410,7 +409,6 @@ void mapCollision(Personnage *entite)
 
                 else if (map.tile[y2][x2] >= TILE_POWER_UP_DEBUT && map.tile[y2][x2] <= TILE_POWER_UP_FIN)
                 {
-                    //On appelle la fonction recupItem()
                     recupItem(map.tile[y2][x2] - TILE_POWER_UP_DEBUT + 1);
                     
                     //On remplace la tile power-up par une tile transparente
@@ -431,7 +429,7 @@ void mapCollision(Personnage *entite)
                     map.tile[y1][x2] += 1;
                 }
 
-                else if (map.tile[y2][x2] == TILE_CHECKPOINT)
+                    else if (map.tile[y2][x2] == TILE_CHECKPOINT)
                 {
                     //On active le booléen checkpoint
                     entite->checkpointActif = 1;

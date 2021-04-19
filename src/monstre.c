@@ -64,7 +64,7 @@ void initNouveauMonstre(int x, int y)
         monstre[nombreMonstres].x = x;
         monstre[nombreMonstres].y = y;
         
-        // Hauteur et largeur de notre monstre (rajouté dans les defs ;) )
+        // Hauteur et largeur de notre monstre
         monstre[nombreMonstres].w = LARGEUR_MONSTRE;
         monstre[nombreMonstres].h = HAUTEUR_MONSTRE;
         
@@ -150,7 +150,7 @@ void majMonstre()
             monstre[i].timerMort--;
             
             /* Et on le remplace simplement par le dernier du tableau puis on
-            rétrécit le tableau d'une case (on ne peut pas laisser de case vide) */
+            rétrécit le tableau d'une case */
             if (monstre[i].timerMort == 0)
             {
             
@@ -258,8 +258,7 @@ void dessineMonstre(Personnage *monstre)
     /* Rectangle de destination à dessiner */
     SDL_Rect dest;
     
-    // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle
-    //au scrolling :
+    // On soustrait des coordonnées de notre monstre, ceux du début de la map, pour qu'il colle au scrolling :
     dest.x = monstre->x - recupPersoStartX();
     dest.y = monstre->y - recupPersoStartY();
     dest.w = monstre->w;
@@ -269,7 +268,7 @@ void dessineMonstre(Personnage *monstre)
     SDL_Rect src;
     
     
-    //Gestion du flip (retournement de l'image selon que le monstre regarde à droite ou à gauche)
+    //Gestion du flip : retournement de l'image selon que le monstre regarde à droite ou à gauche
     if (monstre->direction == LEFT)
         SDL_RenderCopyEx(recupRendu(), MonstreSprite, NULL, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else
