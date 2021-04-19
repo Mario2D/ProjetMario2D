@@ -6,7 +6,7 @@ INCLUDES = -I ../include
 LIBS = -L ../lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 EXEC = ../bin/mario2d
 
-OBJ= sons.o polices.o dessin.o init.o input.o map.o joueur.o monstre.o menu.o main.o test_verifSol.c
+OBJ= sons.o polices.o dessin.o init.o input.o map.o joueur.o monstre.o menu.o main.o 
 all: $(EXEC)
 
 $(EXEC): $(OBJ)

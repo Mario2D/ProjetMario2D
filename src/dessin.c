@@ -187,8 +187,8 @@ void dessineHUD(void)
     
     int i;
 
-    timer = SDL_GetTicks() / 1000;
-    timer -= timer_reset;
+    timer = SDL_GetTicks() / 1000; //On lance le timer depuis le lancement de la SDL
+    timer -= timer_reset; //On retire le temps dans les menus pour avoir uniquement le temps en partie de jeu
     
 
     /* Affiche le nombre de vies en haut à droite */

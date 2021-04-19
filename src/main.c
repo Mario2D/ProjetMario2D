@@ -20,7 +20,7 @@
 /* Déclaration des variables / structures utilisées par le jeu */
 Input touche;
 extern int record;
-extern int timer_reset;
+extern int timer, timer_reset;
  
 int main(int argc, char *argv[])
 {

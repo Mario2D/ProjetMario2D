@@ -111,7 +111,7 @@ void majMonstre()
         }
 
         //test unitaire pour la fonction verifSol() avec le premier monstre du niveau
-        testVerifSol(monstre[0]);
+        //testVerifSol(monstre[0]);
         
         //Déplacement du monstre selon la direction
         if (monstre[i].direction == LEFT)
