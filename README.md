@@ -63,9 +63,4 @@ La petite subtilité par rapport au jeu d’origine va être le fait que notre j
 
 ### Contributeurs
 
-> Lucas Bouillon  
-
-![lucas_bouill](https://user-images.githubusercontent.com/78078418/115210740-30c12100-a0ff-11eb-9bb3-99622b221a81.png)
-![lucas_beauf](https://user-images.githubusercontent.com/78078418/115210747-31f24e00-a0ff-11eb-9f75-aef16f00904e.png)
-
-> Arthur Scherrer  
+| Lucas Bouillon | Lucas Beaufreton | Arthur Scherrer | |----------|:-------------:|------:| | ![lucas_bouill](https://user-images.githubusercontent.com/78078418/115210740-30c12100-a0ff-11eb-9bb3-99622b221a81.png)| ![lucas_beauf](https://user-images.githubusercontent.com/78078418/115210747-31f24e00-a0ff-11eb-9f75-aef16f00904e.png) | $1600 |
