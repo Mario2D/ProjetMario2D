@@ -333,7 +333,8 @@ void majMenuPause(Input *touche)
         else if (choix == 1)
         {
             choix = 0;
-
+            totalMorts = 0;
+            totalPieces = 0;
             if(volume == SDL_TRUE)
                 chargeMusique("../sounds/overworld.wav");
 
