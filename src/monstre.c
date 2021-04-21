@@ -266,9 +266,6 @@ void dessineMonstre(Personnage *monstre)
     dest.w = monstre->w;
     dest.h = monstre->h;
     
-    /* Rectangle source */
-    SDL_Rect src;
-    
     
     //Gestion du flip : retournement de l'image selon que le monstre regarde à droite ou à gauche
     if (monstre->direction == LEFT)
