@@ -282,101 +282,101 @@ void majJoueur(Input *touche)
 
             joueur.direction = LEFT;
         
-        //Si ce n'était pas son état auparavant
-        if (joueur.etat != MARCHE && joueur.surSol == 1)
-        {
-            //On enregistre l'anim de la marche et on l'initialise à 0
-            joueur.etat = MARCHE;
-            joueur.frameNumber = 0;
-            joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
-            joueur.frameMax = 8;
-        }
-    }
-    
-    //Si on détecte un appui sur la touche "fléchée droite"
-    else if (touche->droite == 1)
-    {
-        //On augmente les coordonnées en x du joueur
-        joueur.dirX += VITESSE_JOUEUR;
-        //Et on indique qu'il va à droite 
-        joueur.direction = RIGHT;
-        
-        //Si ce n'était pas son état auparavant 
-        if (joueur.etat != MARCHE && joueur.surSol == 1)
+            //Si ce n'était pas son état auparavant
+            if (joueur.etat != MARCHE && joueur.surSol == 1)
             {
-            //On enregistre l'anim de la marche et on l'initialise à 0
-            joueur.etat = MARCHE;
-            joueur.frameNumber = 0;
-            joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
-            joueur.frameMax = 8;
+                //On enregistre l'anim de la marche et on l'initialise à 0
+                joueur.etat = MARCHE;
+                joueur.frameNumber = 0;
+                joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
+                joueur.frameMax = 8;
+            }
         }
-    }
     
-    //Si on n'appuie sur rien et qu'on est sur le sol, on charge l'animation marquant l'inactivité (Immobile)
-    else if (touche->droite == 0 && touche->gauche == 0 && joueur.surSol == 1)
-    {
-        //On teste si le joueur n'était pas déjà inactif, pour ne pas recharger l'animation
-        if (joueur.etat != IMMOBILE)
+        //Si on détecte un appui sur la touche "fléchée droite"
+        else if (touche->droite == 1)
         {
-            //On enregistre l'anim de l'inactivité et on l'initialise à 0
-            joueur.etat = IMMOBILE;
-            joueur.frameNumber = 0;
-            joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
-            joueur.frameMax = 1;
+            //On augmente les coordonnées en x du joueur
+            joueur.dirX += VITESSE_JOUEUR;
+            //Et on indique qu'il va à droite 
+            joueur.direction = RIGHT;
+            
+            //Si ce n'était pas son état auparavant 
+            if (joueur.etat != MARCHE && joueur.surSol == 1)
+                {
+                //On enregistre l'anim de la marche et on l'initialise à 0
+                joueur.etat = MARCHE;
+                joueur.frameNumber = 0;
+                joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
+                joueur.frameMax = 8;
+            }
         }
-    }
     
-    
-    //Si on appuie sur la touche saut et qu'on est sur le sol, alors on attribue une valeur négative à Y
-
-    if (touche->saut == 1)
-    {
-        if (joueur.surSol == 1)
+        //Si on n'appuie sur rien et qu'on est sur le sol, on charge l'animation marquant l'inactivité (Immobile)
+        else if (touche->droite == 0 && touche->gauche == 0 && joueur.surSol == 1)
         {
-            joueur.dirY = -HAUTEUR_SAUT;
-            joueur.surSol = 0;
-            joueur.jump = 1;
-            if(volume == SDL_TRUE)
-                joueSon(JUMP);
-        }
-        touche->saut = 0;
-    }
-
-    //Si on appuie sur Echap
-    if (touche->pause == 1)
-    {
-        //On met le jeu en pause
-        initTypeMenu(1, PAUSE);
-        //On joue le son de pause
-        if(volume == SDL_TRUE)
-            joueSon(PAUSE_GAME);
-        Mix_PauseMusic();
-
-        touche->pause = 0;
-    }
-       
-    
-    //On gère l'anim du saut
-    if (joueur.surSol == 0)
-    {
-        if (joueur.jump == 1)
-        {
-            if (joueur.etat != SAUT)
+            //On teste si le joueur n'était pas déjà inactif, pour ne pas recharger l'animation
+            if (joueur.etat != IMMOBILE)
             {
-                joueur.etat = SAUT;
+                //On enregistre l'anim de l'inactivité et on l'initialise à 0
+                joueur.etat = IMMOBILE;
                 joueur.frameNumber = 0;
                 joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
                 joueur.frameMax = 1;
             }
         }
-    }
     
-    //On rajoute notre fonction de détection des collisions pour mettre à jour les coordonnées du joueur
-    mapCollision(&joueur);
     
-    //On gère le scrolling 
-    scrollSurJoueur();
+        //Si on appuie sur la touche saut et qu'on est sur le sol, alors on attribue une valeur négative à Y
+
+        if (touche->saut == 1)
+        {
+            if (joueur.surSol == 1)
+            {
+                joueur.dirY = -HAUTEUR_SAUT;
+                joueur.surSol = 0;
+                joueur.jump = 1;
+                if(volume == SDL_TRUE)
+                    joueSon(JUMP);
+            }
+            touche->saut = 0;
+        }
+
+        //Si on appuie sur Echap
+        if (touche->pause == 1)
+        {
+            //On met le jeu en pause
+            initTypeMenu(1, PAUSE);
+            //On joue le son de pause
+            if(volume == SDL_TRUE)
+                joueSon(PAUSE_GAME);
+            Mix_PauseMusic();
+
+            touche->pause = 0;
+        }
+       
     
+        //On gère l'anim du saut
+        if (joueur.surSol == 0)
+        {
+            if (joueur.jump == 1)
+            {
+                if (joueur.etat != SAUT)
+                {
+                    joueur.etat = SAUT;
+                    joueur.frameNumber = 0;
+                    joueur.frameTimer = TEMPS_ENTRE_2_FRAMES_JOUEUR;
+                    joueur.frameMax = 1;
+                }
+            }
+        }
+        
+        //On rajoute notre fonction de détection des collisions pour mettre à jour les coordonnées du joueur
+        mapCollision(&joueur);
+        
+        //On gère le scrolling 
+        scrollSurJoueur();
+        
     }
     
     //Gestion de la mort quand le héros tombe dans un trou 
